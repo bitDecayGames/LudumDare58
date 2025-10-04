@@ -194,10 +194,12 @@ class GameBoard {
 			}
 		}
 		cur = [];
-		var dirty = true;
+		var playerDirty = true;
+		var pushDirty = true;
 		var targetDropped = false;
-		while (dirty) {
-			dirty = false;
+		while (playerDirty || pushDirty) {
+			playerDirty = false;
+			playerDirty = false;
 			if (targetObj != null && targetObj.type == BLOCK) {
 				switch (nextTile) {
 					case EMPTY | HOLE:
@@ -209,11 +211,15 @@ class GameBoard {
 						var checkObj = current.getObj(checkXY[0], checkXY[1]);
 						if (checkObj != null) {
 							if (checkObj.type == HAZARD) {
-								dirty = true;
+								pushDirty = true;
 								cur.push(new Collide(targetObj, checkObj));
 								current.removeObj(checkObj);
 								targetObj.index = current.vecToIndex(checkXY);
 								cur.push(new Slide(targetObj, nextXY, checkXY));
+								if (nextTile == SLIDING_BREAKABLE) {
+									current.setTile(nextXY[0], nextXY[1], HOLE);
+									cur.push(new Crumble(nextXY));
+								}
 							} else {
 								cur.push(new Bump(targetObj, dir));
 								cur.push(new Bump(checkObj, dir));
@@ -221,9 +227,13 @@ class GameBoard {
 						} else if (checkTile == SOLID || checkTile == DEATH) {
 							cur.push(new Bump(targetObj, dir));
 						} else {
-							dirty = true;
+							pushDirty = true;
 							targetObj.index = current.vecToIndex(checkXY);
 							cur.push(new Slide(targetObj, nextXY, checkXY));
+							if (nextTile == SLIDING_BREAKABLE) {
+								current.setTile(nextXY[0], nextXY[1], HOLE);
+								cur.push(new Crumble(nextXY));
+							}
 						}
 					default:
 						// do nothing
@@ -246,6 +256,10 @@ class GameBoard {
 						if (checkObj.type == HAZARD) {
 							playerObj.index = current.vecToIndex(checkXY);
 							cur.push(new Slide(targetObj, nextXY, checkXY));
+							if (targetTile == SLIDING_BREAKABLE) {
+								current.setTile(targetXY[0], targetXY[1], HOLE);
+								cur.push(new Crumble(targetXY));
+							}
 							results.push(cur);
 							cur = [];
 							cur.push(new Die(playerObj, checkXY));
@@ -261,9 +275,13 @@ class GameBoard {
 					} else if (checkTile == SOLID) {
 						cur.push(new Bump(playerObj, dir));
 					} else {
-						dirty = true;
+						playerDirty = true;
 						playerObj.index = current.vecToIndex(checkXY);
-						cur.push(new Slide(targetObj, nextXY, checkXY));
+						cur.push(new Slide(playerObj, targetXY, checkXY));
+						if (targetTile == SLIDING_BREAKABLE) {
+							current.setTile(targetXY[0], targetXY[1], HOLE);
+							cur.push(new Crumble(targetXY));
+						}
 					}
 				case DEATH:
 					cur.push(new Die(playerObj, targetXY));
@@ -280,9 +298,11 @@ class GameBoard {
 				results.push(cur);
 				cur = [];
 			}
-			if (dirty) {
+			if (playerDirty) {
 				targetXY = incr(targetXY, dir, 1);
 				targetTile = current.getTile(targetXY[0], targetXY[1]);
+			}
+			if (pushDirty) {
 				nextXY = incr(nextXY, dir, 1);
 				nextTile = current.getTile(nextXY[0], nextXY[1]);
 				nextObj = current.getObj(nextXY[0], nextXY[1]);
