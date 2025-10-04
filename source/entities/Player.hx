@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.math.FlxPoint;
 import bitdecay.flixel.spacial.Cardinal;
 import flixel.util.FlxDirection;
 import gameboard.GameBoard;
@@ -23,6 +24,8 @@ class Player extends FlxSprite implements GameRenderObject {
 
 	var speed:Float = 150;
 	var playerNum = 0;
+
+	var lastPosition = FlxPoint.get();
 
 	public function new(X:Float, Y:Float) {
 		super(X, Y);
@@ -55,14 +58,20 @@ class Player extends FlxSprite implements GameRenderObject {
 
 		updateCurrentAnimation();
 		FlxG.watch.add(this, "facing", "Facing: ");
+
+		lastPosition.set(x, y);
 	}
 
 	function updateCurrentAnimation() {
 		// player only moves in cardinal directions with potential modifiers
 
+		var pDiff = getPosition(FlxPoint.weak()).subtractPoint(lastPosition);
+
+		FlxG.watch.addQuick("pDiff: ", pDiff);
+
 		var intendedAnim = anims.StandDown;
 
-		if (velocity.length > 0) {
+		if (pDiff.length > 0) {
 			intendedAnim = "Run";
 		} else {
 			intendedAnim = "Stand";
@@ -99,6 +108,8 @@ class Player extends FlxSprite implements GameRenderObject {
 	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):FlxTween {
 		var dest = board.current.indexToXY(r.gameObj.index);
 		facing = FlxDirectionFlags.fromInt(r.dir.asFacing());
-		return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.25);
+		// The animation for walking takes 0.6 seconds to loop. So that's the basis for why this is 0.6
+		// Ideally, we see what animation is to be played here, and we base this tween off of how long that animation takes.
+		return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
 	}
 }
