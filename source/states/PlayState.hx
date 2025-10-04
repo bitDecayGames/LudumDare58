@@ -72,19 +72,22 @@ class PlayState extends FlxTransitionableState {
 		uiGroup.add(sealsCollectedTxt);
 
 		// Undo
-		var undoBtn = new FlxButton(0, hudOffset, "Undo", () -> {
+		var undoBtn = new FlxButton(0, hudOffset, null, () -> {
+			QLog.notice('undo');
 			gameBoard.undo();
 		});
+		undoBtn.loadGraphic(AssetPaths.undo__png);
 		undoBtn.screenCenter(X);
 		undoBtn.x -= hudOffset * 2;
 		undoBtn.scrollFactor.set(0, 0);
 		uiGroup.add(undoBtn);
 
 		// Restart
-		var restartBtn = new FlxButton(0, hudOffset, "Restart", () -> {
+		var restartBtn = new FlxButton(0, hudOffset, null, () -> {
+			QLog.notice('reset');
 			gameBoard.reset();
 		});
-
+		restartBtn.loadGraphic(AssetPaths.restart__png);
 		restartBtn.screenCenter(X);
 		restartBtn.x += hudOffset * 2;
 		restartBtn.scrollFactor.set(0, 0);
