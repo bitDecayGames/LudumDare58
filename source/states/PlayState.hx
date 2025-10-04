@@ -1,5 +1,9 @@
 package states;
 
+import flixel.util.FlxColor;
+import bitdecay.flixel.graphics.AsepriteMacros;
+import bitdecay.flixel.graphics.Aseprite;
+import flixel.addons.display.FlxBackdrop;
 import haxe.ds.Vector;
 import flixel.util.FlxDirectionFlags;
 import flixel.ui.FlxButton;
@@ -27,6 +31,7 @@ using states.FlxStateExt;
 
 class PlayState extends FlxTransitionableState {
 	var player:Player;
+	var bgGroup = new FlxGroup();
 	var midGroundGroup = new FlxGroup();
 	var uiGroup = new FlxGroup();
 	var activeCameraTransition:CameraTransition = null;
@@ -49,6 +54,7 @@ class PlayState extends FlxTransitionableState {
 		// QLog.error('Example error');
 
 		// Build out our render order
+		add(bgGroup);
 		add(midGroundGroup);
 		add(uiGroup);
 		add(transitions);
@@ -90,6 +96,15 @@ class PlayState extends FlxTransitionableState {
 
 	function loadLevel(levelName:String) {
 		unload();
+
+		var waterBG = new FlxBackdrop(AssetPaths.waterTile__png);
+		Aseprite.loadAllAnimations(waterBG, AssetPaths.waterTile__json);
+		var anims = AsepriteMacros.tagNames("assets/aseprite/waterTile.json");
+		waterBG.animation.play(anims.animate);
+		waterBG.velocity.set(10, -5);
+
+		// waterBG.animation.play('waves');
+		bgGroup.add(waterBG);
 
 		var level = new Level(levelName);
 		FmodPlugin.playSong(level.raw.f_Music);
@@ -134,6 +149,11 @@ class PlayState extends FlxTransitionableState {
 			t.destroy();
 		}
 		transitions.clear();
+
+		for (o in bgGroup) {
+			o.destroy();
+		}
+		bgGroup.clear();
 
 		for (o in midGroundGroup) {
 			o.destroy();
