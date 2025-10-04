@@ -3,6 +3,7 @@ package levels.ldtk;
 import entities.CameraTransition;
 import flixel.math.FlxRect;
 import flixel.math.FlxPoint;
+import flixel.FlxSprite;
 import levels.ldtk.Ldtk.LdtkProject;
 
 using levels.ldtk.LdtkUtils;
