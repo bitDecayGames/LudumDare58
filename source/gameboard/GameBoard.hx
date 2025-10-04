@@ -1,5 +1,6 @@
 package gameboard;
 
+import flixel.math.FlxPoint;
 import gameboard.GameBoardState.WALKABLE_BREAKABLE;
 import gameboard.GameBoardState.SLIDING_BREAKABLE;
 import gameboard.GameBoardState.SLIDING;
@@ -18,45 +19,46 @@ import haxe.ds.Vector;
 
 abstract class GameBoardMoveResult {
 	public var gameObj:GameBoardObject;
+	public var startPos:Vector<Int>;
+	public var endPos:Vector<Int>;
+	public var dir:Cardinal;
 }
 
 class Move extends GameBoardMoveResult {
-	public var startPos:Vector<Int>;
-	public var endPos:Vector<Int>;
-
 	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
+		var tmp = FlxPoint.get(endPos[0], endPos[1]);
+		dir = Cardinal.closest(tmp.subtract(startPos[0], startPos[1]), true);
+		tmp.put();
+	}
+
+	public function toString():String {
+		return 'Move(${gameObj.id} ${startPos} to ${endPos})';
 	}
 }
 
 class Slide extends GameBoardMoveResult {
-	public var startPos:Vector<Int>;
-	public var endPos:Vector<Int>;
-
 	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
 	}
+
+	public function toString():String {
+		return 'Slide(${gameObj.id} ${startPos} to ${endPos})';
+	}
 }
 
 class Bump extends GameBoardMoveResult {
-	public var dir:Cardinal;
-
 	public function new(gameObj:GameBoardObject, dir:Cardinal) {
 		this.gameObj = gameObj;
 		this.dir = dir;
 	}
-}
 
-class Push extends GameBoardMoveResult {
-	public var dir:Cardinal;
-
-	public function new(gameObj:GameBoardObject, dir:Cardinal) {
-		this.gameObj = gameObj;
-		this.dir = dir;
+	public function toString():String {
+		return 'Bump(${gameObj.id} ${dir})';
 	}
 }
 
@@ -66,6 +68,10 @@ class Collide extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, other:GameBoardObject) {
 		this.gameObj = gameObj;
 		this.other = other;
+	}
+
+	public function toString():String {
+		return 'Collide(${gameObj.id} and ${other.id})';
 	}
 }
 
@@ -77,11 +83,9 @@ class Drop extends GameBoardMoveResult {
 		this.gameObj = gameObj;
 		this.pos = pos;
 	}
-}
 
-class Break extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject) {
-		this.gameObj = gameObj;
+	public function toString():String {
+		return 'Drop(${gameObj.id} at ${pos})';
 	}
 }
 
@@ -92,6 +96,10 @@ class Crumble extends GameBoardMoveResult {
 		gameObj = null;
 		this.pos = pos;
 	}
+
+	public function toString():String {
+		return 'Crumble(${pos})';
+	}
 }
 
 class Die extends GameBoardMoveResult {
@@ -101,17 +109,29 @@ class Die extends GameBoardMoveResult {
 		this.gameObj = gameObj;
 		this.pos = pos;
 	}
+
+	public function toString():String {
+		return 'Die(${gameObj.id} at ${pos})';
+	}
 }
 
 class Lose extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject) {
 		this.gameObj = gameObj;
 	}
+
+	public function toString():String {
+		return 'Lose(${gameObj.id})';
+	}
 }
 
 class Win extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject) {
 		this.gameObj = gameObj;
+	}
+
+	public function toString():String {
+		return 'Win(${gameObj.id})';
 	}
 }
 
@@ -192,6 +212,9 @@ class GameBoard {
 				results.push(cur);
 				return results;
 			}
+		}
+		if (cur.length > 0) {
+			results.push(cur);
 		}
 		cur = [];
 		var playerDirty = true;
@@ -307,6 +330,10 @@ class GameBoard {
 				nextTile = current.getTile(nextXY[0], nextXY[1]);
 				nextObj = current.getObj(nextXY[0], nextXY[1]);
 			}
+		}
+
+		if (cur.length > 0) {
+			results.push(cur);
 		}
 
 		if (isWin(playerObj)) {

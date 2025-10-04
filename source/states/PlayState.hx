@@ -204,18 +204,19 @@ class PlayState extends FlxTransitionableState {
 				}
 			case AWAITING_INPUT:
 				var moveDir = Cardinal.NONE;
-				if (SimpleController.just_released(UP)) {
+				if (SimpleController.pressed(UP)) {
 					moveDir = Cardinal.N;
-				} else if (SimpleController.just_released(RIGHT)) {
+				} else if (SimpleController.pressed(RIGHT)) {
 					moveDir = Cardinal.E;
-				} else if (SimpleController.just_released(DOWN)) {
+				} else if (SimpleController.pressed(DOWN)) {
 					moveDir = Cardinal.S;
-				} else if (SimpleController.just_released(LEFT)) {
+				} else if (SimpleController.pressed(LEFT)) {
 					moveDir = Cardinal.W;
 				}
 
 				if (moveDir != Cardinal.NONE) {
 					var results = gameBoard.move(moveDir);
+					QLog.notice('${results}');
 					pendingPhases = results;
 					prepNextResolutionPhase();
 					interactState = RESOLVING;

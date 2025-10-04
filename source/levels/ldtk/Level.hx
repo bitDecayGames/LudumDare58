@@ -62,13 +62,7 @@ class Level {
 
 		for (x in 0...terrainLayer.widthInTiles) {
 			for (y in 0...terrainLayer.heightInTiles) {
-				// Filler for now until we figure out how to parse things properly
-				if (terrainLayer.getTileIndex(x, y) > 0) {
-					initialBoardState.setTile(x, y, WALKABLE);
-				}
-				// Ideally we turn the tiles directly from the tilemap into the game logic board
-				// Do a max here to account for -1 being in empty tiles in the tilemap. Gameboard expects 0
-				// initialBoardState.setTile(x, y, FlxMath.maxInt(0, terrainLayer.getTileIndex(x, y)));
+				initialBoardState.setTile(x, y, Std.int(Math.max(0, terrainLayer.getTileIndex(x, y))));
 			}
 		}
 	}
@@ -97,7 +91,6 @@ class Level {
 			blocks.push(new FlxSprite(b.pixelX, b.pixelY));
 		}
 	}
-
 
 	function parseHazard(hazardDefs:Array<Ldtk.Entity_Hazard>) {
 		for (b in hazardDefs) {
