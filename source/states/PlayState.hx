@@ -1,5 +1,6 @@
 package states;
 
+import flixel.addons.display.FlxBackdrop;
 import haxe.ds.Vector;
 import flixel.util.FlxDirectionFlags;
 import flixel.ui.FlxButton;
@@ -28,6 +29,7 @@ using states.FlxStateExt;
 
 class PlayState extends FlxTransitionableState {
 	var player:Player;
+	var bgGroup = new FlxGroup();
 	var midGroundGroup = new FlxGroup();
 	var uiGroup = new FlxGroup();
 	var activeCameraTransition:CameraTransition = null;
@@ -50,6 +52,7 @@ class PlayState extends FlxTransitionableState {
 		// QLog.error('Example error');
 
 		// Build out our render order
+		add(bgGroup);
 		add(midGroundGroup);
 		add(uiGroup);
 		add(transitions);
@@ -66,6 +69,10 @@ class PlayState extends FlxTransitionableState {
 
 	function loadLevel(levelName:String) {
 		unload();
+
+		var waterBG = new FlxBackdrop(AssetPaths.waterTile__png);
+		// waterBG.animation.play('waves');
+		bgGroup.add(waterBG);
 
 		var level = new Level(levelName);
 		FmodPlugin.playSong(level.raw.f_Music);
@@ -108,6 +115,11 @@ class PlayState extends FlxTransitionableState {
 			t.destroy();
 		}
 		transitions.clear();
+
+		for (o in bgGroup) {
+			o.destroy();
+		}
+		bgGroup.clear();
 
 		for (o in midGroundGroup) {
 			o.destroy();
