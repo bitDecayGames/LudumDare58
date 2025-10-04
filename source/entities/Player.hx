@@ -98,13 +98,7 @@ class Player extends FlxSprite implements GameRenderObject {
 
 	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):FlxTween {
 		var dest = board.current.indexToXY(r.gameObj.index);
-		var pThis = this;
-		return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.25, {
-			onUpdate: (t) -> {
-				var newFacing = Cardinal.closest(pThis.getPosition().subtractNew(pThis.last), true);
-				facing = FlxDirectionFlags.fromInt(newFacing.asFacing());
-				facing = FlxDirectionFlags.DOWN;
-			},
-		});
+		facing = FlxDirectionFlags.fromInt(r.dir.asFacing());
+		return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.25);
 	}
 }

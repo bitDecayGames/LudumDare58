@@ -1,5 +1,6 @@
 package gameboard;
 
+import flixel.math.FlxPoint;
 import gameboard.GameBoardState.WALKABLE_BREAKABLE;
 import gameboard.GameBoardState.SLIDING_BREAKABLE;
 import gameboard.GameBoardState.SLIDING;
@@ -18,23 +19,23 @@ import haxe.ds.Vector;
 
 abstract class GameBoardMoveResult {
 	public var gameObj:GameBoardObject;
+	public var startPos:Vector<Int>;
+	public var endPos:Vector<Int>;
+	public var dir:Cardinal;
 }
 
 class Move extends GameBoardMoveResult {
-	public var startPos:Vector<Int>;
-	public var endPos:Vector<Int>;
-
 	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
+		var tmp = FlxPoint.get(endPos[0], endPos[1]);
+		dir = Cardinal.closest(tmp.subtract(startPos[0], startPos[1]), true);
+		tmp.put();
 	}
 }
 
 class Slide extends GameBoardMoveResult {
-	public var startPos:Vector<Int>;
-	public var endPos:Vector<Int>;
-
 	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
@@ -43,8 +44,6 @@ class Slide extends GameBoardMoveResult {
 }
 
 class Bump extends GameBoardMoveResult {
-	public var dir:Cardinal;
-
 	public function new(gameObj:GameBoardObject, dir:Cardinal) {
 		this.gameObj = gameObj;
 		this.dir = dir;
@@ -52,8 +51,6 @@ class Bump extends GameBoardMoveResult {
 }
 
 class Push extends GameBoardMoveResult {
-	public var dir:Cardinal;
-
 	public function new(gameObj:GameBoardObject, dir:Cardinal) {
 		this.gameObj = gameObj;
 		this.dir = dir;
