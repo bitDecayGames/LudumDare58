@@ -19,7 +19,6 @@ inline final COLLECTABLE:ObjectType = 2;
 inline final COLLECTED_COLLECTABLE:ObjectType = 3;
 inline final BLOCK:ObjectType = 4;
 inline final HAZARD:ObjectType = 5;
-inline final SPAWN:ObjectType = 6;
 inline final EXIT:ObjectType = -1;
 
 class GameBoardState {
