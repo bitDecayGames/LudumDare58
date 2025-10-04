@@ -120,6 +120,7 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	function movePlayer(facing: FlxDirectionFlags, pos: Vector<Int>) {
+		QLog.notice('  -pos: ${pos}');
 		player.x = pos[0] * 32;
 		player.y = pos[1] * 32;
 		player.facing = facing;

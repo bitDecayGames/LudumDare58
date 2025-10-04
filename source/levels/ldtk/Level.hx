@@ -66,6 +66,10 @@ class Level {
 				// initialBoardState.setTile(x, y, FlxMath.maxInt(0, terrainLayer.getTileIndex(x, y)));
 			}
 		}
+
+		var gobjSpawn = new GameBoardObject();
+		// gobjSpawn.
+		initialBoardState.addObj(gobjSpawn);
 	}
 
 	function parseCameraZones(zoneDefs:Array<Ldtk.Entity_CameraZone>) {
