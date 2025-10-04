@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.util.FlxDirectionFlags;
 import flixel.FlxSprite;
 import input.InputCalculator;
 import input.SimpleController;
@@ -10,6 +11,9 @@ class Player extends FlxSprite {
 	public static var anims = AsepriteMacros.tagNames("assets/aseprite/characters/player.json");
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/characters/player.json");
 	public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/characters/player.json", "Layer 1");
+
+	public static var SLIPPING = "_slipping";
+	public static var PUSHING = "_pushing";
 
 	var speed:Float = 150;
 	var playerNum = 0;
@@ -40,5 +44,36 @@ class Player extends FlxSprite {
 		if (SimpleController.just_pressed(Button.A, playerNum)) {
 			color = color ^ 0xFFFFFF;
 		}
+	}
+
+	function updateCurrentAnimation() {
+		// player only moves in cardinal directions with potential modifiers
+
+		var intendedAnim = anims.idle;
+
+		if (facing.has(LEFT)) {
+			intendedAnim = anims.left;
+		} else if (facing.has(RIGHT)) {
+			intendedAnim = anims.right;
+		} else if (facing.has(UP)) {
+			// intendedAnim = anims.up;
+		} else if (facing.has(DOWN)) {
+			// intendedAnim = anims.down;
+		}
+
+		// TODO: check modifiers like pushing/slipping/etc
+		if (true) { 
+			// intendedAnim += SLIPPING;
+		}
+
+		playAnimIfNotAlready(intendedAnim, false);
+	}
+
+		function playAnimIfNotAlready(name:String, playInReverse:Bool, ?forceAnimationRefresh:Bool):Bool {
+		if (animation.curAnim == null || animation.curAnim.name != name || forceAnimationRefresh) {
+			animation.play(name, true, playInReverse);
+			return true;
+		}
+		return false;
 	}
 }
