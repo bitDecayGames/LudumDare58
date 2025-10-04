@@ -78,6 +78,10 @@ class GameBoardState {
 		return f[0];
 	}
 
+	public function getPlayer():GameBoardObject {
+		return findObjType(PLAYER);
+	}
+
 	public function getObjectsByIndex(index:Int):Array<GameBoardObject> {
 		return objData.filter((o) -> o.index == index);
 	}

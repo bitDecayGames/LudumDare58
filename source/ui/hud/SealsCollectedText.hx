@@ -1,4 +1,4 @@
-package ui;
+package ui.hud;
 
 import events.gen.Event;
 import events.EventBus;
@@ -17,8 +17,5 @@ class SealsCollectedText extends FlxBitmapText {
 			x = FlxG.width - width - offset;
 			y = offset;
 		});
-
-        // TODO Remove when hooked into GameBoard
-		EventBus.fire(new SealCollected(1, 3));
     }
 }

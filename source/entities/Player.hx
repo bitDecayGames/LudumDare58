@@ -34,13 +34,13 @@ class Player extends FlxSprite {
 	override public function update(delta:Float) {
 		super.update(delta);
 
-		var inputDir = InputCalculator.getInputCardinal(playerNum);
-		if (inputDir != NONE) {
-			inputDir.asVector(velocity).scale(speed);
-			facing = inputDir.asFacing();
-		} else {
-			velocity.set();
-		}
+		// var inputDir = InputCalculator.getInputCardinal(playerNum);
+		// if (inputDir != NONE) {
+		// 	inputDir.asVector(velocity).scale(speed);
+		// 	facing = inputDir.asFacing();
+		// } else {
+		// 	velocity.set();
+		// }
 
 		if (SimpleController.just_pressed(Button.A, playerNum)) {
 			color = color ^ 0xFFFFFF;

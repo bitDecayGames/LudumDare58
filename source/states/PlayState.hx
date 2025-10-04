@@ -1,5 +1,11 @@
 package states;
 
+import flixel.util.FlxDirectionFlags;
+import flixel.ui.FlxButton;
+import bitdecay.flixel.spacial.Cardinal;
+import input.SimpleController;
+import gameboard.GameBoardState;
+import gameboard.GameBoard;
 import todo.TODO;
 import flixel.group.FlxGroup;
 import flixel.math.FlxRect;
@@ -15,12 +21,12 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.text.FlxBitmapText;
-import ui.SealsCollectedText;
+import ui.hud.SealsCollectedText;
 
 using states.FlxStateExt;
 
 class PlayState extends FlxTransitionableState {
-	var player:FlxSprite;
+	var player:Player;
 	var midGroundGroup = new FlxGroup();
 	var uiGroup = new FlxGroup();
 	var activeCameraTransition:CameraTransition = null;
@@ -28,6 +34,7 @@ class PlayState extends FlxTransitionableState {
 	var transitions = new FlxTypedGroup<CameraTransition>();
 
 	var ldtk = new LdtkProject();
+	var gameBoard:GameBoard;
 
 	override public function create() {
 		super.create();
@@ -46,13 +53,33 @@ class PlayState extends FlxTransitionableState {
 		add(uiGroup);
 		add(transitions);
 
-		uiGroup.add(new SealsCollectedText());
+		var sealsCollectedTxt = new SealsCollectedText();
+		uiGroup.add(sealsCollectedTxt);
+		var undoBtn = new FlxButton(50, 100, "Undo", () -> {
+			gameBoard.undo();
+			updatePlayer(DOWN);
+		});
+		uiGroup.add(undoBtn);
 
 		loadLevel("Level_0");
 	}
 
 	function loadLevel(level:String) {
 		unload();
+
+		var gbState = new GameBoardState(3);
+		for (i in 0...gbState.length) {
+			var tPos = gbState.indexToXY(i);
+			gbState.setTile(tPos[0], tPos[1], WALKABLE);
+		}
+		var playerObj = new GameBoardObject();
+		playerObj.type = PLAYER;
+		gbState.addObj(playerObj);
+
+		gameBoard = new GameBoard(gbState);
+
+		// TODO Remove when hooked into GameBoard
+		EventBus.fire(new SealCollected(1, 3));
 
 		var level = new Level(level);
 		FmodPlugin.playSong(level.raw.f_Music);
@@ -74,6 +101,8 @@ class PlayState extends FlxTransitionableState {
 		}
 
 		EventBus.fire(new PlayerSpawn(player.x, player.y));
+		// TODO Hook into bus?
+		updatePlayer(DOWN);
 	}
 
 	function unload() {
@@ -92,11 +121,38 @@ class PlayState extends FlxTransitionableState {
 		add(def.toToast(true));
 	}
 
+	function updatePlayer(facing: FlxDirectionFlags) {
+		// TODO Player obj not found after undo.
+		var playerObj = gameBoard.current.getPlayer();
+		var playerPos = gameBoard.current.indexToXY(playerObj.index);
+		player.x = playerPos[0] * player.width;
+		player.y = playerPos[1] * player.height;
+		player.facing = facing;
+	}
+
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.mouse.justPressed) {
-			EventBus.fire(new Click(FlxG.mouse.x, FlxG.mouse.y));
+		// if (FlxG.mouse.justPressed) {
+		// 	EventBus.fire(new Click(FlxG.mouse.x, FlxG.mouse.y));
+		// }
+
+		var moveDir = Cardinal.NONE;
+		if (SimpleController.just_released(UP)) {
+			moveDir = Cardinal.N;
+		} else if (SimpleController.just_released(RIGHT)) {
+			moveDir = Cardinal.E;
+		} else if (SimpleController.just_released(DOWN)) {
+			moveDir = Cardinal.S;
+		} else if (SimpleController.just_released(LEFT)) {
+			moveDir = Cardinal.W;
+		}
+
+		if (moveDir != Cardinal.NONE) {
+			var moveRes = gameBoard.move(moveDir);
+			if (moveRes == SUCCESS) {
+				updatePlayer(FlxDirectionFlags.fromInt(moveDir.asFacing()));
+			}
 		}
 
 		FlxG.collide(midGroundGroup, player);
