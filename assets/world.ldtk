@@ -751,8 +751,8 @@
 			"identifier": "Level_0",
 			"iid": "d92083a0-1460-11ee-93dd-3b235c51ea36",
 			"uid": 97,
-			"worldX": 640,
-			"worldY": 0,
+			"worldX": 1920,
+			"worldY": -960,
 			"worldDepth": 0,
 			"pxWid": 640,
 			"pxHei": 480,
@@ -808,8 +808,8 @@
 							"defUid": 74,
 							"px": [208,192],
 							"fieldInstances": [],
-							"__worldX": 848,
-							"__worldY": 192
+							"__worldX": 2128,
+							"__worldY": -768
 						},
 						{
 							"__identifier": "Exit",
@@ -832,8 +832,8 @@
 								"id": "V_String",
 								"params": ["413490c0-8560-11f0-be50-5b0315c2aefa"]
 							}] }],
-							"__worldX": 928,
-							"__worldY": 320
+							"__worldX": 2208,
+							"__worldY": -640
 						},
 						{
 							"__identifier": "Block",
@@ -848,8 +848,8 @@
 							"defUid": 226,
 							"px": [224,160],
 							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.BlockType", "__value": "WallBlock", "__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "defUid": 238, "realEditorValues": [] }],
-							"__worldX": 864,
-							"__worldY": 160
+							"__worldX": 2144,
+							"__worldY": -800
 						},
 						{
 							"__identifier": "Collectable",
@@ -867,8 +867,8 @@
 								"id": "V_String",
 								"params": ["Seal"]
 							}] }],
-							"__worldX": 960,
-							"__worldY": 224
+							"__worldX": 2240,
+							"__worldY": -736
 						}
 					]
 				},
@@ -935,14 +935,14 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelIid": "3b2d71b0-8560-11f0-be50-ebf001947028", "dir": "e" }]
+			"__neighbours": [ { "levelIid": "3b2d71b0-8560-11f0-be50-ebf001947028", "dir": "e" }, { "levelIid": "bff36b00-8560-11f0-9378-a92cf5cff586", "dir": "w" } ]
 		},
 		{
 			"identifier": "Level_1",
 			"iid": "3b2d71b0-8560-11f0-be50-ebf001947028",
 			"uid": 230,
-			"worldX": 1280,
-			"worldY": 0,
+			"worldX": 2560,
+			"worldY": -960,
 			"worldDepth": 0,
 			"pxWid": 640,
 			"pxHei": 480,
@@ -995,8 +995,8 @@
 							"defUid": 74,
 							"px": [112,160],
 							"fieldInstances": [],
-							"__worldX": 1392,
-							"__worldY": 160
+							"__worldX": 2672,
+							"__worldY": -800
 						}
 					]
 				},
@@ -1085,7 +1085,15 @@
 							"height": 32,
 							"defUid": 228,
 							"px": [320,192],
-							"fieldInstances": [{ "__identifier": "Next", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 229, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "Next", "__type": "EntityRef", "__value": {
+								"entityIid": "da84dee0-8560-11f0-9378-6943a57d0931",
+								"layerIid": "bff36b01-8560-11f0-9378-19597c2df99f",
+								"levelIid": "bff36b00-8560-11f0-9378-a92cf5cff586",
+								"worldIid": "48a599b1-1460-11ee-8f1d-bf5d483c5ed2"
+							}, "__tile": null, "defUid": 229, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["da84dee0-8560-11f0-9378-6943a57d0931"]
+							}] }],
 							"__worldX": 960,
 							"__worldY": -768
 						},
@@ -1257,7 +1265,7 @@
 						},
 						{
 							"__identifier": "Spawn",
-							"__grid": [9,7],
+							"__grid": [9,5],
 							"__pivot": [0.5,1],
 							"__tags": [ "Player", "LevelElement" ],
 							"__tile": null,
@@ -1266,10 +1274,10 @@
 							"width": 32,
 							"height": 32,
 							"defUid": 74,
-							"px": [304,256],
+							"px": [304,192],
 							"fieldInstances": [],
 							"__worldX": 1584,
-							"__worldY": -704
+							"__worldY": -768
 						}
 					]
 				},
@@ -1296,6 +1304,7 @@
 					"seed": 5253533,
 					"overrideTilesetUid": null,
 					"gridTiles": [
+						{ "px": [288,160], "src": [64,0], "f": 0, "t": 2, "d": [109], "a": 1 },
 						{ "px": [256,192], "src": [64,0], "f": 0, "t": 2, "d": [128], "a": 1 },
 						{ "px": [288,192], "src": [64,0], "f": 0, "t": 2, "d": [129], "a": 1 },
 						{ "px": [320,192], "src": [64,0], "f": 0, "t": 2, "d": [130], "a": 1 },
@@ -1314,7 +1323,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelIid": "70de3590-8560-11f0-a3d8-99c172dc3b61", "dir": "w" }]
+			"__neighbours": [ { "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "e" }, { "levelIid": "70de3590-8560-11f0-a3d8-99c172dc3b61", "dir": "w" } ]
 		}
 	],
 	"worlds": [],
