@@ -190,6 +190,9 @@ class GameBoard {
 				return results;
 			}
 		}
+		if (cur.length > 0) {
+			results.push(cur);
+		}
 		cur = [];
 		var playerDirty = true;
 		var pushDirty = true;
@@ -306,6 +309,10 @@ class GameBoard {
 			}
 		}
 
+		if (cur.length > 0) {
+			results.push(cur);
+		}
+
 		if (isWin(playerObj)) {
 			cur.push(new Win(playerObj));
 			results.push(cur);
@@ -314,6 +321,7 @@ class GameBoard {
 			cur.push(new Lose(playerObj));
 			results.push(cur);
 		}
+		QLog.notice('${results}');
 		return results;
 	}
 

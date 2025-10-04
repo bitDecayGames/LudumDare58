@@ -62,7 +62,7 @@ class Level {
 
 		for (x in 0...terrainLayer.widthInTiles) {
 			for (y in 0...terrainLayer.heightInTiles) {
-				// Filler for now until we figure out how to parse things properly
+				// TODO: Filler for now until we figure out how to parse things properly
 				if (terrainLayer.getTileIndex(x, y) > 0) {
 					initialBoardState.setTile(x, y, WALKABLE);
 				}
@@ -97,7 +97,6 @@ class Level {
 			blocks.push(new FlxSprite(b.pixelX, b.pixelY));
 		}
 	}
-
 
 	function parseHazard(hazardDefs:Array<Ldtk.Entity_Hazard>) {
 		for (b in hazardDefs) {
