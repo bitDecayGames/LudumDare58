@@ -11,6 +11,7 @@ inline final WALKABLE_BREAKABLE:TileType = 4;
 inline final SLIDING_BREAKABLE:TileType = 5;
 inline final HOLE:TileType = 6;
 inline final DEATH:TileType = -1;
+
 typedef ObjectType = Int;
 inline final NONE:ObjectType = 0;
 inline final PLAYER:ObjectType = 1;
@@ -19,6 +20,7 @@ inline final COLLECTED_COLLECTABLE:ObjectType = 3;
 inline final BLOCK:ObjectType = 4;
 inline final HAZARD:ObjectType = 5;
 inline final EXIT:ObjectType = -1;
+
 typedef MoveResult = Int;
 inline final FAIL:MoveResult = 0;
 inline final SUCCESS:MoveResult = 1;
@@ -26,24 +28,26 @@ inline final WIN:MoveResult = 2;
 inline final LOSE:MoveResult = -1;
 
 class GameBoardState {
-	public final size:Int;
+	public final width:Int;
+	public final height:Int;
 	public final length:Int;
 
 	private final tileData:Vector<TileType>;
 	private final objData:Array<GameBoardObject>;
 
-	public function new(size:Int) {
-		if (size <= 0) {
-			throw "cannot create game board state with size <= 0";
+	public function new(width:Int, height:Int) {
+		this.width = width;
+		this.height = height;
+		length = width * height;
+		if (length <= 0) {
+			throw "cannot create game board state with no tiles";
 		}
-		this.size = size;
-		length = size * size;
 		tileData = new Vector(length);
 		objData = [];
 	}
 
 	public function getTile(x:Int, y:Int):TileType {
-		var index = y * size + x;
+		var index = y * width + x;
 		return getTileByIndex(index);
 	}
 
@@ -56,13 +60,13 @@ class GameBoardState {
 
 	public function indexToXY(index:Int):Vector<Int> {
 		var v = new Vector<Int>(2);
-		v[0] = index % size;
-		v[1] = Std.int(index / size);
+		v[0] = index % height;
+		v[1] = Std.int(index / width);
 		return v;
 	}
 
 	public function setTile(x:Int, y:Int, v:TileType) {
-		var index = y * size + x;
+		var index = y * width + x;
 		if (index >= length || index < 0) {
 			return;
 		}
@@ -70,7 +74,7 @@ class GameBoardState {
 	}
 
 	public function getObj(x:Int, y:Int):GameBoardObject {
-		var index = y * size + x;
+		var index = y * width + x;
 		var f = objData.filter((o) -> o.index == index);
 		if (f.length == 0) {
 			return null;
@@ -108,8 +112,8 @@ class GameBoardState {
 
 	public function save():Vector<Int> {
 		var d = new Vector<Int>(length + objData.length * 3 + 2);
-		d[0] = size;
-		d[1] = objData.length;
+		d[0] = width;
+		d[1] = height;
 		for (i in 0...length) {
 			d[i + 2] = tileData[i];
 		}
@@ -125,7 +129,7 @@ class GameBoardState {
 		if (d.length == 0) {
 			throw "cannot load game board state from empty array";
 		}
-		var g = new GameBoardState(d[0]);
+		var g = new GameBoardState(d[0], d[1]);
 		for (i in 0...g.length) {
 			g.tileData[i] = d[i + 2];
 		}

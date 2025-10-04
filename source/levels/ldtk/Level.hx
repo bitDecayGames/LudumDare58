@@ -1,5 +1,7 @@
 package levels.ldtk;
 
+import flixel.math.FlxMath;
+import gameboard.GameBoardState;
 import entities.CameraTransition;
 import flixel.math.FlxRect;
 import flixel.math.FlxPoint;
@@ -30,6 +32,8 @@ class Level {
 	public var camZones:Map<String, FlxRect>;
 	public var camTransitions:Array<CameraTransition>;
 
+	public var initialBoardState:GameBoardState;
+
 	public function new(nameOrIID:String) {
 		raw = project.getLevel(nameOrIID);
 		terrainLayer = new BDTilemap();
@@ -48,6 +52,20 @@ class Level {
 		parseCameraTransitions(raw.l_Objects.all_CameraTransition);
 		parseBlocks(raw.l_Objects.all_Block);
 		parseHazard(raw.l_Objects.all_Hazard);
+
+		initialBoardState = new GameBoardState(terrainLayer.widthInTiles, terrainLayer.heightInTiles);
+
+		for (x in 0...terrainLayer.widthInTiles) {
+			for (y in 0...terrainLayer.heightInTiles) {
+				// Filler for now until we figure out how to parse things properly
+				if (terrainLayer.getTileIndex(x, y) > 0) {
+					initialBoardState.setTile(x, y, WALKABLE);
+				}
+				// Ideally we turn the tiles directly from the tilemap into the game logic board
+				// Do a max here to account for -1 being in empty tiles in the tilemap. Gameboard expects 0
+				// initialBoardState.setTile(x, y, FlxMath.maxInt(0, terrainLayer.getTileIndex(x, y)));
+			}
+		}
 	}
 
 	function parseCameraZones(zoneDefs:Array<Ldtk.Entity_CameraZone>) {

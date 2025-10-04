@@ -64,16 +64,16 @@ class PlayState extends FlxTransitionableState {
 		loadLevel("Level_0");
 	}
 
-	function loadLevel(level:String) {
+	function loadLevel(levelName:String) {
 		unload();
 
-		var gbState = new GameBoardState(3);
-		for (i in 0...gbState.length) {
-			var tPos = gbState.indexToXY(i);
-			gbState.setTile(tPos[0], tPos[1], WALKABLE);
-		}
+		var level = new Level(levelName);
+		FmodPlugin.playSong(level.raw.f_Music);
+
 		var playerObj = new GameBoardObject();
 		playerObj.type = PLAYER;
+
+		var gbState = level.initialBoardState;
 		gbState.addObj(playerObj);
 
 		gameBoard = new GameBoard(gbState);
@@ -81,13 +81,13 @@ class PlayState extends FlxTransitionableState {
 		// TODO Remove when hooked into GameBoard
 		EventBus.fire(new SealCollected(1, 3));
 
-		var level = new Level(level);
-		FmodPlugin.playSong(level.raw.f_Music);
+		// TODO: build our new tile map with proper rendering so the tiles look nice.
+		// The ones in the level.terrainLayer are editor tiles for now
 		midGroundGroup.add(level.terrainLayer);
 		FlxG.worldBounds.copyFrom(level.terrainLayer.getBounds());
 
 		player = new Player(level.spawnPoint.x, level.spawnPoint.y);
-		camera.follow(player);
+		//camera.follow(player);
 		add(player);
 
 		for (t in level.camTransitions) {
@@ -125,8 +125,8 @@ class PlayState extends FlxTransitionableState {
 		// TODO Player obj not found after undo.
 		var playerObj = gameBoard.current.getPlayer();
 		var playerPos = gameBoard.current.indexToXY(playerObj.index);
-		player.x = playerPos[0] * player.width;
-		player.y = playerPos[1] * player.height;
+		player.x = playerPos[0] * 32;
+		player.y = playerPos[1] * 32;
 		player.facing = facing;
 	}
 

@@ -29,6 +29,8 @@ class Player extends FlxSprite {
 		// 		trace('frame $index has data ${eventData.get(index)}');
 		// 	}
 		// });
+		width = 32;
+		height = 32;
 	}
 
 	override public function update(delta:Float) {
