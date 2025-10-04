@@ -1,5 +1,6 @@
 package levels.ldtk;
 
+import haxe.ds.Vector;
 import flixel.math.FlxMath;
 import gameboard.GameBoardState;
 import entities.CameraTransition;
@@ -26,6 +27,7 @@ class Level {
 
 	public var terrainLayer:BDTilemap;
 	public var spawnPoint:FlxPoint = FlxPoint.get();
+	public var spawnPointCell:Vector<Int>;
 	public var blocks = new Array<FlxSprite>(); // TODO: make this an entity type for our game
 	public var hazards = new Array<FlxSprite>(); // TODO: make this an entity type for our game
 
@@ -45,6 +47,9 @@ class Level {
 
 		var sp = raw.l_Objects.all_Spawn[0];
 		spawnPoint.set(sp.pixelX, sp.pixelY);
+		spawnPointCell = new Vector<Int>(2);
+		spawnPointCell[0] = sp.cx;
+		spawnPointCell[1] = sp.cy;
 
 		var test:Ldtk.Entity_Spawn = null;
 
@@ -66,11 +71,6 @@ class Level {
 				// initialBoardState.setTile(x, y, FlxMath.maxInt(0, terrainLayer.getTileIndex(x, y)));
 			}
 		}
-
-		var spawnObj = new GameBoardObject();
-		spawnObj.type = SPAWN;
-		spawnObj.index = initialBoardState.xyToIndex(sp.cx, sp.cy);
-		initialBoardState.addObj(spawnObj);
 	}
 
 	function parseCameraZones(zoneDefs:Array<Ldtk.Entity_CameraZone>) {

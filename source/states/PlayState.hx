@@ -73,12 +73,10 @@ class PlayState extends FlxTransitionableState {
 
 		var gbState = level.initialBoardState;
 
-		var spawnObj = gbState.findObjType(SPAWN);
 		var playerObj = new GameBoardObject();
 		playerObj.type = PLAYER;
-		playerObj.index = spawnObj.index;
+		playerObj.index = gbState.xyToIndex(level.spawnPointCell[0], level.spawnPointCell[1]);
 		gbState.addObj(playerObj);
-		gbState.removeObj(spawnObj);
 
 		gameBoard = new GameBoard(gbState);
 
