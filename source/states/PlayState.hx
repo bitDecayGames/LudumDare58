@@ -1,5 +1,7 @@
 package states;
 
+import entities.GameRenderObject;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import bitdecay.flixel.graphics.AsepriteMacros;
 import bitdecay.flixel.graphics.Aseprite;
@@ -30,6 +32,11 @@ import ui.hud.SealsCollectedText;
 
 using states.FlxStateExt;
 
+enum abstract InteractState(String) {
+	var RESOLVING = "resolving";
+	var AWAITING_INPUT = "awaitingInput";
+}
+
 class PlayState extends FlxTransitionableState {
 	var player:Player;
 	var bgGroup = new FlxGroup();
@@ -41,6 +48,12 @@ class PlayState extends FlxTransitionableState {
 
 	var ldtk = new LdtkProject();
 	var gameBoard:GameBoard;
+
+	var objectMap = new Map<Int, GameRenderObject>();
+
+	var interactState:InteractState = RESOLVING;
+	var pendingTweens = new Array<FlxTween>();
+	var pendingPhases = new Array<Array<GameBoardMoveResult>>();
 
 	override public function create() {
 		super.create();
@@ -68,6 +81,8 @@ class PlayState extends FlxTransitionableState {
 		uiGroup.add(undoBtn);
 
 		loadLevel("Level_0");
+
+		FlxG.watch.add(this, "interactState", "Game State: ");
 	}
 
 	function loadLevel(levelName:String) {
@@ -78,13 +93,10 @@ class PlayState extends FlxTransitionableState {
 		var anims = AsepriteMacros.tagNames("assets/aseprite/waterTile.json");
 		waterBG.animation.play(anims.animate);
 		waterBG.velocity.set(10, -5);
-
-		// waterBG.animation.play('waves');
 		bgGroup.add(waterBG);
 
 		var level = new Level(levelName);
 		FmodPlugin.playSong(level.raw.f_Music);
-
 
 		var gbState = level.initialBoardState;
 
@@ -92,6 +104,12 @@ class PlayState extends FlxTransitionableState {
 		playerObj.type = PLAYER;
 		playerObj.index = gbState.xyToIndex(level.spawnPointCell[0], level.spawnPointCell[1]);
 		gbState.addObj(playerObj);
+
+		player = new Player(level.spawnPoint.x, level.spawnPoint.y);
+		// camera.follow(player);
+		add(player);
+
+		bind(playerObj, player);
 
 		gameBoard = new GameBoard(gbState);
 
@@ -102,10 +120,6 @@ class PlayState extends FlxTransitionableState {
 		// The ones in the level.terrainLayer are editor tiles for now
 		midGroundGroup.add(level.terrainLayer);
 		FlxG.worldBounds.copyFrom(level.terrainLayer.getBounds());
-
-		player = new Player(level.spawnPoint.x, level.spawnPoint.y);
-		//camera.follow(player);
-		add(player);
 
 		for (t in level.camTransitions) {
 			transitions.add(t);
@@ -141,50 +155,73 @@ class PlayState extends FlxTransitionableState {
 		add(def.toToast(true));
 	}
 
-	function movePlayer(facing: FlxDirectionFlags, pos: Vector<Int>) {
-		QLog.notice('  -pos: ${pos}');
-		player.x = pos[0] * 32;
-		player.y = pos[1] * 32;
-		player.facing = facing;
-	}
-
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
-		// if (FlxG.mouse.justPressed) {
-		// 	EventBus.fire(new Click(FlxG.mouse.x, FlxG.mouse.y));
-		// }
-
-		var moveDir = Cardinal.NONE;
-		if (SimpleController.just_released(UP)) {
-			moveDir = Cardinal.N;
-		} else if (SimpleController.just_released(RIGHT)) {
-			moveDir = Cardinal.E;
-		} else if (SimpleController.just_released(DOWN)) {
-			moveDir = Cardinal.S;
-		} else if (SimpleController.just_released(LEFT)) {
-			moveDir = Cardinal.W;
-		}
-
-		if (moveDir != Cardinal.NONE) {
-			var results = gameBoard.move(moveDir);
-			for (phase in results) {
-				for (res in phase) {
-					if (Std.isOfType(res, Move)) {
-						var move = cast(res, Move);
-						if (move.gameObj.type == PLAYER) {
-							var facing = FlxDirectionFlags.fromInt(moveDir.asFacing());
-							movePlayer(facing, move.endPos);
-						}
+		switch interactState {
+			case RESOLVING:
+				var phaseDone = true;
+				for (t in pendingTweens) {
+					if (!t.finished) {
+						phaseDone = false;
+						break;
 					}
 				}
-			}
+				if (phaseDone) {
+					pendingTweens = [];
+					prepNextResolutionPhase();
+
+					if (pendingTweens.length == 0) {
+						interactState = AWAITING_INPUT;
+					}
+				}
+			case AWAITING_INPUT:
+				var moveDir = Cardinal.NONE;
+				if (SimpleController.just_released(UP)) {
+					moveDir = Cardinal.N;
+				} else if (SimpleController.just_released(RIGHT)) {
+					moveDir = Cardinal.E;
+				} else if (SimpleController.just_released(DOWN)) {
+					moveDir = Cardinal.S;
+				} else if (SimpleController.just_released(LEFT)) {
+					moveDir = Cardinal.W;
+				}
+
+				if (moveDir != Cardinal.NONE) {
+					var results = gameBoard.move(moveDir);
+					pendingPhases = results;
+					prepNextResolutionPhase();
+					interactState = RESOLVING;
+				}
 		}
 
 		FlxG.collide(midGroundGroup, player);
 		handleCameraBounds();
 
 		TODO.sfx('scarySound');
+	}
+
+	function bind(boardObj:GameBoardObject, renderObj:GameRenderObject) {
+		objectMap.set(boardObj.id, renderObj);
+	}
+
+	function prepNextResolutionPhase() {
+		if (pendingPhases.length == 0) {
+			return;
+		}
+
+		var phase = pendingPhases.shift();
+		for (m in phase) {
+			if (!objectMap.exists(m.gameObj.id)) {
+				QLog.warn('got move result with no mapped object: ${m}');
+				continue;
+			}
+
+			var t = objectMap[m.gameObj.id].handleGameResult(m, gameBoard);
+			if (t != null) {
+				pendingTweens.push(t);
+			}
+		}
 	}
 
 	function handleCameraBounds() {

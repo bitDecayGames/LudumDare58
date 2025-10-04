@@ -1,5 +1,10 @@
 package entities;
 
+import bitdecay.flixel.spacial.Cardinal;
+import flixel.util.FlxDirection;
+import gameboard.GameBoard;
+import gameboard.GameBoard.GameBoardMoveResult;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxDirectionFlags;
 import flixel.FlxSprite;
 import input.InputCalculator;
@@ -8,7 +13,7 @@ import bitdecay.flixel.graphics.Aseprite;
 import bitdecay.flixel.graphics.AsepriteMacros;
 import flixel.FlxG;
 
-class Player extends FlxSprite {
+class Player extends FlxSprite implements GameRenderObject {
 	public static var anims = AsepriteMacros.tagNames("assets/aseprite/player.json");
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/player.json");
 	// public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/player.json", "Layer 1");
@@ -83,11 +88,23 @@ class Player extends FlxSprite {
 		playAnimIfNotAlready(intendedAnim, false);
 	}
 
-		function playAnimIfNotAlready(name:String, playInReverse:Bool, ?forceAnimationRefresh:Bool):Bool {
+	function playAnimIfNotAlready(name:String, playInReverse:Bool, ?forceAnimationRefresh:Bool):Bool {
 		if (animation.curAnim == null || animation.curAnim.name != name || forceAnimationRefresh) {
 			animation.play(name, true, playInReverse);
 			return true;
 		}
 		return false;
+	}
+
+	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):FlxTween {
+		var dest = board.current.indexToXY(r.gameObj.index);
+		var pThis = this;
+		return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.25, {
+			onUpdate: (t) -> {
+				var newFacing = Cardinal.closest(pThis.getPosition().subtractNew(pThis.last), true);
+				facing = FlxDirectionFlags.fromInt(newFacing.asFacing());
+				facing = FlxDirectionFlags.DOWN;
+			},
+		});
 	}
 }
