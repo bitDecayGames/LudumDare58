@@ -11,7 +11,7 @@
 	"iid": "48a599b0-1460-11ee-8f1d-1923aa7248a0",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 234,
+	"nextUid": 240,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "GridVania",
@@ -132,7 +132,7 @@
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
-			"color": "#FFFFFF",
+			"color": "#32349D",
 			"renderMode": "Rectangle",
 			"showName": true,
 			"tilesetId": null,
@@ -329,9 +329,9 @@
 				{
 					"identifier": "Type",
 					"doc": null,
-					"__type": "LocalEnum.Direction",
-					"uid": 227,
-					"type": "F_Enum(15)",
+					"__type": "LocalEnum.BlockType",
+					"uid": 238,
+					"type": "F_Enum(236)",
 					"isArray": false,
 					"canBeNull": false,
 					"arrayMinLength": null,
@@ -353,7 +353,10 @@
 					"max": null,
 					"regex": null,
 					"acceptFileTypes": null,
-					"defaultOverride": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["WallBlock"]
+					},
 					"textLanguageMode": null,
 					"symmetricalRef": false,
 					"autoChainRef": true,
@@ -513,6 +516,79 @@
 					"tilesetUid": null
 				}
 			]
+		},
+		{
+			"identifier": "Collectable",
+			"uid": 235,
+			"tags": ["LevelElement"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 32,
+			"height": 32,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#733E39",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "CollectableType",
+					"doc": null,
+					"__type": "LocalEnum.CollectableType",
+					"uid": 239,
+					"type": "F_Enum(237)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "EntityTile",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": true,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -583,14 +659,14 @@
 			}
 		},
 		{
-			"__cWid": 3,
-			"__cHei": 1,
+			"__cWid": 20,
+			"__cHei": 20,
 			"identifier": "Terrain",
 			"uid": 233,
-			"relPath": "aseprite/tiles.png",
+			"relPath": "aseprite/editorTiles.png",
 			"embedAtlas": null,
-			"pxWid": 96,
-			"pxHei": 32,
+			"pxWid": 640,
+			"pxHei": 640,
 			"tileGridSize": 32,
 			"spacing": 0,
 			"padding": 0,
@@ -606,7 +682,29 @@
 			],
 			"customData": [],
 			"savedSelections": [],
-			"cachedPixelData": { "opaqueTiles": "011", "averageColors": "0000f58efdde" }
+			"cachedPixelData": {
+				"opaqueTiles": "0111000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+				"averageColors": "0000f68efeeef69e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+			}
+		},
+		{
+			"__cWid": 0,
+			"__cHei": 0,
+			"identifier": "Tileset",
+			"uid": 234,
+			"relPath": null,
+			"embedAtlas": null,
+			"pxWid": 0,
+			"pxHei": 0,
+			"tileGridSize": 16,
+			"spacing": 0,
+			"padding": 0,
+			"tags": [],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": null
 		}
 	], "enums": [
 		{ "identifier": "Direction", "uid": 15, "values": [
@@ -629,7 +727,9 @@
 			{ "id": "SOLID", "tileRect": null, "color": 15389866 },
 			{ "id": "INVISIBLE", "tileRect": null, "color": 14984818 },
 			{ "id": "ONEWAY", "tileRect": null, "color": 7552569 }
-		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "BlockType", "uid": 236, "values": [ { "id": "PushBlock", "tileRect": { "tilesetUid": 16, "x": 128, "y": 80, "w": 16, "h": 16 }, "color": 12470831 }, { "id": "WallBlock", "tileRect": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "color": 14120515 } ], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "CollectableType", "uid": 237, "values": [{ "id": "Seal", "tileRect": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 }, "color": 12470831 }], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [
 		{ "identifier": "FmodSong", "uid": 223, "values": [{ "id": "LetsGo", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "0080d688207c3c09e857d8384f72fa45", "tags": [] },
 		{ "identifier": "FmodSFX", "uid": 224, "values": [ { "id": "MenuHover", "tileRect": null, "color": 12470831 }, { "id": "MenuSelect", "tileRect": null, "color": 14120515 } ], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "0080d688207c3c09e857d8384f72fa45", "tags": [] }
@@ -677,7 +777,7 @@
 			"identifier": "Level_0",
 			"iid": "d92083a0-1460-11ee-93dd-3b235c51ea36",
 			"uid": 97,
-			"worldX": 0,
+			"worldX": 640,
 			"worldY": 0,
 			"worldDepth": 0,
 			"pxWid": 640,
@@ -722,43 +822,24 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Block",
-							"__grid": [10,6],
-							"__pivot": [0,0],
-							"__tags": ["LevelElement"],
-							"__tile": { "tilesetUid": 16, "x": 0, "y": 80, "w": 16, "h": 16 },
-							"__smartColor": "#D77643",
-							"iid": "e68b84b0-8560-11f0-be50-81e7279f7cf9",
-							"width": 32,
-							"height": 32,
-							"defUid": 226,
-							"px": [320,192],
-							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.Direction", "__value": "NORTH", "__tile": { "tilesetUid": 16, "x": 0, "y": 80, "w": 16, "h": 16 }, "defUid": 227, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["NORTH"]
-							}] }],
-							"__worldX": 320,
-							"__worldY": 192
-						},
-						{
 							"__identifier": "Spawn",
-							"__grid": [2,1],
+							"__grid": [6,5],
 							"__pivot": [0.5,1],
 							"__tags": [ "Player", "LevelElement" ],
 							"__tile": null,
-							"__smartColor": "#FFFFFF",
+							"__smartColor": "#32349D",
 							"iid": "29ebbf90-8560-11f0-be50-01b2468e0d44",
 							"width": 32,
 							"height": 32,
 							"defUid": 74,
-							"px": [80,64],
+							"px": [208,192],
 							"fieldInstances": [],
-							"__worldX": 80,
-							"__worldY": 64
+							"__worldX": 848,
+							"__worldY": 192
 						},
 						{
 							"__identifier": "Exit",
-							"__grid": [12,8],
+							"__grid": [9,10],
 							"__pivot": [0,0],
 							"__tags": ["LevelElement"],
 							"__tile": null,
@@ -767,7 +848,7 @@
 							"width": 32,
 							"height": 32,
 							"defUid": 228,
-							"px": [384,256],
+							"px": [288,320],
 							"fieldInstances": [{ "__identifier": "Next", "__type": "EntityRef", "__value": {
 								"entityIid": "413490c0-8560-11f0-be50-5b0315c2aefa",
 								"layerIid": "3b2dbfd0-8560-11f0-be50-a14fdbc0265b",
@@ -777,24 +858,43 @@
 								"id": "V_String",
 								"params": ["413490c0-8560-11f0-be50-5b0315c2aefa"]
 							}] }],
-							"__worldX": 384,
-							"__worldY": 256
+							"__worldX": 928,
+							"__worldY": 320
 						},
 						{
-							"__identifier": "Hazard",
-							"__grid": [5,8],
+							"__identifier": "Block",
+							"__grid": [7,5],
 							"__pivot": [0,0],
 							"__tags": ["LevelElement"],
-							"__tile": { "tilesetUid": 16, "x": 48, "y": 80, "w": 16, "h": 16 },
-							"__smartColor": "#E4A672",
-							"iid": "78130b30-8560-11f0-be50-bfe38b55af50",
+							"__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "f50a5490-8560-11f0-a3d8-e358e4c9b808",
 							"width": 32,
 							"height": 32,
-							"defUid": 231,
-							"px": [160,256],
-							"fieldInstances": [{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": { "tilesetUid": 16, "x": 48, "y": 80, "w": 16, "h": 16 }, "defUid": 232, "realEditorValues": [null] }],
-							"__worldX": 160,
-							"__worldY": 256
+							"defUid": 226,
+							"px": [224,160],
+							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.BlockType", "__value": "WallBlock", "__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "defUid": 238, "realEditorValues": [] }],
+							"__worldX": 864,
+							"__worldY": 160
+						},
+						{
+							"__identifier": "Collectable",
+							"__grid": [10,7],
+							"__pivot": [0,0],
+							"__tags": ["LevelElement"],
+							"__tile": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 },
+							"__smartColor": "#733E39",
+							"iid": "98343280-8560-11f0-a3d8-fd760052a970",
+							"width": 32,
+							"height": 32,
+							"defUid": 235,
+							"px": [320,224],
+							"fieldInstances": [{ "__identifier": "CollectableType", "__type": "LocalEnum.CollectableType", "__value": "Seal", "__tile": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 }, "defUid": 239, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Seal"]
+							}] }],
+							"__worldX": 960,
+							"__worldY": 224
 						}
 					]
 				},
@@ -808,7 +908,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 233,
-					"__tilesetRelPath": "aseprite/tiles.png",
+					"__tilesetRelPath": "aseprite/editorTiles.png",
 					"iid": "d92083a4-1460-11ee-93dd-25565040d217",
 					"levelId": 97,
 					"layerDefUid": 77,
@@ -821,38 +921,47 @@
 					"seed": 3673160,
 					"overrideTilesetUid": 233,
 					"gridTiles": [
-						{ "px": [192,128], "src": [64,0], "f": 0, "t": 2, "d": [86], "a": 1 },
-						{ "px": [224,128], "src": [64,0], "f": 0, "t": 2, "d": [87], "a": 1 },
-						{ "px": [256,128], "src": [64,0], "f": 0, "t": 2, "d": [88], "a": 1 },
-						{ "px": [288,128], "src": [64,0], "f": 0, "t": 2, "d": [89], "a": 1 },
-						{ "px": [320,128], "src": [64,0], "f": 0, "t": 2, "d": [90], "a": 1 },
+						{ "px": [224,96], "src": [0,0], "f": 0, "t": 0, "d": [67], "a": 1 },
+						{ "px": [256,96], "src": [0,0], "f": 0, "t": 0, "d": [68], "a": 1 },
+						{ "px": [288,96], "src": [0,0], "f": 0, "t": 0, "d": [69], "a": 1 },
+						{ "px": [192,128], "src": [0,0], "f": 0, "t": 0, "d": [86], "a": 1 },
+						{ "px": [224,128], "src": [0,0], "f": 0, "t": 0, "d": [87], "a": 1 },
+						{ "px": [256,128], "src": [0,0], "f": 0, "t": 0, "d": [88], "a": 1 },
+						{ "px": [288,128], "src": [0,0], "f": 0, "t": 0, "d": [89], "a": 1 },
+						{ "px": [320,128], "src": [0,0], "f": 0, "t": 0, "d": [90], "a": 1 },
+						{ "px": [160,160], "src": [0,0], "f": 0, "t": 0, "d": [105], "a": 1 },
 						{ "px": [192,160], "src": [64,0], "f": 0, "t": 2, "d": [106], "a": 1 },
 						{ "px": [224,160], "src": [64,0], "f": 0, "t": 2, "d": [107], "a": 1 },
 						{ "px": [256,160], "src": [64,0], "f": 0, "t": 2, "d": [108], "a": 1 },
 						{ "px": [288,160], "src": [64,0], "f": 0, "t": 2, "d": [109], "a": 1 },
-						{ "px": [320,160], "src": [64,0], "f": 0, "t": 2, "d": [110], "a": 1 },
+						{ "px": [320,160], "src": [0,0], "f": 0, "t": 0, "d": [110], "a": 1 },
+						{ "px": [160,192], "src": [64,0], "f": 0, "t": 2, "d": [125], "a": 1 },
 						{ "px": [192,192], "src": [64,0], "f": 0, "t": 2, "d": [126], "a": 1 },
 						{ "px": [224,192], "src": [64,0], "f": 0, "t": 2, "d": [127], "a": 1 },
-						{ "px": [256,192], "src": [64,0], "f": 0, "t": 2, "d": [128], "a": 1 },
-						{ "px": [288,192], "src": [64,0], "f": 0, "t": 2, "d": [129], "a": 1 },
-						{ "px": [320,192], "src": [64,0], "f": 0, "t": 2, "d": [130], "a": 1 },
+						{ "px": [256,192], "src": [32,0], "f": 0, "t": 1, "d": [128], "a": 1 },
+						{ "px": [288,192], "src": [32,0], "f": 0, "t": 1, "d": [129], "a": 1 },
+						{ "px": [320,192], "src": [0,0], "f": 0, "t": 0, "d": [130], "a": 1 },
+						{ "px": [160,224], "src": [64,0], "f": 0, "t": 2, "d": [145], "a": 1 },
 						{ "px": [192,224], "src": [64,0], "f": 0, "t": 2, "d": [146], "a": 1 },
-						{ "px": [224,224], "src": [64,0], "f": 0, "t": 2, "d": [147], "a": 1 },
-						{ "px": [256,224], "src": [64,0], "f": 0, "t": 2, "d": [148], "a": 1 },
-						{ "px": [288,224], "src": [64,0], "f": 0, "t": 2, "d": [149], "a": 1 },
-						{ "px": [320,224], "src": [64,0], "f": 0, "t": 2, "d": [150], "a": 1 },
+						{ "px": [224,224], "src": [32,0], "f": 0, "t": 1, "d": [147], "a": 1 },
+						{ "px": [256,224], "src": [32,0], "f": 0, "t": 1, "d": [148], "a": 1 },
+						{ "px": [288,224], "src": [32,0], "f": 0, "t": 1, "d": [149], "a": 1 },
+						{ "px": [320,224], "src": [0,0], "f": 0, "t": 0, "d": [150], "a": 1 },
 						{ "px": [160,256], "src": [64,0], "f": 0, "t": 2, "d": [165], "a": 1 },
 						{ "px": [192,256], "src": [64,0], "f": 0, "t": 2, "d": [166], "a": 1 },
-						{ "px": [224,256], "src": [64,0], "f": 0, "t": 2, "d": [167], "a": 1 },
-						{ "px": [256,256], "src": [64,0], "f": 0, "t": 2, "d": [168], "a": 1 },
+						{ "px": [224,256], "src": [32,0], "f": 0, "t": 1, "d": [167], "a": 1 },
+						{ "px": [256,256], "src": [32,0], "f": 0, "t": 1, "d": [168], "a": 1 },
 						{ "px": [288,256], "src": [64,0], "f": 0, "t": 2, "d": [169], "a": 1 },
-						{ "px": [320,256], "src": [64,0], "f": 0, "t": 2, "d": [170], "a": 1 },
-						{ "px": [192,288], "src": [64,0], "f": 0, "t": 2, "d": [186], "a": 1 }
+						{ "px": [320,256], "src": [0,0], "f": 0, "t": 0, "d": [170], "a": 1 },
+						{ "px": [192,288], "src": [0,0], "f": 0, "t": 0, "d": [186], "a": 1 },
+						{ "px": [256,288], "src": [64,0], "f": 0, "t": 2, "d": [188], "a": 1 },
+						{ "px": [256,320], "src": [64,0], "f": 0, "t": 2, "d": [208], "a": 1 },
+						{ "px": [288,320], "src": [64,0], "f": 0, "t": 2, "d": [209], "a": 1 }
 					],
 					"entityInstances": []
 				}
 			],
-			"__neighbours": []
+			"__neighbours": [{ "levelIid": "3b2d71b0-8560-11f0-be50-ebf001947028", "dir": "e" }]
 		},
 		{
 			"identifier": "Level_1",
@@ -905,7 +1014,7 @@
 							"__pivot": [0.5,1],
 							"__tags": [ "Player", "LevelElement" ],
 							"__tile": null,
-							"__smartColor": "#FFFFFF",
+							"__smartColor": "#32349D",
 							"iid": "413490c0-8560-11f0-be50-5b0315c2aefa",
 							"width": 32,
 							"height": 32,
@@ -943,7 +1052,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": []
+			"__neighbours": [{ "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "w" }]
 		}
 	],
 	"worlds": [],
