@@ -46,7 +46,9 @@ class SimpleController {
 	];
 
 	public static function pressed(button:Button, player:Int = 0):Bool {
-		return pressed_key(button, player) || pressed_pad(button, player);
+		return pressed_key(button, player) ||
+			pressed_pad(button, player) ||
+			pressed_swipe(button, player);
 	}
 
 	static function pressed_key(button:Button, player:Int):Bool {
@@ -58,6 +60,35 @@ class SimpleController {
 		if (gamepads.length < player || gamepads[player] == null)
 			return false;
 		return gamepads[player].anyPressed(pad_bindings[button]);
+	}
+
+	static function pressed_swipe(button:Button, player:Int):Bool {
+		for (swipe in FlxG.swipes)
+		{
+			var dir = radiansToDirection(swipe.radians);
+			trace(dir, swipe.radians);
+			if (dir == button) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	static var QUARTER_PI = Math.PI / 4;
+	static var THREE_QUARTERS_PI = QUARTER_PI * 3;
+
+	static function radiansToDirection(radians:Float):Null<Button> {
+		if (radians <= -QUARTER_PI && radians > -THREE_QUARTERS_PI) {
+			return UP;
+		} else if (radians >= -QUARTER_PI && radians < QUARTER_PI) {
+			return RIGHT;
+		} else if (radians >= QUARTER_PI && radians < THREE_QUARTERS_PI) {
+			return DOWN;
+		} else if (radians <= -THREE_QUARTERS_PI || radians > THREE_QUARTERS_PI) {
+			return LEFT;
+		}
+
+		return null;
 	}
 
 	public static function just_pressed(button:Button, player:Int = 0):Bool {
