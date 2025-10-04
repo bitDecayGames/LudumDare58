@@ -4,8 +4,9 @@ import gameboard.GameBoardState.*;
 import bitdecay.flixel.spacial.Cardinal;
 
 class GameBoard {
+	public var current:GameBoardState;
+
 	private var initial:GameBoardState;
-	private var current:GameBoardState;
 	private final history:Array<Vector<Int>> = [];
 
 	public function new(initial:GameBoardState) {
