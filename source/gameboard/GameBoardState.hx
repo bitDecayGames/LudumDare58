@@ -3,26 +3,27 @@ package gameboard;
 import haxe.ds.Vector;
 
 typedef TileType = Int;
-public static inline final EMPTY:TileType = 0;
-public static inline final SOLID:TileType = 1;
-public static inline final WALKABLE:TileType = 2;
-public static inline final SLIDING:TileType = 3;
-public static inline final WALKABLE_BREAKABLE:TileType = 4;
-public static inline final SLIDING_BREAKABLE:TileType = 5;
-public static inline final HOLE:TileType = 6;
-public static inline final DEATH:TileType = -1;
+inline final EMPTY:TileType = 0;
+inline final SOLID:TileType = 1;
+inline final WALKABLE:TileType = 2;
+inline final SLIDING:TileType = 3;
+inline final WALKABLE_BREAKABLE:TileType = 4;
+inline final SLIDING_BREAKABLE:TileType = 5;
+inline final HOLE:TileType = 6;
+inline final DEATH:TileType = -1;
 typedef ObjectType = Int;
-public static inline final NONE:ObjectType = 0;
-public static inline final PLAYER:ObjectType = 1;
-public static inline final COLLECTABLE:ObjectType = 2;
-public static inline final BLOCK:ObjectType = 3;
-public static inline final HAZARD:ObjectType = 4;
-public static inline final EXIT:ObjectType = -1;
+inline final NONE:ObjectType = 0;
+inline final PLAYER:ObjectType = 1;
+inline final COLLECTABLE:ObjectType = 2;
+inline final COLLECTED_COLLECTABLE:ObjectType = 3;
+inline final BLOCK:ObjectType = 4;
+inline final HAZARD:ObjectType = 5;
+inline final EXIT:ObjectType = -1;
 typedef MoveResult = Int;
-public static inline final FAIL:MoveResult = 0;
-public static inline final SUCCESS:MoveResult = 1;
-public static inline final WIN:MoveResult = 2;
-public static inline final LOSE:MoveResult = -1;
+inline final FAIL:MoveResult = 0;
+inline final SUCCESS:MoveResult = 1;
+inline final WIN:MoveResult = 2;
+inline final LOSE:MoveResult = -1;
 
 class GameBoardState {
 	private final size:Int;
@@ -32,7 +33,7 @@ class GameBoardState {
 
 	public function new(size:Int) {
 		if (size <= 0) {
-			throw new Error("cannot create game board state with size <= 0");
+			throw "cannot create game board state with size <= 0";
 		}
 		this.size = size;
 		length = size * size;
@@ -42,10 +43,21 @@ class GameBoardState {
 
 	public function getTile(x:Int, y:Int):TileType {
 		var index = y * size + x;
+		return getTileByIndex(index);
+	}
+
+	public function getTileByIndex(index:Int):TileType {
 		if (index >= length || index < 0) {
 			return EMPTY;
 		}
 		return tileData[index];
+	}
+
+	public function indexToXY(index:Int):Vector<Int> {
+		var v = new Vector<Int>(2);
+		v[0] = index % size;
+		v[1] = Std.int(index / size);
+		return v;
 	}
 
 	public function setTile(x:Int, y:Int, v:TileType) {
@@ -58,18 +70,34 @@ class GameBoardState {
 
 	public function getObj(x:Int, y:Int):GameBoardObject {
 		var index = y * size + x;
-		return objData.find((o) -> o.index == index);
+		var f = objData.filter((o) -> o.index == index);
+		if (f.length == 0) {
+			return null;
+		}
+		return f[0];
+	}
+
+	public function getObjectsByIndex(index:Int):Array<GameBoardObject> {
+		return objData.filter((o) -> o.index == index);
 	}
 
 	public function findObj(id:Int):GameBoardObject {
-		return objData.find((o) -> o.id == id);
+		var f = objData.filter((o) -> o.id == id);
+		if (f.length == 0) {
+			return null;
+		}
+		return f[0];
 	}
 
-	public function addObj(x:Int, y:Int, v:GameBoardObject) {
-		var index = y * size + x;
-		if (index >= length || index < 0) {
-			return;
+	public function findObjType(type:ObjectType):GameBoardObject {
+		var f = objData.filter((o) -> o.type == type);
+		if (f.length == 0) {
+			return null;
 		}
+		return f[0];
+	}
+
+	public function addObj(v:GameBoardObject) {
 		objData.push(v);
 	}
 
@@ -90,18 +118,19 @@ class GameBoardState {
 
 	public static function load(d:Vector<Int>):GameBoardState {
 		if (d.length == 0) {
-			throw new Error("cannot load game board state from empty array");
+			throw "cannot load game board state from empty array";
 		}
 		var g = new GameBoardState(d[0]);
 		for (i in 0...g.length) {
-			tileData[i] = d[i + 2];
+			g.tileData[i] = d[i + 2];
 		}
-		for (i in 0...(d[1] / 3)) {
+
+		for (i in 0...Std.int(d[1] / 3)) {
 			var o = new GameBoardObject();
 			o.id = d[0 + g.length + i + 2];
 			o.index = d[1 + g.length + i + 2];
 			o.type = d[2 + g.length + i + 2];
-			objData[i] = o;
+			g.addObj(o);
 		}
 		return g;
 	}
@@ -111,4 +140,6 @@ class GameBoardObject {
 	public var id:Int;
 	public var index:Int;
 	public var type:ObjectType;
+
+	public function new() {}
 }
