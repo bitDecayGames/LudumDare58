@@ -15,10 +15,11 @@ import gameboard.GameBoardState.PLAYER;
 import bitdecay.flixel.spacial.Cardinal;
 import haxe.ds.Vector;
 
-interface GameBoardMoveResult {}
-
-class Move implements GameBoardMoveResult {
+abstract class GameBoardMoveResult {
 	public var gameObj: GameBoardObject;
+}
+
+class Move extends GameBoardMoveResult {
 	public var startPos: Vector<Int>;
 	public var endPos: Vector<Int>;
 
@@ -55,12 +56,12 @@ class GameBoard {
 	}
 
 	public function move(dir:Cardinal):Array<Array<GameBoardMoveResult>> {
-		var results = [];
+		var results:Array<Array<GameBoardMoveResult>> = [];
 
 		var playerObj = current.getPlayer();
 		// TODO When would this happen?
 		if (playerObj == null) {
-			return results;
+			return [];
 		}
 		var xy = current.indexToXY(playerObj.index);
 		var targetXY = new Vector<Int>(2);
