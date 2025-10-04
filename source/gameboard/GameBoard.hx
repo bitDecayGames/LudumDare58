@@ -1,5 +1,8 @@
 package gameboard;
 
+import gameboard.GameBoardState.WALKABLE_BREAKABLE;
+import gameboard.GameBoardState.SLIDING_BREAKABLE;
+import gameboard.GameBoardState.SLIDING;
 import gameboard.GameBoardState.HOLE;
 import gameboard.GameBoardState.HAZARD;
 import gameboard.GameBoardState.COLLECTABLE;
@@ -10,23 +13,105 @@ import gameboard.GameBoardState.BLOCK;
 import gameboard.GameBoardState.EMPTY;
 import gameboard.GameBoardState.SOLID;
 import gameboard.GameBoardState.TileType;
-import gameboard.GameBoardState.ObjectType;
-import gameboard.GameBoardState.PLAYER;
 import bitdecay.flixel.spacial.Cardinal;
 import haxe.ds.Vector;
 
 abstract class GameBoardMoveResult {
-	public var gameObj: GameBoardObject;
+	public var gameObj:GameBoardObject;
 }
 
 class Move extends GameBoardMoveResult {
-	public var startPos: Vector<Int>;
-	public var endPos: Vector<Int>;
+	public var startPos:Vector<Int>;
+	public var endPos:Vector<Int>;
 
-	public function new(gameObj: GameBoardObject, startPos: Vector<Int>, endPos: Vector<Int>) {
+	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
+	}
+}
+
+class Slide extends GameBoardMoveResult {
+	public var startPos:Vector<Int>;
+	public var endPos:Vector<Int>;
+
+	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>) {
+		this.gameObj = gameObj;
+		this.startPos = startPos;
+		this.endPos = endPos;
+	}
+}
+
+class Bump extends GameBoardMoveResult {
+	public var dir:Cardinal;
+
+	public function new(gameObj:GameBoardObject, dir:Cardinal) {
+		this.gameObj = gameObj;
+		this.dir = dir;
+	}
+}
+
+class Push extends GameBoardMoveResult {
+	public var dir:Cardinal;
+
+	public function new(gameObj:GameBoardObject, dir:Cardinal) {
+		this.gameObj = gameObj;
+		this.dir = dir;
+	}
+}
+
+class Collide extends GameBoardMoveResult {
+	public var other:GameBoardObject;
+
+	public function new(gameObj:GameBoardObject, other:GameBoardObject) {
+		this.gameObj = gameObj;
+		this.other = other;
+	}
+}
+
+class Drop extends GameBoardMoveResult {
+	public var other:GameBoardObject;
+	public var pos:Vector<Int>;
+
+	public function new(gameObj:GameBoardObject, pos:Vector<Int>) {
+		this.gameObj = gameObj;
+		this.pos = pos;
+	}
+}
+
+class Break extends GameBoardMoveResult {
+	public function new(gameObj:GameBoardObject) {
+		this.gameObj = gameObj;
+	}
+}
+
+class Crumble extends GameBoardMoveResult {
+	public var pos:Vector<Int>;
+
+	public function new(pos:Vector<Int>) {
+		gameObj = null;
+		this.pos = pos;
+	}
+}
+
+class Die extends GameBoardMoveResult {
+	public var pos:Vector<Int>;
+
+	public function new(gameObj:GameBoardObject, pos:Vector<Int>) {
+		this.gameObj = gameObj;
+		this.pos = pos;
+	}
+}
+
+class Lose extends GameBoardMoveResult {
+	public function new(gameObj:GameBoardObject) {
+		this.gameObj = gameObj;
+	}
+}
+
+class Win extends GameBoardMoveResult {
+	public function new(gameObj:GameBoardObject) {
+		this.gameObj = gameObj;
 	}
 }
 
@@ -70,54 +155,146 @@ class GameBoard {
 		var nextXY = new Vector<Int>(2);
 		nextXY[0] = xy[0];
 		nextXY[1] = xy[1];
-		switch (dir) {
-			case N:
-				targetXY[1]--;
-				nextXY[1] -= 2;
-			case S:
-				targetXY[1]++;
-				nextXY[1] += 2;
-			case W:
-				targetXY[0]--;
-				nextXY[0] -= 2;
-			case E:
-				targetXY[0]++;
-				nextXY[0] += 2;
-			default:
-				throw "can only move in direction N, S, E, or W";
-		}
+		targetXY = incr(targetXY, dir, 1);
+		nextXY = incr(nextXY, dir, 2);
+		var currentTile = current.getTile(xy[0], xy[1]);
 		var targetTile = current.getTile(targetXY[0], targetXY[1]);
 		var targetObj = current.getObj(targetXY[0], targetXY[1]);
 		var nextTile = current.getTile(nextXY[0], nextXY[1]);
 		var nextObj = current.getObj(nextXY[0], nextXY[1]);
 		if (!isMovePossible(targetTile, targetObj, nextTile, nextObj)) {
-			// TODO Return push against thing/fall in water animation
-			return [];
+			results.push([new Bump(playerObj, dir)]);
+			return results;
 		}
 
 		history.push(current.save());
 
-		QLog.notice(current.indexToXY(playerObj.index));
-		QLog.notice(targetXY);
-		doMove(playerObj, targetXY[0], targetXY[1]);
-		QLog.notice(current.indexToXY(playerObj.index));
-		QLog.notice(" ");
+		var cur:Array<GameBoardMoveResult> = [];
+		playerObj.index = current.vecToIndex(targetXY);
+		cur.push(new Move(playerObj, xy, targetXY));
+		if (currentTile == WALKABLE_BREAKABLE || currentTile == SLIDING_BREAKABLE) {
+			current.setTile(xy[0], xy[1], HOLE);
+			cur.push(new Crumble(xy));
+		}
+		if (targetObj != null && targetObj.type == BLOCK) {
+			targetObj.index = current.vecToIndex(nextXY);
+			cur.push(new Move(targetObj, targetXY, nextXY));
 
-		results.push([
-			new Move(
-				playerObj,
-				xy,
-				targetXY
-			)
-		]);
+			if (targetTile == WALKABLE_BREAKABLE || targetTile == SLIDING_BREAKABLE) {
+				current.setTile(targetXY[0], targetXY[1], HOLE);
+				cur.push(new Crumble(targetXY));
+				results.push(cur);
+				cur = [];
+				cur.push(new Drop(playerObj, targetXY));
+				results.push(cur);
+				cur = [];
+				cur.push(new Lose(playerObj));
+				results.push(cur);
+				return results;
+			}
+		}
+		cur = [];
+		var dirty = true;
+		var targetDropped = false;
+		while (dirty) {
+			dirty = false;
+			if (targetObj != null && targetObj.type == BLOCK) {
+				switch (nextTile) {
+					case EMPTY | HOLE:
+						cur.push(new Drop(targetObj, nextXY));
+						targetDropped = true;
+					case SLIDING | SLIDING_BREAKABLE:
+						var checkXY = incr(nextXY, dir, 1);
+						var checkTile = current.getTile(checkXY[0], checkXY[1]);
+						var checkObj = current.getObj(checkXY[0], checkXY[1]);
+						if (checkObj != null) {
+							if (checkObj.type == HAZARD) {
+								dirty = true;
+								cur.push(new Collide(targetObj, checkObj));
+								targetObj.index = current.vecToIndex(checkXY);
+								cur.push(new Slide(targetObj, nextXY, checkXY));
+							} else {
+								cur.push(new Bump(targetObj, dir));
+								cur.push(new Bump(checkObj, dir));
+							}
+						} else if (checkTile == SOLID || checkTile == DEATH) {
+							cur.push(new Bump(targetObj, dir));
+						} else {
+							dirty = true;
+							targetObj.index = current.vecToIndex(checkXY);
+							cur.push(new Slide(targetObj, nextXY, checkXY));
+						}
+					default:
+						// do nothing
+				}
+			}
+
+			switch (targetTile) {
+				case EMPTY | HOLE:
+					cur.push(new Drop(playerObj, targetXY));
+					results.push(cur);
+					cur = [];
+					cur.push(new Lose(playerObj));
+					results.push(cur);
+					return results;
+				case SLIDING | SLIDING_BREAKABLE:
+					var checkXY = incr(targetXY, dir, 1);
+					var checkTile = current.getTile(checkXY[0], checkXY[1]);
+					var checkObj = current.getObj(checkXY[0], checkXY[1]);
+					if (checkObj != null) {
+						if (checkObj.type == HAZARD) {
+							playerObj.index = current.vecToIndex(checkXY);
+							cur.push(new Slide(targetObj, nextXY, checkXY));
+							results.push(cur);
+							cur = [];
+							cur.push(new Die(playerObj, checkXY));
+							results.push(cur);
+							cur = [];
+							cur.push(new Lose(playerObj));
+							results.push(cur);
+							return results;
+						} else {
+							cur.push(new Bump(playerObj, dir));
+							cur.push(new Bump(checkObj, dir));
+						}
+					} else if (checkTile == SOLID) {
+						cur.push(new Bump(playerObj, dir));
+					} else {
+						dirty = true;
+						playerObj.index = current.vecToIndex(checkXY);
+						cur.push(new Slide(targetObj, nextXY, checkXY));
+					}
+				case DEATH:
+					cur.push(new Die(playerObj, targetXY));
+					results.push(cur);
+					cur = [];
+					cur.push(new Lose(playerObj));
+					results.push(cur);
+					return results;
+				default:
+					// do nothing
+			}
+
+			if (cur.length > 0) {
+				results.push(cur);
+				cur = [];
+			}
+			if (dirty) {
+				targetXY = incr(targetXY, dir, 1);
+				targetTile = current.getTile(targetXY[0], targetXY[1]);
+				nextXY = incr(nextXY, dir, 1);
+				nextTile = current.getTile(nextXY[0], nextXY[1]);
+				nextObj = current.getObj(nextXY[0], nextXY[1]);
+			}
+		}
 
 		if (isWin(playerObj)) {
-			// TODO Show win animation
-			return [];
+			cur.push(new Win(playerObj));
+			results.push(cur);
 		}
 		if (isLose(playerObj)) {
-			// TODO Show lose animation
-			return [];
+			cur.push(new Lose(playerObj));
+			results.push(cur);
 		}
 		return results;
 	}
@@ -144,8 +321,22 @@ class GameBoard {
 		return curTile == DEATH || curTile == EMPTY || curTile == HOLE || sharesSpaceWithHazard;
 	}
 
-	private function doMove(player:GameBoardObject, x:Int, y:Int) {
-		// TODO: do actual move logic, moving blocks, etc
-		player.index = current.width * y + x;
+	private function incr(v:Vector<Int>, dir:Cardinal, amount:Int):Vector<Int> {
+		var r = new Vector<Int>(2);
+		r[0] = v[0];
+		r[1] = v[1];
+		switch (dir) {
+			case N:
+				r[1] -= amount;
+			case S:
+				r[1] += amount;
+			case W:
+				r[0] -= amount;
+			case E:
+				r[0] += amount;
+			default:
+				throw "can only move in direction N, S, E, or W";
+		}
+		return r;
 	}
 }

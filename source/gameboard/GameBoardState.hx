@@ -11,7 +11,6 @@ inline final WALKABLE_BREAKABLE:TileType = 4;
 inline final SLIDING_BREAKABLE:TileType = 5;
 inline final HOLE:TileType = 6;
 inline final DEATH:TileType = -1;
-
 typedef ObjectType = Int;
 inline final NONE:ObjectType = 0;
 inline final PLAYER:ObjectType = 1;
@@ -63,6 +62,10 @@ class GameBoardState {
 
 	public function xyToIndex(x:Int, y:Int):Int {
 		return y * width + x;
+	}
+
+	public function vecToIndex(v:Vector<Int>):Int {
+		return v[1] * width + v[0];
 	}
 
 	public function setTile(x:Int, y:Int, v:TileType) {
@@ -128,9 +131,9 @@ class GameBoardState {
 		}
 		for (i in 0...objData.length) {
 			// skip into our vector by our 2 header ints + 3 spaces for each object
-			d[2 + (i*3) + 0] = objData[i].id;
-			d[2 + (i*3) + 1] = objData[i].index;
-			d[2 + (i*3) + 2] = objData[i].type;
+			d[2 + (i * 3) + 0] = objData[i].id;
+			d[2 + (i * 3) + 1] = objData[i].index;
+			d[2 + (i * 3) + 2] = objData[i].type;
 		}
 		return d;
 	}
