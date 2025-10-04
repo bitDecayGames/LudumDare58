@@ -117,5 +117,6 @@ class GameBoard {
 
 	private function doMove(player:GameBoardObject, x:Int, y:Int) {
 		// TODO: do actual move logic, moving blocks, etc
+		player.index = current.size * y + x;
 	}
 }

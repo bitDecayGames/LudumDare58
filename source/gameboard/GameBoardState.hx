@@ -26,8 +26,9 @@ inline final WIN:MoveResult = 2;
 inline final LOSE:MoveResult = -1;
 
 class GameBoardState {
-	private final size:Int;
-	private final length:Int;
+	public final size:Int;
+	public final length:Int;
+
 	private final tileData:Vector<TileType>;
 	private final objData:Array<GameBoardObject>;
 
