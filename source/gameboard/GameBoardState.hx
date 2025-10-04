@@ -4,11 +4,11 @@ import haxe.ds.Vector;
 
 typedef TileType = Int;
 inline final EMPTY:TileType = 0;
-inline final SOLID:TileType = 1;
+inline final SOLID:TileType = 5;
 inline final WALKABLE:TileType = 2;
-inline final SLIDING:TileType = 3;
+inline final SLIDING:TileType = 1;
 inline final WALKABLE_BREAKABLE:TileType = 4;
-inline final SLIDING_BREAKABLE:TileType = 5;
+inline final SLIDING_BREAKABLE:TileType = 3;
 inline final HOLE:TileType = 6;
 inline final DEATH:TileType = -1;
 typedef ObjectType = Int;

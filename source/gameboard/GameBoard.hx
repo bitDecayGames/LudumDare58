@@ -29,6 +29,10 @@ class Move extends GameBoardMoveResult {
 		this.startPos = startPos;
 		this.endPos = endPos;
 	}
+
+	public function toString():String {
+		return 'Move(${gameObj.id} ${startPos} to ${endPos})';
+	}
 }
 
 class Slide extends GameBoardMoveResult {
@@ -40,6 +44,10 @@ class Slide extends GameBoardMoveResult {
 		this.startPos = startPos;
 		this.endPos = endPos;
 	}
+
+	public function toString():String {
+		return 'Slide(${gameObj.id} ${startPos} to ${endPos})';
+	}
 }
 
 class Bump extends GameBoardMoveResult {
@@ -49,14 +57,9 @@ class Bump extends GameBoardMoveResult {
 		this.gameObj = gameObj;
 		this.dir = dir;
 	}
-}
 
-class Push extends GameBoardMoveResult {
-	public var dir:Cardinal;
-
-	public function new(gameObj:GameBoardObject, dir:Cardinal) {
-		this.gameObj = gameObj;
-		this.dir = dir;
+	public function toString():String {
+		return 'Bump(${gameObj.id} ${dir})';
 	}
 }
 
@@ -66,6 +69,10 @@ class Collide extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, other:GameBoardObject) {
 		this.gameObj = gameObj;
 		this.other = other;
+	}
+
+	public function toString():String {
+		return 'Collide(${gameObj.id} and ${other.id})';
 	}
 }
 
@@ -77,11 +84,9 @@ class Drop extends GameBoardMoveResult {
 		this.gameObj = gameObj;
 		this.pos = pos;
 	}
-}
 
-class Break extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject) {
-		this.gameObj = gameObj;
+	public function toString():String {
+		return 'Drop(${gameObj.id} at ${pos})';
 	}
 }
 
@@ -92,6 +97,10 @@ class Crumble extends GameBoardMoveResult {
 		gameObj = null;
 		this.pos = pos;
 	}
+
+	public function toString():String {
+		return 'Crumble(${pos})';
+	}
 }
 
 class Die extends GameBoardMoveResult {
@@ -101,17 +110,29 @@ class Die extends GameBoardMoveResult {
 		this.gameObj = gameObj;
 		this.pos = pos;
 	}
+
+	public function toString():String {
+		return 'Die(${gameObj.id} at ${pos})';
+	}
 }
 
 class Lose extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject) {
 		this.gameObj = gameObj;
 	}
+
+	public function toString():String {
+		return 'Lose(${gameObj.id})';
+	}
 }
 
 class Win extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject) {
 		this.gameObj = gameObj;
+	}
+
+	public function toString():String {
+		return 'Win(${gameObj.id})';
 	}
 }
 
@@ -324,7 +345,6 @@ class GameBoard {
 			cur.push(new Lose(playerObj));
 			results.push(cur);
 		}
-		QLog.notice('${results}');
 		return results;
 	}
 

@@ -216,6 +216,7 @@ class PlayState extends FlxTransitionableState {
 
 				if (moveDir != Cardinal.NONE) {
 					var results = gameBoard.move(moveDir);
+					QLog.notice('${results}');
 					pendingPhases = results;
 					prepNextResolutionPhase();
 					interactState = RESOLVING;
