@@ -22,7 +22,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.text.FlxBitmapText;
-import ui.hud.SealsCollectedText;
 
 using states.FlxStateExt;
 
@@ -54,12 +53,37 @@ class PlayState extends FlxTransitionableState {
 		add(uiGroup);
 		add(transitions);
 
-		var sealsCollectedTxt = new SealsCollectedText();
+		// Begin HUD
+		var hudOffset = 24;
+
+		// Seals collected
+		var sealsCollectedTxt = new FlxBitmapText(0, FlxG.height - hudOffset);
+		sealsCollectedTxt.screenCenter(X);
+		sealsCollectedTxt.scrollFactor.set(0, 0);
+		EventBus.subscribe(SealCollected, (e) -> {
+			sealsCollectedTxt.text = '(${e.num_collected}/${e.total}) Seals';
+		});
 		uiGroup.add(sealsCollectedTxt);
-		var undoBtn = new FlxButton(50, 100, "Undo", () -> {
+
+		// Undo
+		var undoBtn = new FlxButton(0, hudOffset, "Undo", () -> {
 			gameBoard.undo();
 		});
+		undoBtn.screenCenter(X);
+		undoBtn.x -= hudOffset * 2;
+		undoBtn.scrollFactor.set(0, 0);
 		uiGroup.add(undoBtn);
+
+		// Restart
+		var restartBtn = new FlxButton(0, hudOffset, "Restart", () -> {
+			gameBoard.reset();
+		});
+
+		restartBtn.screenCenter(X);
+		restartBtn.x += hudOffset * 2;
+		restartBtn.scrollFactor.set(0, 0);
+		uiGroup.add(restartBtn);
+		// End HUD
 
 		loadLevel("Level_0");
 	}
