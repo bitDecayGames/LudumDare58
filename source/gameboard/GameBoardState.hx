@@ -21,12 +21,6 @@ inline final BLOCK:ObjectType = 4;
 inline final HAZARD:ObjectType = 5;
 inline final EXIT:ObjectType = -1;
 
-typedef MoveResult = Int;
-inline final FAIL:MoveResult = 0;
-inline final SUCCESS:MoveResult = 1;
-inline final WIN:MoveResult = 2;
-inline final LOSE:MoveResult = -1;
-
 class GameBoardState {
 	public final width:Int;
 	public final height:Int;

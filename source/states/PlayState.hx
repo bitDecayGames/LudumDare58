@@ -1,5 +1,6 @@
 package states;
 
+import haxe.ds.Vector;
 import flixel.util.FlxDirectionFlags;
 import flixel.ui.FlxButton;
 import bitdecay.flixel.spacial.Cardinal;
@@ -57,7 +58,6 @@ class PlayState extends FlxTransitionableState {
 		uiGroup.add(sealsCollectedTxt);
 		var undoBtn = new FlxButton(50, 100, "Undo", () -> {
 			gameBoard.undo();
-			updatePlayer(DOWN);
 		});
 		uiGroup.add(undoBtn);
 
@@ -101,8 +101,6 @@ class PlayState extends FlxTransitionableState {
 		}
 
 		EventBus.fire(new PlayerSpawn(player.x, player.y));
-		// TODO Hook into bus?
-		updatePlayer(DOWN);
 	}
 
 	function unload() {
@@ -121,12 +119,9 @@ class PlayState extends FlxTransitionableState {
 		add(def.toToast(true));
 	}
 
-	function updatePlayer(facing: FlxDirectionFlags) {
-		// TODO Player obj not found after undo.
-		var playerObj = gameBoard.current.getPlayer();
-		var playerPos = gameBoard.current.indexToXY(playerObj.index);
-		player.x = playerPos[0] * 32;
-		player.y = playerPos[1] * 32;
+	function movePlayer(facing: FlxDirectionFlags, pos: Vector<Int>) {
+		player.x = pos[0] * 32;
+		player.y = pos[1] * 32;
 		player.facing = facing;
 	}
 
@@ -149,9 +144,17 @@ class PlayState extends FlxTransitionableState {
 		}
 
 		if (moveDir != Cardinal.NONE) {
-			var moveRes = gameBoard.move(moveDir);
-			if (moveRes == SUCCESS) {
-				updatePlayer(FlxDirectionFlags.fromInt(moveDir.asFacing()));
+			var results = gameBoard.move(moveDir);
+			for (phase in results) {
+				for (res in phase) {
+					if (Std.isOfType(res, Move)) {
+						var move = cast(res, Move);
+						if (move.gameObj.type == PLAYER) {
+							var facing = FlxDirectionFlags.fromInt(moveDir.asFacing());
+							movePlayer(facing, move.endPos);
+						}
+					}
+				}
 			}
 		}
 

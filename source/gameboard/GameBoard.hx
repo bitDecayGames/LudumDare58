@@ -1,24 +1,33 @@
 package gameboard;
 
 import gameboard.GameBoardState.HOLE;
-import gameboard.GameBoardState.WIN;
 import gameboard.GameBoardState.HAZARD;
 import gameboard.GameBoardState.COLLECTABLE;
 import gameboard.GameBoardState.EXIT;
 import gameboard.GameBoardState.GameBoardObject;
-import gameboard.GameBoardState.SUCCESS;
 import gameboard.GameBoardState.DEATH;
 import gameboard.GameBoardState.BLOCK;
 import gameboard.GameBoardState.EMPTY;
 import gameboard.GameBoardState.SOLID;
 import gameboard.GameBoardState.TileType;
 import gameboard.GameBoardState.ObjectType;
-import gameboard.GameBoardState.FAIL;
-import gameboard.GameBoardState.LOSE;
 import gameboard.GameBoardState.PLAYER;
-import gameboard.GameBoardState.MoveResult;
 import bitdecay.flixel.spacial.Cardinal;
 import haxe.ds.Vector;
+
+interface GameBoardMoveResult {}
+
+class Move implements GameBoardMoveResult {
+	public var gameObj: GameBoardObject;
+	public var startPos: Vector<Int>;
+	public var endPos: Vector<Int>;
+
+	public function new(gameObj: GameBoardObject, startPos: Vector<Int>, endPos: Vector<Int>) {
+		this.gameObj = gameObj;
+		this.startPos = startPos;
+		this.endPos = endPos;
+	}
+}
 
 class GameBoard {
 	public var current:GameBoardState;
@@ -45,10 +54,13 @@ class GameBoard {
 		current = initial;
 	}
 
-	public function move(dir:Cardinal):MoveResult {
+	public function move(dir:Cardinal):Array<Array<GameBoardMoveResult>> {
+		var results = [];
+
 		var playerObj = current.getPlayer();
+		// TODO When would this happen?
 		if (playerObj == null) {
-			return LOSE;
+			return results;
 		}
 		var xy = current.indexToXY(playerObj.index);
 		var targetXY = new Vector<Int>(2);
@@ -78,20 +90,31 @@ class GameBoard {
 		var nextTile = current.getTile(nextXY[0], nextXY[1]);
 		var nextObj = current.getObj(nextXY[0], nextXY[1]);
 		if (!isMovePossible(targetTile, targetObj, nextTile, nextObj)) {
-			return FAIL;
+			// TODO Return push against thing/fall in water animation
+			return [];
 		}
 
 		history.push(current.save());
 
 		doMove(playerObj, targetXY[0], targetXY[1]);
 
+		results.push([
+			new Move(
+				playerObj,
+				xy,
+				targetXY
+			)
+		]);
+
 		if (isWin(playerObj)) {
-			return WIN;
+			// TODO Show win animation
+			return [];
 		}
 		if (isLose(playerObj)) {
-			return LOSE;
+			// TODO Show lose animation
+			return [];
 		}
-		return SUCCESS;
+		return results;
 	}
 
 	private function isMovePossible(targetTile:TileType, targetObj:GameBoardObject, nextTargetTile:TileType, nextTargetObj:GameBoardObject):Bool {
