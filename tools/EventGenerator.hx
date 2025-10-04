@@ -331,6 +331,8 @@ typedef EventDefMetadata = {
 typedef FieldDefinition = {
 	var name:String;
 	var type:SupportedType;
+	// Comment on field, unused
+	var ?note:String;
 }
 
 // In theory we can support any types we want, but we have to
