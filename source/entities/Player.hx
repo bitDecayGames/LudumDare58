@@ -6,11 +6,12 @@ import input.InputCalculator;
 import input.SimpleController;
 import bitdecay.flixel.graphics.Aseprite;
 import bitdecay.flixel.graphics.AsepriteMacros;
+import flixel.FlxG;
 
 class Player extends FlxSprite {
-	public static var anims = AsepriteMacros.tagNames("assets/aseprite/characters/player.json");
-	public static var layers = AsepriteMacros.layerNames("assets/aseprite/characters/player.json");
-	public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/characters/player.json", "Layer 1");
+	public static var anims = AsepriteMacros.tagNames("assets/aseprite/player.json");
+	public static var layers = AsepriteMacros.layerNames("assets/aseprite/player.json");
+	// public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/player.json", "Layer 1");
 
 	public static var SLIPPING = "_slipping";
 	public static var PUSHING = "_pushing";
@@ -23,12 +24,11 @@ class Player extends FlxSprite {
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
 		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
-		animation.play(anims.right);
-		animation.onFrameChange.add((anim, frame, index) -> {
-			if (eventData.exists(index)) {
-				trace('frame $index has data ${eventData.get(index)}');
-			}
-		});
+		// animation.onFrameChange.add((anim, frame, index) -> {
+		// 	if (eventData.exists(index)) {
+		// 		trace('frame $index has data ${eventData.get(index)}');
+		// 	}
+		// });
 	}
 
 	override public function update(delta:Float) {
@@ -37,6 +37,7 @@ class Player extends FlxSprite {
 		var inputDir = InputCalculator.getInputCardinal(playerNum);
 		if (inputDir != NONE) {
 			inputDir.asVector(velocity).scale(speed);
+			facing = inputDir.asFacing();
 		} else {
 			velocity.set();
 		}
@@ -44,21 +45,32 @@ class Player extends FlxSprite {
 		if (SimpleController.just_pressed(Button.A, playerNum)) {
 			color = color ^ 0xFFFFFF;
 		}
+
+		updateCurrentAnimation();
+		FlxG.watch.add(this, "facing", "Facing: ");
 	}
 
 	function updateCurrentAnimation() {
 		// player only moves in cardinal directions with potential modifiers
 
-		var intendedAnim = anims.idle;
+		var intendedAnim = anims.StandDown;
 
+		if (velocity.length > 0) {
+			intendedAnim = "Run";
+		} else {
+			intendedAnim = "Stand";
+		}
+		
+		flipX = false;
 		if (facing.has(LEFT)) {
-			intendedAnim = anims.left;
+			flipX = true;
+			intendedAnim += "Side";
 		} else if (facing.has(RIGHT)) {
-			intendedAnim = anims.right;
+			intendedAnim += "Side";
 		} else if (facing.has(UP)) {
-			// intendedAnim = anims.up;
+			intendedAnim += "Up";
 		} else if (facing.has(DOWN)) {
-			// intendedAnim = anims.down;
+			intendedAnim += "Down";
 		}
 
 		// TODO: check modifiers like pushing/slipping/etc
