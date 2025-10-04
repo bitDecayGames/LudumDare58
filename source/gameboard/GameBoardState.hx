@@ -54,7 +54,7 @@ class GameBoardState {
 
 	public function indexToXY(index:Int):Vector<Int> {
 		var v = new Vector<Int>(2);
-		v[0] = index % height;
+		v[0] = index % width;
 		v[1] = Std.int(index / width);
 		return v;
 	}
@@ -105,6 +105,7 @@ class GameBoardState {
 	}
 
 	public function save():Vector<Int> {
+		// 3 data points for each object, 2 'header' Ints for board size
 		var d = new Vector<Int>(length + objData.length * 3 + 2);
 		d[0] = width;
 		d[1] = height;
@@ -112,9 +113,10 @@ class GameBoardState {
 			d[i + 2] = tileData[i];
 		}
 		for (i in 0...objData.length) {
-			d[i + 0 + length + 2] = objData[i].id;
-			d[i + 1 + length + 2] = objData[i].index;
-			d[i + 2 + length + 2] = objData[i].type;
+			// skip into our vector by our 2 header ints + 3 spaces for each object
+			d[2 + (i*3) + 0] = objData[i].id;
+			d[2 + (i*3) + 1] = objData[i].index;
+			d[2 + (i*3) + 2] = objData[i].type;
 		}
 		return d;
 	}

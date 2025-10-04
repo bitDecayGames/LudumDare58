@@ -96,7 +96,11 @@ class GameBoard {
 
 		history.push(current.save());
 
+		QLog.notice(current.indexToXY(playerObj.index));
+		QLog.notice(targetXY);
 		doMove(playerObj, targetXY[0], targetXY[1]);
+		QLog.notice(current.indexToXY(playerObj.index));
+		QLog.notice(" ");
 
 		results.push([
 			new Move(
