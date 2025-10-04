@@ -1,5 +1,8 @@
 package states;
 
+import flixel.util.FlxColor;
+import bitdecay.flixel.graphics.AsepriteMacros;
+import bitdecay.flixel.graphics.Aseprite;
 import flixel.addons.display.FlxBackdrop;
 import haxe.ds.Vector;
 import flixel.util.FlxDirectionFlags;
@@ -71,6 +74,11 @@ class PlayState extends FlxTransitionableState {
 		unload();
 
 		var waterBG = new FlxBackdrop(AssetPaths.waterTile__png);
+		Aseprite.loadAllAnimations(waterBG, AssetPaths.waterTile__json);
+		var anims = AsepriteMacros.tagNames("assets/aseprite/waterTile.json");
+		waterBG.animation.play(anims.animate);
+		waterBG.velocity.set(10, -5);
+
 		// waterBG.animation.play('waves');
 		bgGroup.add(waterBG);
 
