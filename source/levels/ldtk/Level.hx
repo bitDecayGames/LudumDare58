@@ -23,6 +23,8 @@ class Level {
 
 	public var terrainLayer:BDTilemap;
 	public var spawnPoint:FlxPoint = FlxPoint.get();
+	public var blocks = new Array<FlxSprite>(); // TODO: make this an entity type for our game
+	public var hazards = new Array<FlxSprite>(); // TODO: make this an entity type for our game
 
 	public var camZones:Map<String, FlxRect>;
 	public var camTransitions:Array<CameraTransition>;
@@ -43,6 +45,8 @@ class Level {
 
 		parseCameraZones(raw.l_Objects.all_CameraZone);
 		parseCameraTransitions(raw.l_Objects.all_CameraTransition);
+		parseBlocks(raw.l_Objects.all_Block);
+		parseHazard(raw.l_Objects.all_Hazard);
 	}
 
 	function parseCameraZones(zoneDefs:Array<Ldtk.Entity_CameraZone>) {
@@ -61,6 +65,19 @@ class Level {
 				camTrigger.addGuideTrigger(def.f_Directions[i].toCardinal(), camZones.get(def.f_Zones[i].entityIid));
 			}
 			camTransitions.push(camTrigger);
+		}
+	}
+
+	function parseBlocks(blockDefs:Array<Ldtk.Entity_Block>) {
+		for (b in blockDefs) {
+			blocks.push(new FlxSprite(b.pixelX, b.pixelY));
+		}
+	}
+
+
+	function parseHazard(hazardDefs:Array<Ldtk.Entity_Hazard>) {
+		for (b in hazardDefs) {
+			hazards.push(new FlxSprite(b.pixelX, b.pixelY));
 		}
 	}
 }

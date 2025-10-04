@@ -529,7 +529,14 @@
 			"padding": 0,
 			"tags": [],
 			"tagsSourceEnumUid": 199,
-			"enumTags": [ { "enumValueId": "WALKABLE", "tileIds": [] }, { "enumValueId": "MELTY", "tileIds": [] }, { "enumValueId": "SLIPPERY", "tileIds": [] } ],
+			"enumTags": [
+				{ "enumValueId": "WALKABLE", "tileIds": [] },
+				{ "enumValueId": "MELTY", "tileIds": [] },
+				{ "enumValueId": "SLIPPERY", "tileIds": [] },
+				{ "enumValueId": "SOLID", "tileIds": [] },
+				{ "enumValueId": "INVISIBLE", "tileIds": [] },
+				{ "enumValueId": "ONEWAY", "tileIds": [] }
+			],
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": { "opaqueTiles": "0111", "averageColors": "0000facff7c4f853" }
@@ -589,7 +596,14 @@
 			"padding": 0,
 			"tags": [],
 			"tagsSourceEnumUid": 199,
-			"enumTags": [ { "enumValueId": "WALKABLE", "tileIds": [1,2] }, { "enumValueId": "MELTY", "tileIds": [2] }, { "enumValueId": "SLIPPERY", "tileIds": [1] } ],
+			"enumTags": [
+				{ "enumValueId": "WALKABLE", "tileIds": [1,2] },
+				{ "enumValueId": "MELTY", "tileIds": [2] },
+				{ "enumValueId": "SLIPPERY", "tileIds": [1] },
+				{ "enumValueId": "SOLID", "tileIds": [] },
+				{ "enumValueId": "INVISIBLE", "tileIds": [] },
+				{ "enumValueId": "ONEWAY", "tileIds": [] }
+			],
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": { "opaqueTiles": "011", "averageColors": "0000f58efdde" }
@@ -611,7 +625,10 @@
 		{ "identifier": "TileTags", "uid": 199, "values": [
 			{ "id": "WALKABLE", "tileRect": null, "color": 2204453 },
 			{ "id": "MELTY", "tileRect": null, "color": 12877343 },
-			{ "id": "SLIPPERY", "tileRect": null, "color": 570618 }
+			{ "id": "SLIPPERY", "tileRect": null, "color": 570618 },
+			{ "id": "SOLID", "tileRect": null, "color": 15389866 },
+			{ "id": "INVISIBLE", "tileRect": null, "color": 14984818 },
+			{ "id": "ONEWAY", "tileRect": null, "color": 7552569 }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [
 		{ "identifier": "FmodSong", "uid": 223, "values": [{ "id": "LetsGo", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "0080d688207c3c09e857d8384f72fa45", "tags": [] },
