@@ -211,6 +211,7 @@ class GameBoard {
 							if (checkObj.type == HAZARD) {
 								dirty = true;
 								cur.push(new Collide(targetObj, checkObj));
+								current.removeObj(checkObj);
 								targetObj.index = current.vecToIndex(checkXY);
 								cur.push(new Slide(targetObj, nextXY, checkXY));
 							} else {
