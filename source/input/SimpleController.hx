@@ -66,7 +66,6 @@ class SimpleController {
 		for (swipe in FlxG.swipes)
 		{
 			var dir = radiansToDirection(swipe.radians);
-			trace(dir, swipe.radians);
 			if (dir == button) {
 				return true;
 			}
@@ -78,6 +77,10 @@ class SimpleController {
 	static var THREE_QUARTERS_PI = QUARTER_PI * 3;
 
 	static function radiansToDirection(radians:Float):Null<Button> {
+		if (radians == 0) {
+			return null;
+		}
+
 		if (radians <= -QUARTER_PI && radians > -THREE_QUARTERS_PI) {
 			return UP;
 		} else if (radians >= -QUARTER_PI && radians < QUARTER_PI) {
