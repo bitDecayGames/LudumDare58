@@ -14,12 +14,15 @@ import events.EventBus;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.text.FlxBitmapText;
+import ui.SealsCollectedText;
 
 using states.FlxStateExt;
 
 class PlayState extends FlxTransitionableState {
 	var player:FlxSprite;
 	var midGroundGroup = new FlxGroup();
+	var uiGroup = new FlxGroup();
 	var activeCameraTransition:CameraTransition = null;
 
 	var transitions = new FlxTypedGroup<CameraTransition>();
@@ -40,7 +43,10 @@ class PlayState extends FlxTransitionableState {
 
 		// Build out our render order
 		add(midGroundGroup);
+		add(uiGroup);
 		add(transitions);
+
+		uiGroup.add(new SealsCollectedText());
 
 		loadLevel("Level_0");
 	}

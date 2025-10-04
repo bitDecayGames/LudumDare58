@@ -75,5 +75,19 @@
 				"type": "String"
 			}
 		]
+	},{
+		"name": "seal_collected",
+		"fields": [
+			{
+				"name": "num_collected",
+				"note": "number of seals collected",
+				"type": "Int"
+			},
+			{
+				"name": "total",
+				"note": "total seals in level",
+				"type": "Int"
+			}
+		]
 	}
 ]

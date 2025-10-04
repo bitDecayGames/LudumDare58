@@ -12,7 +12,7 @@ import events.IEvent.EventReducer;
  * Files used to generate these types:
  * ../assets/data/events/types.json
  *
- * Input Hash: f120b78ca86015591d353c723ba50fee
+ * Input Hash: 6e45a013da3e69c80777fc867d618a4c
  */
 
 class MetaRegistry {
@@ -159,5 +159,19 @@ class Achieve implements events.IEvent {
 
 	public function new(name:String) {
 		this.name = name;
+	}
+}
+
+class SealCollected implements events.IEvent {
+	public final type:String = "seal_collected";
+	public final reducers:Array<EventReducer> = [];
+	public var id:Int;
+
+	public var num_collected:Int;
+	public var total:Int;
+
+	public function new(num_collected:Int, total:Int) {
+		this.num_collected = num_collected;
+		this.total = total;
 	}
 }
