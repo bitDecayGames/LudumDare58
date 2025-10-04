@@ -67,9 +67,10 @@ class Level {
 			}
 		}
 
-		var gobjSpawn = new GameBoardObject();
-		// gobjSpawn.
-		initialBoardState.addObj(gobjSpawn);
+		var spawnObj = new GameBoardObject();
+		spawnObj.type = SPAWN;
+		spawnObj.index = initialBoardState.xyToIndex(sp.cx, sp.cy);
+		initialBoardState.addObj(spawnObj);
 	}
 
 	function parseCameraZones(zoneDefs:Array<Ldtk.Entity_CameraZone>) {
