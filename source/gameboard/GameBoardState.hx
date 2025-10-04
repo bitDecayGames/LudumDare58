@@ -19,6 +19,7 @@ inline final COLLECTABLE:ObjectType = 2;
 inline final COLLECTED_COLLECTABLE:ObjectType = 3;
 inline final BLOCK:ObjectType = 4;
 inline final HAZARD:ObjectType = 5;
+inline final SPAWN:ObjectType = 6;
 inline final EXIT:ObjectType = -1;
 
 class GameBoardState {
@@ -28,6 +29,8 @@ class GameBoardState {
 
 	private final tileData:Vector<TileType>;
 	private final objData:Array<GameBoardObject>;
+
+	private static var idCounter:Int = 0;
 
 	public function new(width:Int, height:Int) {
 		this.width = width;
@@ -57,6 +60,10 @@ class GameBoardState {
 		v[0] = index % width;
 		v[1] = Std.int(index / width);
 		return v;
+	}
+
+	public function xyToIndex(x:Int, y:Int):Int {
+		return y * width + x;
 	}
 
 	public function setTile(x:Int, y:Int, v:TileType) {
@@ -101,7 +108,15 @@ class GameBoardState {
 	}
 
 	public function addObj(v:GameBoardObject) {
+		if (v.id <= 0) {
+			idCounter++;
+			v.id = idCounter;
+		}
 		objData.push(v);
+	}
+
+	public function removeObj(v:GameBoardObject) {
+		objData.remove(v);
 	}
 
 	public function save():Vector<Int> {

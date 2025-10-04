@@ -70,11 +70,15 @@ class PlayState extends FlxTransitionableState {
 		var level = new Level(levelName);
 		FmodPlugin.playSong(level.raw.f_Music);
 
-		var playerObj = new GameBoardObject();
-		playerObj.type = PLAYER;
 
 		var gbState = level.initialBoardState;
+
+		var spawnObj = gbState.findObjType(SPAWN);
+		var playerObj = new GameBoardObject();
+		playerObj.type = PLAYER;
+		playerObj.index = spawnObj.index;
 		gbState.addObj(playerObj);
+		gbState.removeObj(spawnObj);
 
 		gameBoard = new GameBoard(gbState);
 
