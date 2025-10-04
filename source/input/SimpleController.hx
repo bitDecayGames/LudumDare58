@@ -46,9 +46,7 @@ class SimpleController {
 	];
 
 	public static function pressed(button:Button, player:Int = 0):Bool {
-		return pressed_key(button, player) ||
-			pressed_pad(button, player) ||
-			pressed_swipe(button, player);
+		return pressed_key(button, player) || pressed_pad(button, player);
 	}
 
 	static function pressed_key(button:Button, player:Int):Bool {
@@ -62,7 +60,7 @@ class SimpleController {
 		return gamepads[player].anyPressed(pad_bindings[button]);
 	}
 
-	static function pressed_swipe(button:Button, player:Int):Bool {
+	static function swipe_complete(button:Button, player:Int):Bool {
 		for (swipe in FlxG.swipes)
 		{
 			var dir = radiansToDirection(swipe.radians);
@@ -110,7 +108,9 @@ class SimpleController {
 	}
 
 	public static function just_released(button:Button, player:Int = 0):Bool {
-		return just_released_key(button, player) || just_released_pad(button, player);
+		return just_released_key(button, player) ||
+			just_released_pad(button, player) ||
+			swipe_complete(button, player);
 	}
 
 	static function just_released_key(button:Button, player:Int):Bool {

@@ -20,7 +20,7 @@ newgrounds 2.0.0
 ldtk-haxe-api 1.5.3-rc.1
 
 # bitDecayGames deps
-bitdecaybtree git https://github.com/bitDecayGames/BehaviorTree.git
+# bitdecaybtree git https://github.com/bitDecayGames/BehaviorTree.git
 bitlytics git https://github.com/bitDecayGames/Bitlytics.git
 flixelutils git https://github.com/bitDecayGames/flixel-utils.git
 

@@ -1,5 +1,9 @@
 package states;
 
+import bitdecay.flixel.spacial.Cardinal;
+import input.SimpleController;
+import gameboard.GameBoardState;
+import gameboard.GameBoard;
 import todo.TODO;
 import flixel.group.FlxGroup;
 import flixel.math.FlxRect;
@@ -20,7 +24,7 @@ import ui.SealsCollectedText;
 using states.FlxStateExt;
 
 class PlayState extends FlxTransitionableState {
-	var player:FlxSprite;
+	var player:Player;
 	var midGroundGroup = new FlxGroup();
 	var uiGroup = new FlxGroup();
 	var activeCameraTransition:CameraTransition = null;
@@ -28,6 +32,7 @@ class PlayState extends FlxTransitionableState {
 	var transitions = new FlxTypedGroup<CameraTransition>();
 
 	var ldtk = new LdtkProject();
+	var gameBoard:GameBoard;
 
 	override public function create() {
 		super.create();
@@ -53,6 +58,17 @@ class PlayState extends FlxTransitionableState {
 
 	function loadLevel(level:String) {
 		unload();
+
+		var gbState = new GameBoardState(3);
+		for (i in 0...gbState.length) {
+			var tPos = gbState.indexToXY(i);
+			gbState.setTile(tPos[0], tPos[1], WALKABLE);
+		}
+		var playerObj = new GameBoardObject();
+		playerObj.type = PLAYER;
+		gbState.addObj(playerObj);
+
+		gameBoard = new GameBoard(gbState);
 
 		var level = new Level(level);
 		FmodPlugin.playSong(level.raw.f_Music);
@@ -95,8 +111,30 @@ class PlayState extends FlxTransitionableState {
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.mouse.justPressed) {
-			EventBus.fire(new Click(FlxG.mouse.x, FlxG.mouse.y));
+		// if (FlxG.mouse.justPressed) {
+		// 	EventBus.fire(new Click(FlxG.mouse.x, FlxG.mouse.y));
+		// }
+
+		var moveDir = Cardinal.NONE;
+		if (SimpleController.just_released(UP)) {
+			moveDir = Cardinal.N;
+		} else if (SimpleController.just_released(RIGHT)) {
+			moveDir = Cardinal.E;
+		} else if (SimpleController.just_released(DOWN)) {
+			moveDir = Cardinal.S;
+		} else if (SimpleController.just_released(LEFT)) {
+			moveDir = Cardinal.W;
+		}
+
+		if (moveDir != Cardinal.NONE) {
+			var moveRes = gameBoard.move(moveDir);
+			if (moveRes == SUCCESS) {
+				var playerObj = gameBoard.current.getPlayer();
+				var playerPos = gameBoard.current.indexToXY(playerObj.index);
+				player.x = playerPos[0] * player.width;
+				player.y = playerPos[1] * player.height;
+				player.facing = FlxDirectionFlags.fromInt(moveDir.asFacing());
+			}
 		}
 
 		FlxG.collide(midGroundGroup, player);

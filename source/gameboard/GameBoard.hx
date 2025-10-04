@@ -28,6 +28,7 @@ class GameBoard {
 
 	public function new(initial:GameBoardState) {
 		this.initial = initial;
+		this.current = initial;
 	}
 
 	public function undo() {
@@ -45,7 +46,7 @@ class GameBoard {
 	}
 
 	public function move(dir:Cardinal):MoveResult {
-		var playerObj = current.findObjType(PLAYER);
+		var playerObj = current.getPlayer();
 		if (playerObj == null) {
 			return LOSE;
 		}

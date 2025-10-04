@@ -2,7 +2,7 @@ package;
 
 import achievements.Achievements;
 import bitdecay.flixel.debug.DebugSuite;
-import bitdecay.flixel.debug.tools.btree.BTreeInspector;
+// import bitdecay.flixel.debug.tools.btree.BTreeInspector;
 import bitdecay.flixel.debug.tools.draw.DebugDraw;
 import events.EventBus;
 import audio.FmodPlugin;
@@ -94,7 +94,7 @@ class Main extends Sprite {
 	}
 
 	private function configureDebug() {
-		DebugSuite.init(new DebugDraw(Type.allEnums(DebugLayers)), new BTreeInspector(), new EventLog());
+		DebugSuite.init(new DebugDraw(Type.allEnums(DebugLayers)),/* new BTreeInspector(),*/ new EventLog());
 
 		#if debug
 		var fnt = Assets.getFont(AssetPaths.Brain_Slab_8__ttf);
