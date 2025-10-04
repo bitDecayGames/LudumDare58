@@ -199,7 +199,7 @@ class GameBoard {
 		var targetDropped = false;
 		while (playerDirty || pushDirty) {
 			playerDirty = false;
-			playerDirty = false;
+			pushDirty = false;
 			if (targetObj != null && targetObj.type == BLOCK) {
 				switch (nextTile) {
 					case EMPTY | HOLE:
