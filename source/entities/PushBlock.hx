@@ -49,6 +49,7 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 				FmodPlugin.playSFX(FmodSFX.BearSplash);
 				// TODO: splash animation?
 				kill();
+				new Splash(x, y);
 				return null;
 			case Bump:
 				return new BumpCompletable(this, r.dir);
