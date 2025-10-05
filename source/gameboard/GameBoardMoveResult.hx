@@ -141,6 +141,17 @@ class Crumble extends GameBoardMoveResult {
 	}
 }
 
+class Melt extends GameBoardMoveResult {
+	public function new(pos:Vector<Int>) {
+		gameObj = null;
+		this.startPos = pos;
+	}
+
+	public function toString():String {
+		return 'Melt(${startPos})';
+	}
+}
+
 class Die extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, pos:Vector<Int>) {
 		this.gameObj = gameObj;

@@ -6,6 +6,7 @@ typedef TileType = Int;
 inline final EMPTY:TileType = 0;
 inline final SOLID:TileType = 5;
 inline final WALKABLE:TileType = 2;
+inline final NON_MELTABLE_WALKABLE:TileType = 7;
 inline final SLIDING:TileType = 1;
 inline final WALKABLE_BREAKABLE:TileType = 4;
 inline final SLIDING_BREAKABLE:TileType = 3;
