@@ -234,7 +234,7 @@ class PlayState extends FlxTransitionableState {
 			level.terrainLayer.setTileIndex(idx, tile, true);
 			// Reset game objects
 			for (o in objs) {
-				var gro = objectMap.get(o.id);
+				var gro = level.renderObjectsById.get(o.id);
 				if (gro != null) {
 					var spr:FlxSprite = cast gro;
 					spr.revive();
@@ -252,10 +252,6 @@ class PlayState extends FlxTransitionableState {
 	function reset() {
 		gameBoard.reset();
 		syncRenderState();
-	}
-
-	function bind(boardObj:GameBoardObject, renderObj:GameRenderObject) {
-		objectMap.set(boardObj.id, renderObj);
 	}
 
 	function prepNextResolutionPhase() {

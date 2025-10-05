@@ -1,5 +1,6 @@
 package entities;
 
+import coordination.Completable;
 import flixel.math.FlxPoint;
 import bitdecay.flixel.spacial.Cardinal;
 import flixel.util.FlxDirection;
@@ -30,11 +31,11 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 		offset.y = vOffset;
 	}
 
-	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):FlxTween {
+	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):Completable {
 		var dest = r.endPos;
 		var t = Type.getClass(r);
 		if (t == Move || t == Slide) {
-			return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
+			return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6));
 		}
 		return null;
 	}
