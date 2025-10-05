@@ -99,10 +99,6 @@ class Player extends FlxSprite implements GameRenderObject {
 		// 	velocity.set();
 		// }
 
-		if (SimpleController.just_pressed(Button.A, playerNum)) {
-			color = color ^ 0xFFFFFF;
-		}
-
 		updateCurrentAnimation();
 		FlxG.watch.add(this, "facing", "Facing: ");
 
