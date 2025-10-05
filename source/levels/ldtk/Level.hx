@@ -171,12 +171,16 @@ class Level {
 	}
 
 	function parseExits(defs:Array<Ldtk.Entity_Exit>) {
-		for (v in defs) {
+		for (b in defs) {
 			var obj = new GameBoardObject();
-			obj.index = initialBoardState.xyToIndex(v.cx, v.cy);
+			obj.index = initialBoardState.xyToIndex(b.cx, b.cy);
 			obj.type = EXIT;
 			initialBoardState.addObj(obj);
-			var v = new ExitObj(obj.id, v.pixelX, v.pixelY, FlxPoint.get(v.pixelX + 100, v.pixelY), player);
+			var jumpTo = FlxPoint.get(b.pixelX + 100, b.pixelY);
+			if (b.f_JumpTo != null) {
+				jumpTo.set(b.f_JumpTo.cx * 32, b.f_JumpTo.cy * 32);
+			}
+			var v = new ExitObj(obj.id, b.pixelX, b.pixelY, jumpTo, player);
 			renderObjectsById.set(v.getId(), v);
 			exits.push(v);
 		}

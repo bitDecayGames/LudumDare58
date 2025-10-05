@@ -45,6 +45,7 @@ class ExitObj extends FlxSprite implements GameRenderObject {
 		var t = Type.getClass(r);
 		switch (t) {
 			case Win:
+				kill();
 				new PlayerWin(x, y, jumpTo, player.isBloody, goLeft);
 				return new NeverCompletable();
 			default:
