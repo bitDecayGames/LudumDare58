@@ -1,5 +1,7 @@
 package gameboard;
 
+import gameboard.GameBoardState.WALKABLE;
+import gameboard.GameBoardMoveResult.Melt;
 import gameboard.GameBoardMoveResult.Shove;
 import gameboard.GameBoardMoveResult.Win;
 import gameboard.GameBoardMoveResult.Die;
@@ -106,6 +108,10 @@ class GameBoard {
 		} else {
 			cur.push(new Move(playerObj, xy, targetXY, dir));
 			playerObj.index = current.vecToIndex(targetXY);
+		}
+		if (!playerStandingStill && currentTile == WALKABLE) {
+			current.setTile(xy[0], xy[1], SLIDING);
+			cur.push(new Melt(xy));
 		}
 		if (targetObj != null && targetObj.type == COLLECTABLE) {
 			cur.push(new Collect(playerObj, targetObj));

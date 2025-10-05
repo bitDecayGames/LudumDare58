@@ -302,7 +302,11 @@ class PlayState extends FlxTransitionableState {
 		gameBoard.current.iterTilesObjs((idx:Int, x:Int, y:Int, tile:Null<TileType>, objs:Array<GameBoardObject>) -> {
 			// Reset tile
 			if (tile != null) {
-				level.tilesById.get(idx).setTileType(tile);
+				var t = level.tilesById.get(idx);
+				if (!t.alive) {
+					t.revive();
+				}
+				t.setTileType(tile);
 			}
 			// Reset game objects
 			for (o in objs) {
@@ -347,7 +351,9 @@ class PlayState extends FlxTransitionableState {
 					pendingResolutions.push(t);
 				}
 			} else if (m is Crumble) {
-				// TODO: handle Crumble event
+				level.tilesById.get(gameBoard.current.xyToIndex(m.startPos[0], m.startPos[1])).handleGameResult(m, gameBoard);
+			} else if (m is Melt) {
+				level.tilesById.get(gameBoard.current.xyToIndex(m.startPos[0], m.startPos[1])).handleGameResult(m, gameBoard);
 			}
 		}
 	}
