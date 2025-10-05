@@ -907,7 +907,7 @@
    { "name": "SlipSide", "from": 66, "to": 67, "direction": "forward", "color": "#000000ff" },
    { "name": "SideBlink", "from": 68, "to": 68, "direction": "forward", "color": "#000000ff" },
    { "name": "FlavorSide", "from": 69, "to": 89, "direction": "forward", "color": "#000000ff" },
-   { "name": "Splash", "from": 90, "to": 97, "direction": "forward", "color": "#000000ff" }
+   { "name": "Splash", "from": 90, "to": 97, "direction": "forward", "repeat": "1", "color": "#000000ff" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 115, "blendMode": "normal" },
