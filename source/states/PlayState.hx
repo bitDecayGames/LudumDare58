@@ -29,6 +29,7 @@ import achievements.Achievements;
 import entities.Player;
 #if debug
 import entities.PlayerWin;
+import flixel.math.FlxPoint;
 #end
 import events.gen.Event;
 import events.EventBus;
@@ -211,6 +212,9 @@ class PlayState extends FlxTransitionableState {
 		for (hazard in level.hazards) {
 			actionGroup.add(hazard);
 		}
+		for (exit in level.exits) {
+			actionGroup.add(exit);
+		}
 
 		Collectables.initLevel(level.name, level.collectables.length);
 
@@ -314,7 +318,7 @@ class PlayState extends FlxTransitionableState {
 				#if debug
 				if (FlxG.keys.justPressed.SPACE) {
 					var mousePos = FlxG.mouse.getWorldPosition();
-					new PlayerWin(mousePos.x, mousePos.y, true, false);
+					new PlayerWin(mousePos.x, mousePos.y, FlxPoint.get(mousePos.x + 100, mousePos.y), true, false);
 				}
 				#end
 		}

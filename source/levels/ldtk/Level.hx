@@ -1,5 +1,6 @@
 package levels.ldtk;
 
+import entities.ExitObj;
 import entities.WaterFlavor.IceBlock2;
 import entities.WaterFlavor.JumpingFish;
 import entities.WaterFlavor.IceBlock1;
@@ -44,6 +45,7 @@ class Level {
 	public var hazards = new Array<FlxSprite>(); // TODO: make this an entity type for our game
 	public var collectables = new Array<Seal>();
 	public var tiles = new Array<Tile>();
+	public var exits = new Array<FlxSprite>();
 
 	public var camZones:Map<String, FlxRect>;
 	public var camTransitions:Array<CameraTransition>;
@@ -89,6 +91,7 @@ class Level {
 		parseCollectables(raw.l_Objects.all_Collectable);
 		parseTiles(terrainLayer);
 		parseWaterFlavor(raw.l_Objects.all_Ice1, raw.l_Objects.all_Ice2, raw.l_Objects.all_JumpingFish);
+		parseExits(raw.l_Objects.all_Exit);
 	}
 
 	function parseCameraZones(zoneDefs:Array<Ldtk.Entity_CameraZone>) {
@@ -164,6 +167,18 @@ class Level {
 			var v = new Seal(obj.id, v.pixelX, v.pixelY);
 			renderObjectsById.set(v.getId(), v);
 			collectables.push(v);
+		}
+	}
+
+	function parseExits(defs:Array<Ldtk.Entity_Exit>) {
+		for (v in defs) {
+			var obj = new GameBoardObject();
+			obj.index = initialBoardState.xyToIndex(v.cx, v.cy);
+			obj.type = EXIT;
+			initialBoardState.addObj(obj);
+			var v = new ExitObj(obj.id, v.pixelX, v.pixelY, FlxPoint.get(v.pixelX + 100, v.pixelY), player);
+			renderObjectsById.set(v.getId(), v);
+			exits.push(v);
 		}
 	}
 

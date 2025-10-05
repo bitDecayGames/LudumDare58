@@ -100,7 +100,6 @@ class Player extends FlxSprite implements GameRenderObject {
 
 		// Play footstep sound on specific frames
 		if (name == anims.PushDown || name == anims.PushUp) {
-			
 			if (frameNumber == 2 || frameNumber == 5) {
 				if (lastGameBoardMoveResult != null) {
 					var boardTileType = Type.getClass(lastGameBoardMoveResult);
@@ -108,20 +107,19 @@ class Player extends FlxSprite implements GameRenderObject {
 						return;
 					}
 				}
-			} 
+			}
 
 			FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
 		}
 		if (name == anims.PushSide) {
-
 			if (frameNumber == 1 || frameNumber == 5) {
 				if (lastGameBoardMoveResult != null) {
 					var boardTileType = Type.getClass(lastGameBoardMoveResult);
 					if (boardTileType == WheelSpin) {
 						return;
 					}
-				}	
-			} 
+				}
+			}
 
 			if (frameNumber == 1 || frameNumber == 5) {
 				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
@@ -262,6 +260,8 @@ class Player extends FlxSprite implements GameRenderObject {
 				return null;
 			case Win:
 				// the Win event is handled in the ExitObj
+				kill();
+				return null;
 			case Collect:
 				setBloody(true);
 				return null;
