@@ -36,9 +36,12 @@ using states.FlxStateExt;
 enum abstract InteractState(String) {
 	var RESOLVING = "resolving";
 	var AWAITING_INPUT = "awaitingInput";
+	var TRANSITIONING = "transitioning";
 }
 
 class PlayState extends FlxTransitionableState {
+	public static var ME:PlayState = null;
+
 	var player:Player;
 	var bgGroup = new FlxGroup();
 	var midGroundGroup = new FlxGroup();
@@ -61,6 +64,8 @@ class PlayState extends FlxTransitionableState {
 	public function new(levelIID:String = "") {
 		super();
 		startingLevel = levelIID;
+
+		ME = this;
 	}
 
 	override public function create() {
@@ -120,6 +125,15 @@ class PlayState extends FlxTransitionableState {
 		loadLevel(startingLevel);
 
 		FlxG.watch.add(this, "interactState", "Game State: ");
+	}
+
+	public function levelTransition(levelName:String) {
+		interactState = TRANSITIONING;
+		camera.fade(() -> {
+			loadLevel(levelName);
+			camera.fade(true);
+			interactState = RESOLVING;
+		});
 	}
 
 	function loadLevel(levelName:String) {
@@ -206,6 +220,8 @@ class PlayState extends FlxTransitionableState {
 
 	override public function update(elapsed:Float) {
 		switch interactState {
+			case TRANSITIONING:
+				// nothing to do. just wait for our transition to end
 			case RESOLVING:
 				var phaseDone = true;
 				for (t in pendingResolutions) {
