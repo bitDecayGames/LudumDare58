@@ -64,7 +64,11 @@ class PlayState extends FlxTransitionableState {
 
 	public function new(levelIID:String = "") {
 		super();
-		startingLevel = levelIID;
+		if (levelIID == "") {
+			startingLevel = "Level_1";
+		} else {
+			startingLevel = levelIID;
+		}
 
 		ME = this;
 	}
@@ -285,8 +289,6 @@ class PlayState extends FlxTransitionableState {
 
 		FlxG.collide(midGroundGroup, player);
 		handleCameraBounds();
-
-		TODO.sfx('scarySound');
 	}
 
 	function syncRenderState() {

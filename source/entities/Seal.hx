@@ -60,9 +60,8 @@ class Seal extends FlxSprite implements GameRenderObject {
 		var t = Type.getClass(r);
 		if (t == Collect && animation.curAnim.name != anims.Dead) {
 			animTimer.cancel();
-			TODO.sfx('seal murdered/eaten by player');
 			animation.play(anims.Dead);
-			FmodPlugin.playSFX(FmodSFX.SealDie);
+			FmodPlugin.playSFX(FmodSFX.SealCrunch2);
 		}
 		return null;
 	}
