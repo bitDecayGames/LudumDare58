@@ -22,6 +22,12 @@ abstract class GameBoardMoveResult {
 	public var startPos:Vector<Int>;
 	public var endPos:Vector<Int>;
 	public var dir:Cardinal;
+
+	function setDir() {
+		var tmp = FlxPoint.get(endPos[0], endPos[1]);
+		dir = Cardinal.closest(tmp.subtract(startPos[0], startPos[1]), true);
+		tmp.put();
+	}
 }
 
 class Move extends GameBoardMoveResult {
@@ -29,9 +35,7 @@ class Move extends GameBoardMoveResult {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
-		var tmp = FlxPoint.get(endPos[0], endPos[1]);
-		dir = Cardinal.closest(tmp.subtract(startPos[0], startPos[1]), true);
-		tmp.put();
+		setDir();
 	}
 
 	public function toString():String {
@@ -44,6 +48,7 @@ class Slide extends GameBoardMoveResult {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
+		setDir();
 	}
 
 	public function toString():String {
@@ -55,6 +60,7 @@ class Bump extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, dir:Cardinal) {
 		this.gameObj = gameObj;
 		this.dir = dir;
+		setDir();
 	}
 
 	public function toString():String {
@@ -68,6 +74,7 @@ class Collide extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, other:GameBoardObject) {
 		this.gameObj = gameObj;
 		this.other = other;
+		setDir();
 	}
 
 	public function toString():String {
