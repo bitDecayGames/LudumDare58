@@ -1,5 +1,6 @@
 package entities;
 
+import coordination.Completable;
 import flixel.math.FlxPoint;
 import bitdecay.flixel.spacial.Cardinal;
 import flixel.util.FlxDirection;
@@ -21,6 +22,7 @@ class Player extends FlxSprite implements GameRenderObject {
 
 	public static var RUN = "Run";
 	public static var SLIP = "Slip";
+	public static var DROP = "Splash";
 	public static var PUSH = "Push";
 
 	var speed:Float = 150;
@@ -68,19 +70,32 @@ class Player extends FlxSprite implements GameRenderObject {
 		lastPosition.set(x, y);
 	}
 
+	var standBuffer = 2;
+	var currentBuff = 0;
+
 	function updateCurrentAnimation() {
+		if (animation.name != null && animation.name == anims.Splash) {
+			// XXX: Hacky, but we don't want to be able to cancel this one
+			return;
+		}
+
 		// player only moves in cardinal directions with potential modifiers
 
 		var pDiff = getPosition(FlxPoint.weak()).subtractPoint(lastPosition);
 
 		FlxG.watch.addQuick("pDiff: ", pDiff);
 
-		var intendedAnim = anims.StandDown;
+		var intendedAnim = animPrefix;
 
-		if (pDiff.length > 0) {
-			intendedAnim = animPrefix;
+		if (pDiff.length == 0) {
+			// we allow animations to play for a couple frames to make transitions
+			// feel better visually
+			currentBuff++;
+			if (currentBuff >= standBuffer) {
+				intendedAnim = "Stand";
+			}
 		} else {
-			intendedAnim = "Stand";
+			currentBuff = 0;
 		}
 		
 		flipX = false;
@@ -101,12 +116,13 @@ class Player extends FlxSprite implements GameRenderObject {
 	function playAnimIfNotAlready(name:String, playInReverse:Bool, ?forceAnimationRefresh:Bool):Bool {
 		if (animation.curAnim == null || animation.curAnim.name != name || forceAnimationRefresh) {
 			animation.play(name, true, playInReverse);
+			// animation.timeScale = 2.0;
 			return true;
 		}
 		return false;
 	}
 
-	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):FlxTween {
+	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):Completable {
 		var dest = r.endPos;
 		facing = FlxDirectionFlags.fromInt(r.dir.asFacing());
 
@@ -116,11 +132,16 @@ class Player extends FlxSprite implements GameRenderObject {
 		if (t == Move) {
 			animPrefix = RUN;
 			QLog.notice('Move to ${dest}');
-			return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
+			return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6));
 		} else if (t == Slide) {
 			animPrefix = SLIP;
 			QLog.notice('Slip to ${dest}');
-			return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
+			return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6));
+		} else if (t == Drop) {
+			animPrefix = DROP;
+			QLog.notice('Slip');
+			animation.play(anims.Splash);
+			return new AnimationCompletable(animation, anims.Splash);
 		}
 
 		// The animation for walking takes 0.6 seconds to loop. So that's the basis for why this is 0.6
