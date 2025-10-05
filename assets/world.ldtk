@@ -157,8 +157,8 @@
 			"maxCount": 1,
 			"limitScope": "PerLevel",
 			"limitBehavior": "MoveLastOne",
-			"pivotX": 0.5,
-			"pivotY": 1,
+			"pivotX": 0,
+			"pivotY": 0,
 			"fieldDefs": []
 		},
 		{
@@ -872,8 +872,8 @@
 					"entityInstances": [
 						{
 							"__identifier": "Spawn",
-							"__grid": [7,5],
-							"__pivot": [0.5,1],
+							"__grid": [7,6],
+							"__pivot": [0,0],
 							"__tags": [ "Player", "LevelElement" ],
 							"__tile": null,
 							"__smartColor": "#32349D",
@@ -1292,8 +1292,8 @@
 						},
 						{
 							"__identifier": "Spawn",
-							"__grid": [7,8],
-							"__pivot": [0.5,1],
+							"__grid": [7,9],
+							"__pivot": [0,0],
 							"__tags": [ "Player", "LevelElement" ],
 							"__tile": null,
 							"__smartColor": "#32349D",
@@ -1477,8 +1477,8 @@
 						},
 						{
 							"__identifier": "Spawn",
-							"__grid": [8,7],
-							"__pivot": [0.5,1],
+							"__grid": [8,8],
+							"__pivot": [0,0],
 							"__tags": [ "Player", "LevelElement" ],
 							"__tile": null,
 							"__smartColor": "#32349D",
@@ -1640,8 +1640,8 @@
 						},
 						{
 							"__identifier": "Spawn",
-							"__grid": [9,5],
-							"__pivot": [0.5,1],
+							"__grid": [9,6],
+							"__pivot": [0,0],
 							"__tags": [ "Player", "LevelElement" ],
 							"__tile": null,
 							"__smartColor": "#32349D",
