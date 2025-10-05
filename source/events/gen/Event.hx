@@ -12,7 +12,7 @@ import events.IEvent.EventReducer;
  * Files used to generate these types:
  * ../assets/data/events/types.json
  *
- * Input Hash: 6e45a013da3e69c80777fc867d618a4c
+ * Input Hash: f6fde9111bc8b2ec7670a051f0cb6f34
  */
 
 class MetaRegistry {
