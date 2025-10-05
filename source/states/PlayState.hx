@@ -136,6 +136,9 @@ class PlayState extends FlxTransitionableState {
 		for (hazard in level.hazards) {
 			add(hazard);
 		}
+		for (collectable in level.collectables) {
+			add(collectable);
+		}
 
 		gameBoard = new GameBoard(gbState);
 

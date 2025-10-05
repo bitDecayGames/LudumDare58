@@ -34,6 +34,7 @@ class Level {
 	public var player:Player;
 	public var blocks = new Array<PushBlock>();
 	public var hazards = new Array<FlxSprite>(); // TODO: make this an entity type for our game
+	public var collectables = new Array<FlxSprite>(); // TODO: make this an entity type for our game
 
 	public var camZones:Map<String, FlxRect>;
 	public var camTransitions:Array<CameraTransition>;
@@ -71,7 +72,8 @@ class Level {
 		parseCameraZones(raw.l_Objects.all_CameraZone);
 		parseCameraTransitions(raw.l_Objects.all_CameraTransition);
 		parseBlocks(raw.l_Objects.all_Block);
-		parseHazard(raw.l_Objects.all_Hazard);
+		parseHazards(raw.l_Objects.all_Hazard);
+		parseCollectables(raw.l_Objects.all_Collectable);
 
 		for (x in 0...terrainLayer.widthInTiles) {
 			for (y in 0...terrainLayer.heightInTiles) {
@@ -111,7 +113,7 @@ class Level {
 		}
 	}
 
-	function parseHazard(hazardDefs:Array<Ldtk.Entity_Hazard>) {
+	function parseHazards(hazardDefs:Array<Ldtk.Entity_Hazard>) {
 		for (b in hazardDefs) {
 			var obj = new GameBoardObject();
 			obj.index = initialBoardState.xyToIndex(b.cx, b.cy);
@@ -122,6 +124,20 @@ class Level {
 			// TODO: uncomment me
 			// renderObjectsById.set(v.getId(), v);
 			hazards.push(v);
+		}
+	}
+
+	function parseCollectables(defs:Array<Ldtk.Entity_Collectable>) {
+		for (v in defs) {
+			var obj = new GameBoardObject();
+			obj.index = initialBoardState.xyToIndex(v.cx, v.cy);
+			obj.type = COLLECTABLE;
+			initialBoardState.addObj(obj);
+			// TODO: create a collectable entity and swap this one out
+			var v = new FlxSprite(v.pixelX, v.pixelY);
+			// TODO: uncomment me
+			// renderObjectsById.set(v.getId(), v);
+			collectables.push(v);
 		}
 	}
 }
