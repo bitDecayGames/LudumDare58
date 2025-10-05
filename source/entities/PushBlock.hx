@@ -26,7 +26,7 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 		super(X, Y);
 		this.id = id;
 		Aseprite.loadAllAnimations(this, AssetPaths.crate__json);
-		var vOffset = height - 32;
+		var vOffset = height - 24;
 		width = 32;
 		height = 32;
 		offset.y = vOffset;

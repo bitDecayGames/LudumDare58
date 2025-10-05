@@ -34,6 +34,8 @@ class Player extends FlxSprite implements GameRenderObject {
 
 	var animPrefix = "";
 
+	var defaultOffset:Float;
+
 	public function new(id:Int, X:Float, Y:Float) {
 		super(X, Y);
 		this.id = id;
@@ -56,11 +58,11 @@ class Player extends FlxSprite implements GameRenderObject {
 				kill();
 			}
 		});
-		var vOffset = height - 32;
+		defaultOffset = height - 32;
 		width = 32;
 		height = 32;
 
-		offset.y = vOffset;
+		offset.y = defaultOffset;
 	}
 
 	function onWalkFrame(name:String, frameNumber:Int, frameIndex:Int) {
@@ -150,6 +152,11 @@ class Player extends FlxSprite implements GameRenderObject {
 
 	function playAnimIfNotAlready(name:String, playInReverse:Bool, ?forceAnimationRefresh:Bool):Bool {
 		if (animation.curAnim == null || animation.curAnim.name != name || forceAnimationRefresh) {
+			if (name == anims.PushDown) {
+				offset.y = defaultOffset - 18;
+			} else {
+				offset.y = defaultOffset;
+			}
 			animation.play(name, true, playInReverse);
 			// animation.timeScale = 2.0;
 			return true;
