@@ -91,7 +91,7 @@
    },
    {
     "filename": "seal 10.aseprite",
-    "frame": { "x": 96, "y": 32, "w": 32, "h": 32 },
+    "frame": { "x": 128, "y": 32, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -136,7 +136,7 @@
    },
    {
     "filename": "seal 15.aseprite",
-    "frame": { "x": 32, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -145,7 +145,7 @@
    },
    {
     "filename": "seal 16.aseprite",
-    "frame": { "x": 0, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 64, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -154,7 +154,7 @@
    },
    {
     "filename": "seal 17.aseprite",
-    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 32, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -217,7 +217,7 @@
    },
    {
     "filename": "seal 24.aseprite",
-    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 0, "y": 128, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -226,7 +226,7 @@
    },
    {
     "filename": "seal 25.aseprite",
-    "frame": { "x": 0, "y": 128, "w": 32, "h": 32 },
+    "frame": { "x": 128, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -253,7 +253,7 @@
    },
    {
     "filename": "seal 28.aseprite",
-    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 96, "y": 128, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -262,7 +262,16 @@
    },
    {
     "filename": "seal 29.aseprite",
-    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 128, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 30.aseprite",
+    "frame": { "x": 128, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -280,12 +289,14 @@
   "frameTags": [
    { "name": "Stand", "from": 1, "to": 1, "direction": "forward", "repeat": "1", "color": "#000000ff" },
    { "name": "StandBlink", "from": 2, "to": 2, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "StandTurn", "from": 3, "to": 6, "direction": "forward", "color": "#000000ff" },
-   { "name": "LayTransition", "from": 7, "to": 9, "direction": "forward", "color": "#000000ff" },
-   { "name": "Lay", "from": 10, "to": 10, "direction": "forward", "color": "#000000ff" },
-   { "name": "LayBlink", "from": 11, "to": 11, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "Yawn", "from": 12, "to": 16, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "Dead", "from": 17, "to": 29, "direction": "forward", "repeat": "1", "color": "#000000ff" }
+   { "name": "StandTurn", "from": 3, "to": 5, "direction": "forward", "color": "#000000ff" },
+   { "name": "StandL", "from": 6, "to": 6, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "BlinkL", "from": 7, "to": 7, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "LayTransition", "from": 8, "to": 10, "direction": "forward", "color": "#000000ff" },
+   { "name": "Lay", "from": 11, "to": 11, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "LayBlink", "from": 12, "to": 12, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "Yawn", "from": 13, "to": 17, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "Dead", "from": 18, "to": 30, "direction": "forward", "repeat": "1", "color": "#000000ff" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 115, "blendMode": "normal" },
