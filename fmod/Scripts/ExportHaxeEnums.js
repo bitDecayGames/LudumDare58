@@ -7,7 +7,7 @@
 studio.menu.addMenuItem({ 
     name: "Export Event Enums and Build",  
     execute: function() {displayDirectoryPickerModal()},
-    keySequence: "Ctrl+B",
+    keySequence: "Ctrl+K",
 });
 
 const constantsFileName = "FmodEventEnum.hx";

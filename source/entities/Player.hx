@@ -45,6 +45,9 @@ class Player extends FlxSprite implements GameRenderObject {
 		// 	}
 		// });
 
+		animation.onFrameChange.add(onWalkFrame);
+		animation.onFrameChange.add(onFallFrame);
+
 		animation.onFinish.add((name) -> {
 			if (name == anims.Splash) {
 				animPrefix = STAND;
@@ -58,6 +61,31 @@ class Player extends FlxSprite implements GameRenderObject {
 
 		offset.y = vOffset;
 	}
+
+	function onWalkFrame(name:String, frameNumber:Int, frameIndex:Int) {
+        trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
+        
+        // Play footstep sound on specific frames
+		if (name == anims.RunDown || name == anims.RunUp || name == anims.RunSide) {
+			if (frameNumber == 2 || frameNumber == 5) {
+				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
+        	}
+		}
+    }
+
+	function onFallFrame(name:String, frameNumber:Int, frameIndex:Int) {
+        trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
+        
+        // Play footstep sound on specific frames
+		if (name == anims.Splash) {
+			if (frameNumber == 0) {
+				FmodPlugin.playSFX(FmodSFX.BearFall);
+        	}
+			if (frameNumber == 3) {
+				FmodPlugin.playSFX(FmodSFX.BearSplash);
+        	}
+		}
+    }
 
 	override public function update(delta:Float) {
 		super.update(delta);
