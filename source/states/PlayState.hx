@@ -205,13 +205,13 @@ class PlayState extends FlxTransitionableState {
 				}
 			case AWAITING_INPUT:
 				var moveDir = Cardinal.NONE;
-				if (SimpleController.pressed(UP)) {
+				if (SimpleController.pressed(UP) || SimpleController.just_released(UP)) {
 					moveDir = Cardinal.N;
-				} else if (SimpleController.pressed(RIGHT)) {
+				} else if (SimpleController.pressed(RIGHT) || SimpleController.just_released(RIGHT)) {
 					moveDir = Cardinal.E;
-				} else if (SimpleController.pressed(DOWN)) {
+				} else if (SimpleController.pressed(DOWN) || SimpleController.just_released(DOWN)) {
 					moveDir = Cardinal.S;
-				} else if (SimpleController.pressed(LEFT)) {
+				} else if (SimpleController.pressed(LEFT) || SimpleController.just_released(LEFT)) {
 					moveDir = Cardinal.W;
 				}
 
