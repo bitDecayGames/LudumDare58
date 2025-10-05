@@ -42,7 +42,7 @@ class GameBoardState {
 	}
 
 	public function getTile(x:Int, y:Int):TileType {
-		var index = y * width + x;
+		var index = xyToIndex(x, y);
 		return getTileByIndex(index);
 	}
 
@@ -69,7 +69,7 @@ class GameBoardState {
 	}
 
 	public function setTile(x:Int, y:Int, v:TileType) {
-		var index = y * width + x;
+		var index = xyToIndex(x, y);
 		if (index >= length || index < 0) {
 			return;
 		}
@@ -77,12 +77,17 @@ class GameBoardState {
 	}
 
 	public function getObj(x:Int, y:Int):GameBoardObject {
-		var index = y * width + x;
+		var index = xyToIndex(x, y);
 		var f = objData.filter((o) -> o.index == index);
 		if (f.length == 0) {
 			return null;
 		}
 		return f[0];
+	}
+
+	public function getObjs(x:Int, y:Int):Array<GameBoardObject> {
+		var index = xyToIndex(x, y);
+		return objData.filter((o) -> o.index == index);
 	}
 
 	public function getPlayer():GameBoardObject {
@@ -121,6 +126,15 @@ class GameBoardState {
 		objData.remove(v);
 	}
 
+	public function iterTilesObjs(cb: (idx: Int, x:Int, y:Int, tile: Null<TileType>, objs: Array<GameBoardObject>) -> Void) {
+		trace('111111111111111 ${objData}');
+		for (idx in 0...length) {
+			var pos = indexToXY(idx);
+			cb(idx, pos[0], pos[1], getTileByIndex(idx), getObjs(pos[0], pos[1]));
+		}
+		trace('333333333333333 ${objData}');
+	}
+
 	public function save():Vector<Int> {
 		// 3 data points for each object, 2 'header' Ints for board size
 		var d = new Vector<Int>(length + objData.length * 3 + 2);
@@ -131,10 +145,13 @@ class GameBoardState {
 		}
 		for (i in 0...objData.length) {
 			// skip into our vector by our 2 header ints + 3 spaces for each object
-			d[2 + (i * 3) + 0] = objData[i].id;
-			d[2 + (i * 3) + 1] = objData[i].index;
-			d[2 + (i * 3) + 2] = objData[i].type;
+			var objIdx = 2 + (i * 3) + length;
+			d[objIdx + 0] = objData[i].id;
+			d[objIdx + 1] = objData[i].index;
+			d[objIdx + 2] = objData[i].type;
 		}
+		trace('333333333333333333 ${tileData}');
+		trace('444444444444444444 ${d}');
 		return d;
 	}
 
@@ -147,7 +164,9 @@ class GameBoardState {
 			g.tileData[i] = d[i + 2];
 		}
 
+		// TODO Fix this
 		for (i in 0...Std.int(d[1] / 3)) {
+			var objIdx = 2 + (i * 3) + g.length;
 			var o = new GameBoardObject();
 			o.id = d[0 + g.length + i + 2];
 			o.index = d[1 + g.length + i + 2];

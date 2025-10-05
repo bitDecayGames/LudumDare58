@@ -46,6 +46,7 @@ class PlayState extends FlxTransitionableState {
 	var transitions = new FlxTypedGroup<CameraTransition>();
 
 	var ldtk = new LdtkProject();
+	var level:Level;
 	var gameBoard:GameBoard;
 
 	var objectMap = new Map<Int, GameRenderObject>();
@@ -87,7 +88,7 @@ class PlayState extends FlxTransitionableState {
 		// Undo
 		var undoBtn = new FlxButton(0, hudOffset, null, () -> {
 			QLog.notice('undo');
-			gameBoard.undo();
+			undo();
 		});
 		undoBtn.loadGraphic(AssetPaths.undo__png);
 		undoBtn.screenCenter(X);
@@ -122,7 +123,7 @@ class PlayState extends FlxTransitionableState {
 		waterBG.velocity.set(10, -5);
 		bgGroup.add(waterBG);
 
-		var level = new Level(levelName);
+		level = new Level(levelName);
 		FmodPlugin.playSong(level.raw.f_Music);
 
 		var gbState = level.initialBoardState;
@@ -229,6 +230,24 @@ class PlayState extends FlxTransitionableState {
 		handleCameraBounds();
 
 		TODO.sfx('scarySound');
+	}
+
+	function undo() {
+		gameBoard.undo();
+		gameBoard.current.iterTilesObjs((idx: Int, x:Int, y:Int, tile: Null<TileType>, objs: Array<GameBoardObject>) -> {
+			var oldTile = level.terrainLayer.getTileIndex(x, y);
+			trace('00000000000 idx ${idx}, x ${x}, y ${y}, old tile ${oldTile}, tile ${tile}');
+			// Reset tile
+			level.terrainLayer.setTileIndex(idx, tile, true);
+			// Reset game objects
+			// for (o in objs) {
+			// 	var gro = objectMap.get(o.id);
+			// 	if (gro != null) {
+			// 		var spr: FlxSprite = cast gro;
+			// 		spr.setPosition(x, y);
+			// 	}
+			// }
+		});
 	}
 
 	function bind(boardObj:GameBoardObject, renderObj:GameRenderObject) {
