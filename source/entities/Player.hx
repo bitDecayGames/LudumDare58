@@ -137,8 +137,6 @@ class Player extends FlxSprite implements GameRenderObject {
 		facing = FlxDirectionFlags.fromInt(r.dir.asFacing());
 
 		var t = Type.getClass(r);
-		QLog.notice(t);
-
 		if (t == Move) {
 			animPrefix = RUN;
 			QLog.notice('Move to ${dest}');
