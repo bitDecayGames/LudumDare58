@@ -32,6 +32,10 @@ class Collectables {
         EventBus.fire(new SealCollected(stats.curNumCollected, stats.maxNumCollectables));
     }
 
+    public static function getStats(levelName:String): Null<CollectStats> {
+        return levelToStats.get(levelName);
+    }
+
     public static function incrCollect() {
         var stats = levelToStats.get(currentLevelName);
         stats.curNumCollected++;
