@@ -1,5 +1,8 @@
 package coordination;
 
+import flixel.util.FlxAxes;
+import bitdecay.flixel.spacial.Cardinal;
+import flixel.FlxSprite;
 import flixel.animation.FlxAnimationController;
 import flixel.animation.FlxAnimation;
 import flixel.tweens.FlxTween;
@@ -38,5 +41,24 @@ class AnimationCompletable implements Completable {
 
 	public function isDone():Bool {
 		return done;
+	}
+}
+
+class BumpCompletable implements Completable {
+	var t:FlxTween;
+
+	public function new(obj:FlxSprite, dir:Cardinal) {
+		var axes:FlxAxes;
+		switch (dir) {
+			case N | S:
+				axes = FlxAxes.Y;
+			default:
+				axes = FlxAxes.X;
+		}
+		this.t = FlxTween.shake(obj, 0.05, 0.2, axes);
+	}
+
+	public function isDone():Bool {
+		return t.finished;
 	}
 }

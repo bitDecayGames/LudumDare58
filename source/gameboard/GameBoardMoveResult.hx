@@ -57,15 +57,18 @@ class Shove extends GameBoardMoveResult {
 }
 
 class Slide extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
+	public var partial:Bool = false;
+
+	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal, partial:Bool) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
 		this.dir = dir;
+		this.partial = partial;
 	}
 
 	public function toString():String {
-		return 'Slide(${gameObj.id} ${startPos} to ${endPos})';
+		return 'Slide(${gameObj?.id} ${startPos} to ${endPos})';
 	}
 }
 

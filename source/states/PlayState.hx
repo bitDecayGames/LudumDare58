@@ -183,6 +183,9 @@ class PlayState extends FlxTransitionableState {
 
 		level = new Level(levelName);
 		// FmodPlugin.playSong(level.raw.f_Music);
+		for (waterFlavor in level.waterFlavor) {
+			bgGroup.add(waterFlavor);
+		}
 
 		var gbState = level.initialBoardState;
 
@@ -192,14 +195,14 @@ class PlayState extends FlxTransitionableState {
 		for (tile in level.tiles) {
 			tileGroup.add(tile);
 		}
+		for (collectable in level.collectables) {
+			actionGroup.add(collectable);
+		}
 		for (block in level.blocks) {
 			actionGroup.add(block);
 		}
 		for (hazard in level.hazards) {
 			actionGroup.add(hazard);
-		}
-		for (collectable in level.collectables) {
-			actionGroup.add(collectable);
 		}
 
 		Collectables.initLevel(level.name, level.collectables.length);
@@ -273,6 +276,9 @@ class PlayState extends FlxTransitionableState {
 					}
 				}
 			case AWAITING_INPUT:
+				#if debug
+				handleRightClick();
+				#end
 				var moveDir = Cardinal.NONE;
 				if (SimpleController.pressed(UP) || SimpleController.just_released(UP)) {
 					moveDir = Cardinal.N;
@@ -333,6 +339,22 @@ class PlayState extends FlxTransitionableState {
 	function reset() {
 		gameBoard.reset();
 		syncRenderState();
+	}
+
+	function handleRightClick() {
+		if (FlxG.mouse.justPressedRight) {
+			var mousePos = FlxG.mouse.getWorldPosition();
+			for (tile in tileGroup) {
+				if (tile != null && tile.overlapsPoint(mousePos)) {
+					var results = gameBoard.teleport(tile.cellX, tile.cellY);
+					QLog.notice('Results - ${results}');
+					pendingPhases = results;
+					prepNextResolutionPhase();
+					interactState = RESOLVING;
+					return;
+				}
+			}
+		}
 	}
 
 	function prepNextResolutionPhase() {

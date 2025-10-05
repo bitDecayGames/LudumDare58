@@ -64,6 +64,11 @@ class Seal extends FlxSprite implements GameRenderObject {
 			animation.play(anims.Dead);
 			FmodPlugin.playSFX(FmodSFX.SealCrunch2);
 			Collectables.incrCollect();
+		} else if (t == Bump) {
+			return new BumpCompletable(this, r.dir);
+		} else if (t == Die) {
+			kill();
+			return null;
 		}
 		return null;
 	}

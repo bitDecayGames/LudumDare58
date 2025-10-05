@@ -25,6 +25,7 @@ class Player extends FlxSprite implements GameRenderObject {
 	public static var SLIP = "Slip";
 	public static var DROP = "Splash";
 	public static var PUSH = "Push";
+	public static var KICK = "Kick";
 
 	var id:Int = 0;
 	var speed:Float = 150;
@@ -35,13 +36,14 @@ class Player extends FlxSprite implements GameRenderObject {
 	var animPrefix = "";
 
 	var defaultOffset:Float;
+	var isBloody = true; // must be true so the first time we call setBloody(false) it actually works
 
 	public function new(id:Int, X:Float, Y:Float) {
 		super(X, Y);
 		this.id = id;
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
-		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+		setBloody(false);
 		// animation.onFrameChange.add((anim, frame, index) -> {
 		// 	if (eventData.exists(index)) {
 		// 		trace('frame $index has data ${eventData.get(index)}');
@@ -66,46 +68,59 @@ class Player extends FlxSprite implements GameRenderObject {
 		offset.y = defaultOffset;
 	}
 
+	function setBloody(isBloody:Bool) {
+		if (this.isBloody == isBloody) {
+			// do nothing since it is already set
+			return;
+		}
+		if (isBloody) {
+			Aseprite.loadAllAnimations(this, AssetPaths.playerBloody__json);
+		} else {
+			Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+		}
+		this.isBloody = isBloody;
+	}
+
 	function onWalkFrame(name:String, frameNumber:Int, frameIndex:Int) {
-        trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
-        
-        // Play footstep sound on specific frames
+		trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
+
+		// Play footstep sound on specific frames
 		if (name == anims.RunDown || name == anims.RunUp || name == anims.RunSide) {
 			if (frameNumber == 2 || frameNumber == 5) {
 				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
-        	}
+			}
 		}
-    }
+	}
 
 	function onPushFrame(name:String, frameNumber:Int, frameIndex:Int) {
-        trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
-        
-        // Play footstep sound on specific frames
+		trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
+
+		// Play footstep sound on specific frames
 		if (name == anims.PushDown || name == anims.PushUp) {
 			if (frameNumber == 2 || frameNumber == 5) {
 				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
-        	}
+			}
 		}
 		if (name == anims.PushSide) {
 			if (frameNumber == 1 || frameNumber == 5) {
 				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
-        	}
+			}
 		}
-    }
+	}
 
 	function onFallFrame(name:String, frameNumber:Int, frameIndex:Int) {
-        trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
-        
-        // Play footstep sound on specific frames
+		trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
+
+		// Play footstep sound on specific frames
 		if (name == anims.Splash) {
 			if (frameNumber == 0) {
 				FmodPlugin.playSFX(FmodSFX.BearFall);
-        	}
+			}
 			if (frameNumber == 3) {
 				FmodPlugin.playSFX(FmodSFX.BearSplash);
-        	}
+			}
 		}
-    }
+	}
 
 	override public function update(delta:Float) {
 		super.update(delta);
@@ -138,7 +153,6 @@ class Player extends FlxSprite implements GameRenderObject {
 		var pDiff = getPosition(FlxPoint.weak()).subtractPoint(lastPosition);
 
 		FlxG.watch.addQuick("pDiff: ", pDiff);
-
 		var intendedAnim = animPrefix;
 
 		if (pDiff.length == 0) {
@@ -147,6 +161,7 @@ class Player extends FlxSprite implements GameRenderObject {
 			currentBuff++;
 			if (currentBuff >= standBuffer) {
 				intendedAnim = "Stand";
+				animation.timeScale = 1.0;
 			}
 		} else {
 			currentBuff = 0;
@@ -206,21 +221,30 @@ class Player extends FlxSprite implements GameRenderObject {
 				return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, tweenDuration));
 
 			case Drop:
+				setBloody(false);
 				animPrefix = DROP;
 				animation.play(anims.Splash);
 				return new AnimationCompletable(animation, anims.Splash);
 			case WheelSpin:
-				// TODO: this should be the "spin wheels" animation and probably needs to be a AnimationCompletable instead of tween
-				animPrefix = PUSH;
 				TODO.sfx('bear tries to push block but cannot');
-				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
-			case Shove:
-				// TODO: this should be the "shove" animation and probably needs to be a AnimationCompletable instead of tween
-				FmodPlugin.playSFX(FmodSFX.PushIce);
 				animPrefix = PUSH;
-				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
+				currentBuff = -10;
+				animation.timeScale = 4.0;
+				// MW: maybe we don't need anything here?
+				return null;
+			case Shove:
+				FmodPlugin.playSFX(FmodSFX.PushIce);
+				animPrefix = KICK;
+				currentBuff = -50;
+				// MW: maybe we don't need anything here?
+				return null;
 			case Win:
 				// TODO: play transition stuff
+			case Collect:
+				setBloody(true);
+				return null;
+			case Bump:
+				return new BumpCompletable(this, r.dir);
 			default:
 				// do nothing
 		}
