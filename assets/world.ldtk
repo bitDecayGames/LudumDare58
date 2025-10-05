@@ -1476,22 +1476,6 @@
 							"__worldY": -256
 						},
 						{
-							"__identifier": "Spawn",
-							"__grid": [8,8],
-							"__pivot": [0,0],
-							"__tags": [ "Player", "LevelElement" ],
-							"__tile": null,
-							"__smartColor": "#32349D",
-							"iid": "9ba30030-8560-11f0-a3d8-ed706b276c92",
-							"width": 32,
-							"height": 32,
-							"defUid": 74,
-							"px": [272,256],
-							"fieldInstances": [],
-							"__worldX": 272,
-							"__worldY": -224
-						},
-						{
 							"__identifier": "FirstLevel",
 							"__grid": [0,0],
 							"__pivot": [0,0],
@@ -1506,6 +1490,22 @@
 							"fieldInstances": [],
 							"__worldX": 0,
 							"__worldY": -480
+						},
+						{
+							"__identifier": "Spawn",
+							"__grid": [8,7],
+							"__pivot": [0,0],
+							"__tags": [ "Player", "LevelElement" ],
+							"__tile": null,
+							"__smartColor": "#32349D",
+							"iid": "9ba30030-8560-11f0-a3d8-ed706b276c92",
+							"width": 32,
+							"height": 32,
+							"defUid": 74,
+							"px": [256,224],
+							"fieldInstances": [],
+							"__worldX": 256,
+							"__worldY": -256
 						}
 					]
 				},

@@ -152,6 +152,26 @@ class PlayState extends FlxTransitionableState {
 		waterBG.velocity.set(10, -5);
 		bgGroup.add(waterBG);
 
+		// var waterBGSmall = new FlxBackdrop(AssetPaths.waterTile__png);
+		// Aseprite.loadAllAnimations(waterBGSmall, AssetPaths.waterTile__json);
+		// var anims = AsepriteMacros.tagNames("assets/aseprite/waterTile.json");
+		// waterBGSmall.animation.play(anims.animate);
+		// waterBGSmall.velocity.set(12, -6);
+		// // waterBGSmall.scale.set(2, 2);
+		// waterBGSmall.scale.set(.5, 0.5);
+		// waterBGSmall.alpha = 0.3;
+		// bgGroup.add(waterBGSmall);
+
+		// var waterBGMed = new FlxBackdrop(AssetPaths.waterTile__png);
+		// Aseprite.loadAllAnimations(waterBGMed, AssetPaths.waterTile__json);
+		// var anims = AsepriteMacros.tagNames("assets/aseprite/waterTile.json");
+		// waterBGMed.animation.play(anims.animate);
+		// waterBGMed.velocity.set(-1, -6);
+		// // waterBGSmall.scale.set(2, 2);
+		// waterBGMed.scale.set(.25, 0.25);
+		// waterBGMed.alpha = 0.3;
+		// bgGroup.add(waterBGMed);
+
 		level = new Level(levelName);
 		FmodPlugin.playSong(level.raw.f_Music);
 
