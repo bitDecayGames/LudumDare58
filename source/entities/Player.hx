@@ -19,13 +19,16 @@ class Player extends FlxSprite implements GameRenderObject {
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/player.json");
 	// public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/player.json", "Layer 1");
 
-	public static var SLIPPING = "_slipping";
-	public static var PUSHING = "_pushing";
+	public static var RUN = "Run";
+	public static var SLIP = "Slip";
+	public static var PUSH = "Push";
 
 	var speed:Float = 150;
 	var playerNum = 0;
 
 	var lastPosition = FlxPoint.get();
+
+	var animPrefix = "";
 
 	public function new(X:Float, Y:Float) {
 		super(X, Y);
@@ -37,8 +40,11 @@ class Player extends FlxSprite implements GameRenderObject {
 		// 		trace('frame $index has data ${eventData.get(index)}');
 		// 	}
 		// });
+		var vOffset = height - 32;
 		width = 32;
 		height = 32;
+
+		offset.y = vOffset;
 	}
 
 	override public function update(delta:Float) {
@@ -72,7 +78,7 @@ class Player extends FlxSprite implements GameRenderObject {
 		var intendedAnim = anims.StandDown;
 
 		if (pDiff.length > 0) {
-			intendedAnim = "Run";
+			intendedAnim = animPrefix;
 		} else {
 			intendedAnim = "Stand";
 		}
@@ -89,11 +95,6 @@ class Player extends FlxSprite implements GameRenderObject {
 			intendedAnim += "Down";
 		}
 
-		// TODO: check modifiers like pushing/slipping/etc
-		if (true) { 
-			// intendedAnim += SLIPPING;
-		}
-
 		playAnimIfNotAlready(intendedAnim, false);
 	}
 
@@ -106,10 +107,25 @@ class Player extends FlxSprite implements GameRenderObject {
 	}
 
 	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):FlxTween {
-		var dest = board.current.indexToXY(r.gameObj.index);
+		var dest = r.endPos;
 		facing = FlxDirectionFlags.fromInt(r.dir.asFacing());
+
+		var t = Type.getClass(r);
+		QLog.notice(t);
+
+		if (t == Move) {
+			animPrefix = RUN;
+			QLog.notice('Move to ${dest}');
+			return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
+		} else if (t == Slide) {
+			animPrefix = SLIP;
+			QLog.notice('Slip to ${dest}');
+			return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
+		}
+
 		// The animation for walking takes 0.6 seconds to loop. So that's the basis for why this is 0.6
 		// Ideally, we see what animation is to be played here, and we base this tween off of how long that animation takes.
-		return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
+		//return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
+		return null;
 	}
 }
