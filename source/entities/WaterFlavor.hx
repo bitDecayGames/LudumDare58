@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
 import states.PlayState;
 import todo.TODO;
@@ -18,6 +19,14 @@ import bitdecay.flixel.graphics.Aseprite;
 import bitdecay.flixel.graphics.AsepriteMacros;
 import flixel.FlxG;
 
+final r:FlxRandom = new FlxRandom();
+
+function bob(obj:FlxSprite) {
+	var radius = r.int(2, 7);
+	var duration = 3 + radius * .5;
+	FlxTween.circularMotion(obj, obj.x, obj.y, radius, 0, radius % 2 == 0, duration, {type: LOOPING});
+}
+
 class IceBlock1 extends FlxSprite {
 	public static var anims = AsepriteMacros.tagNames("assets/aseprite/ice1.json");
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/ice1.json");
@@ -30,6 +39,8 @@ class IceBlock1 extends FlxSprite {
 		// height = 32;
 		animation.play(anims.animate);
 		PlayState.ME.add(this);
+
+		bob(this);
 	}
 
 	public override function destroy() {
@@ -51,6 +62,8 @@ class IceBlock2 extends FlxSprite {
 		// height = 32;
 		animation.play(anims.animate);
 		PlayState.ME.add(this);
+
+		bob(this);
 	}
 
 	public override function destroy() {

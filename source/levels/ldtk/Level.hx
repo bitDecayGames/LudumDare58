@@ -1,5 +1,8 @@
 package levels.ldtk;
 
+import entities.WaterFlavor.IceBlock2;
+import entities.WaterFlavor.JumpingFish;
+import entities.WaterFlavor.IceBlock1;
 import entities.Immovable;
 import entities.Tile;
 import entities.Seal;
@@ -85,8 +88,7 @@ class Level {
 		parseHazards(raw.l_Objects.all_Hazard);
 		parseCollectables(raw.l_Objects.all_Collectable);
 		parseTiles(terrainLayer);
-		// TODO: uncomment me
-		// parseWaterFlavor(thingGoesHere);
+		parseWaterFlavor(raw.l_Objects.all_Ice1, raw.l_Objects.all_Ice2, raw.l_Objects.all_JumpingFish);
 	}
 
 	function parseCameraZones(zoneDefs:Array<Ldtk.Entity_CameraZone>) {
@@ -165,11 +167,15 @@ class Level {
 		}
 	}
 
-	function parseWaterFlavor(defs:Array<Dynamic>) {
-		for (b in defs) {
-			// TODO: separate fish from ice blocks
-			var v = new FlxSprite(b.pixelX, b.pixelY);
-			waterFlavor.push(v);
+	function parseWaterFlavor(ice1s:Array<Ldtk.Entity_Ice1>, ice2s:Array<Ldtk.Entity_Ice2>, fishes:Array<Ldtk.Entity_JumpingFish>) {
+		for (b in ice1s) {
+			waterFlavor.push(new IceBlock1(b.pixelX, b.pixelY));
+		}
+		for (b in ice2s) {
+			waterFlavor.push(new IceBlock2(b.pixelX, b.pixelY));
+		}
+		for (b in fishes) {
+			waterFlavor.push(new JumpingFish(b.pixelX, b.pixelY));
 		}
 	}
 
