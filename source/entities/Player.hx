@@ -1,5 +1,6 @@
 package entities;
 
+import todo.TODO;
 import coordination.Completable;
 import flixel.math.FlxPoint;
 import bitdecay.flixel.spacial.Cardinal;
@@ -143,11 +144,14 @@ class Player extends FlxSprite implements GameRenderObject {
 				switch (t) {
 					case Move:
 						animPrefix = RUN;
+						TODO.sfx('bear walks one tile');
 					case Push:
 						animPrefix = PUSH;
+						TODO.sfx('bear pushes block. block and bear both move');
 						// pushing blocks is hard work
 						tweenDuration *= 2.0;
 					case Slide:
+						TODO.sfx('bear slip/slides across one tile');
 						animPrefix = SLIP;
 					default:
 						// eh?
@@ -157,13 +161,16 @@ class Player extends FlxSprite implements GameRenderObject {
 			case Drop:
 				animPrefix = DROP;
 				animation.play(anims.Splash);
+				TODO.sfx('bear walks into water splash');
 				return new AnimationCompletable(animation, anims.Splash);
 			case WheelSpin:
 				// TODO: this should be the "spin wheels" animation and probably needs to be a AnimationCompletable instead of tween
 				animPrefix = PUSH;
+				TODO.sfx('bear tries to push block but cannot');
 				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
 			case Shove:
 				// TODO: this should be the "shove" animation and probably needs to be a AnimationCompletable instead of tween
+				TODO.sfx('bear pushes block (block moves, bear does not)');
 				animPrefix = PUSH;
 				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
 			case Win:

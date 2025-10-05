@@ -1,5 +1,6 @@
 package entities;
 
+import todo.TODO;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
 import coordination.Completable;
@@ -59,6 +60,7 @@ class Seal extends FlxSprite implements GameRenderObject {
 		var t = Type.getClass(r);
 		if (t == Collect && animation.curAnim.name != anims.Dead) {
 			animTimer.cancel();
+			TODO.sfx('seal murdered/eaten by player');
 			animation.play(anims.Dead);
 		}
 		return null;

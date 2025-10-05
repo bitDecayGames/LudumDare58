@@ -1,5 +1,6 @@
 package entities;
 
+import todo.TODO;
 import coordination.Completable;
 import flixel.math.FlxPoint;
 import bitdecay.flixel.spacial.Cardinal;
@@ -40,9 +41,13 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 				if (t == Push) {
 					// getting pushed is hard work
 					tweenDuration *= 2.0;
+					TODO.sfx('block is pushed one tile. Might be overlap with player push sound effect');
+				} else if (t == Slide) {
+					TODO.sfx('crate block slides across ice one tile');
 				}
 				return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, tweenDuration));
 			case Drop:
+				TODO.sfx('crate block falls into water');
 				// TODO: splash animation?
 				kill();
 				return null;
