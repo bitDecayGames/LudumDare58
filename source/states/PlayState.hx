@@ -50,8 +50,6 @@ class PlayState extends FlxTransitionableState {
 	var level:Level;
 	var gameBoard:GameBoard;
 
-	var objectMap = new Map<Int, GameRenderObject>();
-
 	var interactState:InteractState = RESOLVING;
 	var pendingResolutions = new Array<Completable>();
 	var pendingPhases = new Array<Array<GameBoardMoveResult>>();
@@ -129,16 +127,15 @@ class PlayState extends FlxTransitionableState {
 
 		var gbState = level.initialBoardState;
 
-		var playerObj = new GameBoardObject();
-		playerObj.type = PLAYER;
-		playerObj.index = gbState.xyToIndex(level.spawnPointCell[0], level.spawnPointCell[1]);
-		gbState.addObj(playerObj);
-
-		player = new Player(level.spawnPoint.x, level.spawnPoint.y);
-		// camera.follow(player);
+		// add all of the render objects to the scene
+		player = level.player;
 		add(player);
-
-		bind(playerObj, player);
+		for (block in level.blocks) {
+			add(block);
+		}
+		for (hazard in level.hazards) {
+			add(hazard);
+		}
 
 		gameBoard = new GameBoard(gbState);
 
@@ -185,7 +182,6 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	override public function update(elapsed:Float) {
-
 		switch interactState {
 			case RESOLVING:
 				var phaseDone = true;
@@ -226,7 +222,6 @@ class PlayState extends FlxTransitionableState {
 
 		super.update(elapsed);
 
-
 		FlxG.collide(midGroundGroup, player);
 		handleCameraBounds();
 
@@ -234,14 +229,14 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	function syncRenderState() {
-		gameBoard.current.iterTilesObjs((idx: Int, x:Int, y:Int, tile: Null<TileType>, objs: Array<GameBoardObject>) -> {
+		gameBoard.current.iterTilesObjs((idx:Int, x:Int, y:Int, tile:Null<TileType>, objs:Array<GameBoardObject>) -> {
 			// Reset tile
 			level.terrainLayer.setTileIndex(idx, tile, true);
 			// Reset game objects
 			for (o in objs) {
 				var gro = objectMap.get(o.id);
 				if (gro != null) {
-					var spr: FlxSprite = cast gro;
+					var spr:FlxSprite = cast gro;
 					spr.revive();
 					spr.setPosition(x * 32, y * 32);
 				}
@@ -257,7 +252,6 @@ class PlayState extends FlxTransitionableState {
 	function reset() {
 		gameBoard.reset();
 		syncRenderState();
-
 	}
 
 	function bind(boardObj:GameBoardObject, renderObj:GameRenderObject) {
@@ -271,14 +265,18 @@ class PlayState extends FlxTransitionableState {
 
 		var phase = pendingPhases.shift();
 		for (m in phase) {
-			if (!objectMap.exists(m.gameObj.id)) {
-				QLog.warn('got move result with no mapped object: ${m}');
-				continue;
-			}
-
-			var t = objectMap[m.gameObj.id].handleGameResult(m, gameBoard);
-			if (t != null) {
-				pendingResolutions.push(t);
+			if (m.gameObj != null) {
+				var obj = level.renderObjectsById.get(m.gameObj.id);
+				if (obj == null) {
+					QLog.warn('got move result with no mapped object: ${m}');
+					continue;
+				}
+				var t = obj.handleGameResult(m, gameBoard);
+				if (t != null) {
+					pendingResolutions.push(t);
+				}
+			} else if (m is Crumble) {
+				// TODO: handle Crumble event
 			}
 		}
 	}

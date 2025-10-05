@@ -22,20 +22,14 @@ abstract class GameBoardMoveResult {
 	public var startPos:Vector<Int>;
 	public var endPos:Vector<Int>;
 	public var dir:Cardinal;
-
-	function setDir() {
-		var tmp = FlxPoint.get(endPos[0], endPos[1]);
-		dir = Cardinal.closest(tmp.subtract(startPos[0], startPos[1]), true);
-		tmp.put();
-	}
 }
 
 class Move extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>) {
+	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
-		setDir();
+		this.dir = dir;
 	}
 
 	public function toString():String {
@@ -44,11 +38,11 @@ class Move extends GameBoardMoveResult {
 }
 
 class Slide extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>) {
+	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
-		setDir();
+		this.dir = dir;
 	}
 
 	public function toString():String {
@@ -60,7 +54,6 @@ class Bump extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, dir:Cardinal) {
 		this.gameObj = gameObj;
 		this.dir = dir;
-		setDir();
 	}
 
 	public function toString():String {
@@ -74,7 +67,6 @@ class Collide extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, other:GameBoardObject) {
 		this.gameObj = gameObj;
 		this.other = other;
-		setDir();
 	}
 
 	public function toString():String {
@@ -88,7 +80,6 @@ class Collect extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, other:GameBoardObject) {
 		this.gameObj = gameObj;
 		this.other = other;
-		setDir();
 	}
 
 	public function toString():String {
@@ -98,61 +89,52 @@ class Collect extends GameBoardMoveResult {
 
 class Drop extends GameBoardMoveResult {
 	public var other:GameBoardObject;
-	public var pos:Vector<Int>;
 
 	public function new(gameObj:GameBoardObject, pos:Vector<Int>) {
 		this.gameObj = gameObj;
-		this.pos = pos;
+		this.startPos = pos;
 	}
 
 	public function toString():String {
-		return 'Drop(${gameObj.id} at ${pos})';
+		return 'Drop(${gameObj.id} at ${startPos})';
 	}
 }
 
 class Crumble extends GameBoardMoveResult {
-	public var pos:Vector<Int>;
-
 	public function new(pos:Vector<Int>) {
 		gameObj = null;
-		this.pos = pos;
+		this.startPos = pos;
 	}
 
 	public function toString():String {
-		return 'Crumble(${pos})';
+		return 'Crumble(${startPos})';
 	}
 }
 
 class Die extends GameBoardMoveResult {
-	public var pos:Vector<Int>;
-
 	public function new(gameObj:GameBoardObject, pos:Vector<Int>) {
 		this.gameObj = gameObj;
-		this.pos = pos;
+		this.startPos = pos;
 	}
 
 	public function toString():String {
-		return 'Die(${gameObj.id} at ${pos})';
+		return 'Die(${gameObj.id} at ${startPos})';
 	}
 }
 
 class Lose extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject) {
-		this.gameObj = gameObj;
-	}
+	public function new() {}
 
 	public function toString():String {
-		return 'Lose(${gameObj.id})';
+		return 'Lose()';
 	}
 }
 
 class Win extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject) {
-		this.gameObj = gameObj;
-	}
+	public function new() {}
 
 	public function toString():String {
-		return 'Win(${gameObj.id})';
+		return 'Win()';
 	}
 }
 
@@ -205,6 +187,9 @@ class GameBoard {
 		var nextObj = current.getObj(nextXY[0], nextXY[1]);
 		if (!isMovePossible(targetTile, targetObj, nextTile, nextObj)) {
 			results.push([new Bump(playerObj, dir)]);
+			if (targetObj != null && targetObj.type == BLOCK) {
+				results.push([new Bump(targetObj, dir)]);
+			}
 			return results;
 		}
 
@@ -212,7 +197,7 @@ class GameBoard {
 
 		var cur:Array<GameBoardMoveResult> = [];
 		playerObj.index = current.vecToIndex(targetXY);
-		cur.push(new Move(playerObj, xy, targetXY));
+		cur.push(new Move(playerObj, xy, targetXY, dir));
 		if (targetObj != null && targetObj.type == COLLECTABLE) {
 			cur.push(new Collect(playerObj, targetObj));
 		}
@@ -222,7 +207,7 @@ class GameBoard {
 		}
 		if (targetObj != null && targetObj.type == BLOCK) {
 			targetObj.index = current.vecToIndex(nextXY);
-			cur.push(new Move(targetObj, targetXY, nextXY));
+			cur.push(new Move(targetObj, targetXY, nextXY, dir));
 
 			if (targetTile == WALKABLE_BREAKABLE || targetTile == SLIDING_BREAKABLE) {
 				current.setTile(targetXY[0], targetXY[1], HOLE);
@@ -232,7 +217,7 @@ class GameBoard {
 				cur.push(new Drop(playerObj, targetXY));
 				results.push(cur);
 				cur = [];
-				cur.push(new Lose(playerObj));
+				cur.push(new Lose());
 				results.push(cur);
 				return results;
 			}
@@ -262,7 +247,7 @@ class GameBoard {
 								cur.push(new Collide(targetObj, checkObj));
 								current.removeObj(checkObj);
 								targetObj.index = current.vecToIndex(checkXY);
-								cur.push(new Slide(targetObj, nextXY, checkXY));
+								cur.push(new Slide(targetObj, nextXY, checkXY, dir));
 								if (nextTile == SLIDING_BREAKABLE) {
 									current.setTile(nextXY[0], nextXY[1], HOLE);
 									cur.push(new Crumble(nextXY));
@@ -276,7 +261,7 @@ class GameBoard {
 						} else {
 							pushDirty = true;
 							targetObj.index = current.vecToIndex(checkXY);
-							cur.push(new Slide(targetObj, nextXY, checkXY));
+							cur.push(new Slide(targetObj, nextXY, checkXY, dir));
 							if (nextTile == SLIDING_BREAKABLE) {
 								current.setTile(nextXY[0], nextXY[1], HOLE);
 								cur.push(new Crumble(nextXY));
@@ -292,7 +277,7 @@ class GameBoard {
 					cur.push(new Drop(playerObj, targetXY));
 					results.push(cur);
 					cur = [];
-					cur.push(new Lose(playerObj));
+					cur.push(new Lose());
 					results.push(cur);
 					return results;
 				case SLIDING | SLIDING_BREAKABLE:
@@ -302,7 +287,7 @@ class GameBoard {
 					if (checkObj != null) {
 						if (checkObj.type == HAZARD) {
 							playerObj.index = current.vecToIndex(checkXY);
-							cur.push(new Slide(targetObj, nextXY, checkXY));
+							cur.push(new Slide(targetObj, nextXY, checkXY, dir));
 							if (targetTile == SLIDING_BREAKABLE) {
 								current.setTile(targetXY[0], targetXY[1], HOLE);
 								cur.push(new Crumble(targetXY));
@@ -312,7 +297,7 @@ class GameBoard {
 							cur.push(new Die(playerObj, checkXY));
 							results.push(cur);
 							cur = [];
-							cur.push(new Lose(playerObj));
+							cur.push(new Lose());
 							results.push(cur);
 							return results;
 						} else {
@@ -324,7 +309,7 @@ class GameBoard {
 					} else {
 						playerDirty = true;
 						playerObj.index = current.vecToIndex(checkXY);
-						cur.push(new Slide(playerObj, targetXY, checkXY));
+						cur.push(new Slide(playerObj, targetXY, checkXY, dir));
 						if (targetTile == SLIDING_BREAKABLE) {
 							current.setTile(targetXY[0], targetXY[1], HOLE);
 							cur.push(new Crumble(targetXY));
@@ -334,7 +319,7 @@ class GameBoard {
 					cur.push(new Die(playerObj, targetXY));
 					results.push(cur);
 					cur = [];
-					cur.push(new Lose(playerObj));
+					cur.push(new Lose());
 					results.push(cur);
 					return results;
 				default:
@@ -361,11 +346,11 @@ class GameBoard {
 		}
 
 		if (isWin(playerObj)) {
-			cur.push(new Win(playerObj));
+			cur.push(new Win());
 			results.push(cur);
 		}
 		if (isLose(playerObj)) {
-			cur.push(new Lose(playerObj));
+			cur.push(new Lose());
 			results.push(cur);
 		}
 		return results;

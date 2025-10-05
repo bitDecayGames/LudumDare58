@@ -823,7 +823,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "Spawn",
-							"__grid": [6,5],
+							"__grid": [5,5],
 							"__pivot": [0.5,1],
 							"__tags": [ "Player", "LevelElement" ],
 							"__tile": null,
@@ -832,9 +832,9 @@
 							"width": 32,
 							"height": 32,
 							"defUid": 74,
-							"px": [208,192],
+							"px": [176,192],
 							"fieldInstances": [],
-							"__worldX": 2128,
+							"__worldX": 2096,
 							"__worldY": -768
 						},
 						{
@@ -863,7 +863,7 @@
 						},
 						{
 							"__identifier": "Block",
-							"__grid": [7,5],
+							"__grid": [8,5],
 							"__pivot": [0,0],
 							"__tags": ["LevelElement"],
 							"__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 },
@@ -872,9 +872,9 @@
 							"width": 32,
 							"height": 32,
 							"defUid": 226,
-							"px": [224,160],
+							"px": [256,160],
 							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.BlockType", "__value": "WallBlock", "__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "defUid": 238, "realEditorValues": [] }],
-							"__worldX": 2144,
+							"__worldX": 2176,
 							"__worldY": -800
 						},
 						{
@@ -895,6 +895,70 @@
 							}] }],
 							"__worldX": 2240,
 							"__worldY": -736
+						},
+						{
+							"__identifier": "Block",
+							"__grid": [5,7],
+							"__pivot": [0,0],
+							"__tags": ["LevelElement"],
+							"__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "3d80d120-8560-11f0-9fa0-43cd7f52835b",
+							"width": 32,
+							"height": 32,
+							"defUid": 226,
+							"px": [160,224],
+							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.BlockType", "__value": "WallBlock", "__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "defUid": 238, "realEditorValues": [] }],
+							"__worldX": 2080,
+							"__worldY": -736
+						},
+						{
+							"__identifier": "Block",
+							"__grid": [8,9],
+							"__pivot": [0,0],
+							"__tags": ["LevelElement"],
+							"__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "428eea30-8560-11f0-9fa0-79645aecd042",
+							"width": 32,
+							"height": 32,
+							"defUid": 226,
+							"px": [256,288],
+							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.BlockType", "__value": "WallBlock", "__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "defUid": 238, "realEditorValues": [] }],
+							"__worldX": 2176,
+							"__worldY": -672
+						},
+						{
+							"__identifier": "Block",
+							"__grid": [5,9],
+							"__pivot": [0,0],
+							"__tags": ["LevelElement"],
+							"__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "49714e10-8560-11f0-9fa0-039cd8f182aa",
+							"width": 32,
+							"height": 32,
+							"defUid": 226,
+							"px": [160,288],
+							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.BlockType", "__value": "WallBlock", "__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "defUid": 238, "realEditorValues": [] }],
+							"__worldX": 2080,
+							"__worldY": -672
+						},
+						{
+							"__identifier": "Block",
+							"__grid": [6,5],
+							"__pivot": [0,0],
+							"__tags": ["LevelElement"],
+							"__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "4c1ac330-8560-11f0-9fa0-1d92c3225829",
+							"width": 32,
+							"height": 32,
+							"defUid": 226,
+							"px": [192,160],
+							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.BlockType", "__value": "WallBlock", "__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "defUid": 238, "realEditorValues": [] }],
+							"__worldX": 2112,
+							"__worldY": -800
 						}
 					]
 				},
@@ -921,6 +985,7 @@
 					"seed": 3673160,
 					"overrideTilesetUid": 242,
 					"gridTiles": [
+						{ "px": [32,0], "src": [0,0], "f": 0, "t": 0, "d": [1], "a": 1 },
 						{ "px": [128,96], "src": [64,0], "f": 0, "t": 2, "d": [64], "a": 1 },
 						{ "px": [160,96], "src": [64,0], "f": 0, "t": 2, "d": [65], "a": 1 },
 						{ "px": [192,96], "src": [64,0], "f": 0, "t": 2, "d": [66], "a": 1 },

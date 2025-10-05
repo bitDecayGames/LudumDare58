@@ -18,7 +18,6 @@ import flixel.FlxG;
 class Player extends FlxSprite implements GameRenderObject {
 	public static var anims = AsepriteMacros.tagNames("assets/aseprite/player.json");
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/player.json");
-	// public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/player.json", "Layer 1");
 
 	public static var STAND = "Stand";
 	public static var RUN = "Run";
@@ -26,6 +25,7 @@ class Player extends FlxSprite implements GameRenderObject {
 	public static var DROP = "Splash";
 	public static var PUSH = "Push";
 
+	var id:Int = 0;
 	var speed:Float = 150;
 	var playerNum = 0;
 
@@ -33,8 +33,9 @@ class Player extends FlxSprite implements GameRenderObject {
 
 	var animPrefix = "";
 
-	public function new(X:Float, Y:Float) {
+	public function new(id:Int, X:Float, Y:Float) {
 		super(X, Y);
+		this.id = id;
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
 		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
@@ -106,7 +107,7 @@ class Player extends FlxSprite implements GameRenderObject {
 		} else {
 			currentBuff = 0;
 		}
-		
+
 		flipX = false;
 		if (facing.has(LEFT)) {
 			flipX = true;
@@ -155,7 +156,11 @@ class Player extends FlxSprite implements GameRenderObject {
 
 		// The animation for walking takes 0.6 seconds to loop. So that's the basis for why this is 0.6
 		// Ideally, we see what animation is to be played here, and we base this tween off of how long that animation takes.
-		//return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
+		// return FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6);
 		return null;
+	}
+
+	public function getId():Int {
+		return id;
 	}
 }
