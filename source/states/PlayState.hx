@@ -56,6 +56,13 @@ class PlayState extends FlxTransitionableState {
 	var pendingResolutions = new Array<Completable>();
 	var pendingPhases = new Array<Array<GameBoardMoveResult>>();
 
+	var startingLevel:String = "";
+
+	public function new(levelIID:String = "") {
+		super();
+		startingLevel = levelIID;
+	}
+
 	override public function create() {
 		super.create();
 
@@ -110,13 +117,18 @@ class PlayState extends FlxTransitionableState {
 		uiGroup.add(restartBtn);
 		// End HUD
 
-		loadLevel("Level_0");
+		loadLevel(startingLevel);
 
 		FlxG.watch.add(this, "interactState", "Game State: ");
 	}
 
 	function loadLevel(levelName:String) {
 		unload();
+
+		if (levelName == "") {
+			var anchor = ldtk.toc.FirstLevel[0];
+        	levelName = ldtk.all_worlds.Default.getLevelAt(anchor.worldX, anchor.worldY).identifier;
+		}
 
 		var waterBG = new FlxBackdrop(AssetPaths.waterTile__png);
 		Aseprite.loadAllAnimations(waterBG, AssetPaths.waterTile__json);
