@@ -136,10 +136,10 @@ class Player extends FlxSprite implements GameRenderObject {
 		var dest = r.endPos;
 		facing = FlxDirectionFlags.fromInt(r.dir.asFacing());
 
+		var tweenDuration = 0.6;
 		var t = Type.getClass(r);
 		switch (t) {
 			case Move | Push | Slide:
-				var tweenDuration = 0.6;
 				switch (t) {
 					case Move:
 						animPrefix = RUN;
@@ -158,6 +158,12 @@ class Player extends FlxSprite implements GameRenderObject {
 				animPrefix = DROP;
 				animation.play(anims.Splash);
 				return new AnimationCompletable(animation, anims.Splash);
+			case WheelSpin:
+				// TODO: this should be the "spin wheels" animation and probably needs to be a AnimationCompletable instead of tween
+				animPrefix = PUSH;
+				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
+			default:
+				// do nothing
 		}
 
 		// The animation for walking takes 0.6 seconds to loop. So that's the basis for why this is 0.6

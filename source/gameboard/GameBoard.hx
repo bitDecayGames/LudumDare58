@@ -77,6 +77,17 @@ class Bump extends GameBoardMoveResult {
 	}
 }
 
+class WheelSpin extends GameBoardMoveResult {
+	public function new(gameObj:GameBoardObject, dir:Cardinal) {
+		this.gameObj = gameObj;
+		this.dir = dir;
+	}
+
+	public function toString():String {
+		return 'WheelSpin(${gameObj.id} ${dir})';
+	}
+}
+
 class Collide extends GameBoardMoveResult {
 	public var other:GameBoardObject;
 
@@ -212,12 +223,17 @@ class GameBoard {
 		history.push(current.save());
 
 		var cur:Array<GameBoardMoveResult> = [];
-		playerObj.index = current.vecToIndex(targetXY);
 		if (targetObj != null && targetObj.type == BLOCK) {
+			// if you are standing on ice, then you can't push blocks
+			if (currentTile == SLIDING || currentTile == SLIDING_BREAKABLE) {
+				results.push([new WheelSpin(playerObj, dir)]);
+				return results;
+			}
 			cur.push(new Push(playerObj, targetObj, xy, targetXY, dir));
 		} else {
 			cur.push(new Move(playerObj, xy, targetXY, dir));
 		}
+		playerObj.index = current.vecToIndex(targetXY);
 		if (targetObj != null && targetObj.type == COLLECTABLE) {
 			cur.push(new Collect(playerObj, targetObj));
 		}
