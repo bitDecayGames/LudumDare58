@@ -220,6 +220,8 @@ class GameBoard {
 		}
 		if (targetObj != null && targetObj.type == COLLECTABLE) {
 			cur.push(new Collect(playerObj, targetObj));
+			cur.push(new Collect(targetObj, playerObj));
+			current.removeObj(targetObj);
 		}
 		if (currentTile == WALKABLE_BREAKABLE || currentTile == SLIDING_BREAKABLE) {
 			current.setTile(xy[0], xy[1], HOLE);

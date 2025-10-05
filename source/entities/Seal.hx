@@ -24,7 +24,7 @@ class Seal extends FlxSprite implements GameRenderObject {
 	];
 
 	var id:Int = 0;
-	private var animTimer: FlxTimer;
+	private var animTimer:FlxTimer;
 
 	public function new(id:Int, X:Float, Y:Float) {
 		super(X, Y);
@@ -33,6 +33,14 @@ class Seal extends FlxSprite implements GameRenderObject {
 		width = 32;
 		height = 32;
 		offset.y = 12;
+
+		setupAnimations();
+	}
+
+	function setupAnimations() {
+		if (animTimer != null) {
+			animTimer.cancel();
+		}
 
 		animation.play(anims.Lay);
 
@@ -60,15 +68,27 @@ class Seal extends FlxSprite implements GameRenderObject {
 	}
 
 	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):Completable {
-		// var dest = r.endPos;
-		// var t = Type.getClass(r);
-		// if (t == Move || t == Slide) {
-		// 	return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6));
-		// }
+		var t = Type.getClass(r);
+		if (t == Collect && animation.curAnim.name != anims.Dead) {
+			animTimer.cancel();
+			animation.play(anims.Dead);
+		}
 		return null;
 	}
 
 	public function getId():Int {
 		return id;
+	}
+
+	override function revive() {
+		super.revive();
+
+		setupAnimations();
+	}
+
+	override function destroy() {
+		super.destroy();
+
+		animTimer.cancel();
 	}
 }
