@@ -20,6 +20,7 @@ class Player extends FlxSprite implements GameRenderObject {
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/player.json");
 	// public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/player.json", "Layer 1");
 
+	public static var STAND = "Stand";
 	public static var RUN = "Run";
 	public static var SLIP = "Slip";
 	public static var DROP = "Splash";
@@ -42,6 +43,14 @@ class Player extends FlxSprite implements GameRenderObject {
 		// 		trace('frame $index has data ${eventData.get(index)}');
 		// 	}
 		// });
+
+		animation.onFinish.add((name) -> {
+			if (name == anims.Splash) {
+				animPrefix = STAND;
+				animation.play(anims.StandDown);
+				kill();
+			}
+		});
 		var vOffset = height - 32;
 		width = 32;
 		height = 32;
