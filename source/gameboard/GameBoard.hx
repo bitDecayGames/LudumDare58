@@ -260,7 +260,7 @@ class GameBoard {
 		}
 
 		if (isWin(playerObj)) {
-			cur.push(new Win());
+			cur.push(new Win(playerObj));
 			results.push(cur);
 		}
 		if (isLose(playerObj)) {
@@ -283,7 +283,7 @@ class GameBoard {
 	}
 
 	private function isWin(playerObj:GameBoardObject) {
-		return current.getTileByIndex(playerObj.index) == EXIT && current.findObjType(COLLECTABLE) == null;
+		return current.getTileByIndex(playerObj.index) == EXIT;
 	}
 
 	private function isLose(playerObj:GameBoardObject) {
