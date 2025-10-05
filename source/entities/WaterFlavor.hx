@@ -83,7 +83,19 @@ class JumpingFish extends FlxSprite {
 		// var vOffset = height - 24;
 		// width = 32;
 		// height = 32;
-		animation.play(anims.all_frames);
+		visible = false;
+		FlxTimer.wait(r.float(1, 10), () -> {
+			visible = true;
+			animation.play(anims.animate);
+			animation.onFinish.add((_) -> {
+				visible = false;
+				animation.pause();
+				FlxTimer.wait(r.float(1, 10), () -> {
+					visible = true;
+					animation.play(anims.animate);
+				});
+			});
+		});
 		PlayState.ME.add(this);
 	}
 

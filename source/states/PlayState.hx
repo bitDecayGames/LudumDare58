@@ -111,8 +111,10 @@ class PlayState extends FlxTransitionableState {
 
 		// Undo
 		var undoBtn = new FlxButton(0, hudOffset, null, () -> {
-			QLog.notice('undo');
-			undo();
+			if (interactState == AWAITING_INPUT) {
+				QLog.notice('undo');
+				undo();
+			}
 		});
 		undoBtn.loadGraphic(AssetPaths.undo__png);
 		undoBtn.screenCenter(X);
@@ -122,8 +124,10 @@ class PlayState extends FlxTransitionableState {
 
 		// Restart
 		var restartBtn = new FlxButton(0, hudOffset, null, () -> {
-			QLog.notice('reset');
-			reset();
+			if (interactState == AWAITING_INPUT) {
+				QLog.notice('reset');
+				reset();
+			}
 		});
 		restartBtn.loadGraphic(AssetPaths.restart__png);
 		restartBtn.screenCenter(X);
@@ -296,6 +300,13 @@ class PlayState extends FlxTransitionableState {
 					pendingPhases = results;
 					prepNextResolutionPhase();
 					interactState = RESOLVING;
+				}
+
+				if (FlxG.keys.justPressed.R) {
+					reset();
+				}
+				if (FlxG.keys.justPressed.U || FlxG.keys.justPressed.Z) {
+					undo();
 				}
 		}
 
