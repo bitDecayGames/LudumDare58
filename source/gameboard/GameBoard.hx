@@ -37,6 +37,22 @@ class Move extends GameBoardMoveResult {
 	}
 }
 
+class Push extends GameBoardMoveResult {
+	public var other:GameBoardObject;
+
+	public function new(gameObj:GameBoardObject, other:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
+		this.gameObj = gameObj;
+		this.other = other;
+		this.startPos = startPos;
+		this.endPos = endPos;
+		this.dir = dir;
+	}
+
+	public function toString():String {
+		return 'Push(${gameObj.id} pushes ${other.id} from ${startPos} to ${endPos})';
+	}
+}
+
 class Slide extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
 		this.gameObj = gameObj;
@@ -197,7 +213,11 @@ class GameBoard {
 
 		var cur:Array<GameBoardMoveResult> = [];
 		playerObj.index = current.vecToIndex(targetXY);
-		cur.push(new Move(playerObj, xy, targetXY, dir));
+		if (targetObj != null && targetObj.type == BLOCK) {
+			cur.push(new Push(playerObj, targetObj, xy, targetXY, dir));
+		} else {
+			cur.push(new Move(playerObj, xy, targetXY, dir));
+		}
 		if (targetObj != null && targetObj.type == COLLECTABLE) {
 			cur.push(new Collect(playerObj, targetObj));
 		}
@@ -207,7 +227,7 @@ class GameBoard {
 		}
 		if (targetObj != null && targetObj.type == BLOCK) {
 			targetObj.index = current.vecToIndex(nextXY);
-			cur.push(new Move(targetObj, targetXY, nextXY, dir));
+			cur.push(new Push(targetObj, playerObj, targetXY, nextXY, dir));
 
 			if (targetTile == WALKABLE_BREAKABLE || targetTile == SLIDING_BREAKABLE) {
 				current.setTile(targetXY[0], targetXY[1], HOLE);
@@ -235,6 +255,7 @@ class GameBoard {
 			if (targetObj != null && targetObj.type == BLOCK) {
 				switch (nextTile) {
 					case EMPTY | HOLE:
+						current.removeObj(targetObj);
 						cur.push(new Drop(targetObj, nextXY));
 						targetDropped = true;
 					case SLIDING | SLIDING_BREAKABLE:

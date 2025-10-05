@@ -34,8 +34,20 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):Completable {
 		var dest = r.endPos;
 		var t = Type.getClass(r);
-		if (t == Move || t == Slide) {
-			return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6));
+		switch (t) {
+			case Move | Push | Slide:
+				var tweenDuration = 0.6;
+				if (t == Push) {
+					// getting pushed is hard work
+					tweenDuration *= 2.0;
+				}
+				return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, tweenDuration));
+			case Drop:
+				// TODO: splash animation?
+				kill();
+				return null;
+			default:
+				// eh?
 		}
 		return null;
 	}

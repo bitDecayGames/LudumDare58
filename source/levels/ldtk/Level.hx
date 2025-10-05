@@ -64,7 +64,7 @@ class Level {
 		playerObj.type = PLAYER;
 		playerObj.index = initialBoardState.xyToIndex(sp.cx, sp.cy);
 		initialBoardState.addObj(playerObj);
-		player = new Player(playerObj.id, sp.cx, sp.cy);
+		player = new Player(playerObj.id, spawnPoint.x, spawnPoint.y);
 		renderObjectsById.set(player.getId(), player);
 
 		var test:Ldtk.Entity_Spawn = null;

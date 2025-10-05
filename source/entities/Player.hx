@@ -137,19 +137,27 @@ class Player extends FlxSprite implements GameRenderObject {
 		facing = FlxDirectionFlags.fromInt(r.dir.asFacing());
 
 		var t = Type.getClass(r);
-		if (t == Move) {
-			animPrefix = RUN;
-			QLog.notice('Move to ${dest}');
-			return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6));
-		} else if (t == Slide) {
-			animPrefix = SLIP;
-			QLog.notice('Slip to ${dest}');
-			return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, 0.6));
-		} else if (t == Drop) {
-			animPrefix = DROP;
-			QLog.notice('Slip');
-			animation.play(anims.Splash);
-			return new AnimationCompletable(animation, anims.Splash);
+		switch (t) {
+			case Move | Push | Slide:
+				var tweenDuration = 0.6;
+				switch (t) {
+					case Move:
+						animPrefix = RUN;
+					case Push:
+						animPrefix = PUSH;
+						// pushing blocks is hard work
+						tweenDuration *= 2.0;
+					case Slide:
+						animPrefix = SLIP;
+					default:
+						// eh?
+				}
+				return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, tweenDuration));
+
+			case Drop:
+				animPrefix = DROP;
+				animation.play(anims.Splash);
+				return new AnimationCompletable(animation, anims.Splash);
 		}
 
 		// The animation for walking takes 0.6 seconds to loop. So that's the basis for why this is 0.6
