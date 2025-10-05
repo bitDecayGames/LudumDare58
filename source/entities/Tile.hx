@@ -16,8 +16,8 @@ import bitdecay.flixel.graphics.AsepriteMacros;
 class Tile extends FlxSprite implements GameRenderObject {
 	public static final WIDTH:Int = 32;
 	public static final HEIGHT:Int = 32;
-	public static var anims = AsepriteMacros.tagNames("assets/aseprite/player.json");
-	public static var layers = AsepriteMacros.layerNames("assets/aseprite/player.json");
+	public static var anims = AsepriteMacros.tagNames("assets/aseprite/tilesLarge.json");
+	public static var layers = AsepriteMacros.layerNames("assets/aseprite/tilesLarge.json");
 
 	public final index:Int;
 	public final cellX:Int;
@@ -32,7 +32,7 @@ class Tile extends FlxSprite implements GameRenderObject {
 		this.cellY = cellY;
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
-		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+		Aseprite.loadAllAnimations(this, AssetPaths.tilesLarge__json);
 		// animation.onFrameChange.add((anim, frame, index) -> {
 		// 	if (eventData.exists(index)) {
 		// 		trace('frame $index has data ${eventData.get(index)}');
