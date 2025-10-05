@@ -45,7 +45,7 @@ class LevelSelect extends FlxTransitionableState {
 		bgColor = FlxColor.TRANSPARENT;
 		FlxG.camera.pixelPerfectRender = true;
 
-		FmodPlugin.playSong(FmodSong.LetsGo);
+		// FmodPlugin.playSong(FmodSong.LetsGo);
 
         var waterBG = new FlxBackdrop(AssetPaths.waterTile__png);
 		Aseprite.loadAllAnimations(waterBG, AssetPaths.waterTile__json);

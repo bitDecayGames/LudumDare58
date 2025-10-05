@@ -37,7 +37,7 @@ class MainMenuState extends FlxTransitionableState {
 		startButton.y = FlxG.height * .6;
 		add(startButton);
 
-		FmodPlugin.playSong(FmodSong.LetsGo);
+		// FmodPlugin.playSong(FmodSong.LetsGo);
 
 		// we will handle transitions manually
 		transOut = null;
