@@ -58,6 +58,36 @@ class GameBoard {
 		current = GameBoardState.load(initial);
 	}
 
+	public function teleport(x:Int, y:Int):Array<Array<GameBoardMoveResult>> {
+		var results:Array<Array<GameBoardMoveResult>> = [];
+		var cur:Array<GameBoardMoveResult> = [];
+		var playerObj = current.getPlayer();
+		if (playerObj == null) {
+			return [];
+		}
+		var xy = current.indexToXY(playerObj.index);
+		if (xy[0] == x && xy[1] == y) {
+			return [];
+		}
+
+		history.push(current.save());
+
+		var targetXY = new Vector<Int>(2);
+		targetXY[0] = x;
+		targetXY[1] = y;
+
+		var targetTile = current.getTile(x, y);
+		var targetObj = current.getObj(x, y);
+		if (targetObj != null) {
+			current.removeObj(targetObj);
+			cur.push(new Die(targetObj, targetXY));
+		}
+		playerObj.index = current.xyToIndex(x, y);
+		cur.push(new Move(playerObj, xy, targetXY, Cardinal.S));
+		results.push(cur);
+		return results;
+	}
+
 	public function move(dir:Cardinal):Array<Array<GameBoardMoveResult>> {
 		var results:Array<Array<GameBoardMoveResult>> = [];
 

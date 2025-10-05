@@ -53,6 +53,9 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 				return null;
 			case Bump:
 				return new BumpCompletable(this, r.dir);
+			case Die:
+				kill();
+				return null;
 			default:
 				// eh?
 		}

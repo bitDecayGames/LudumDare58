@@ -38,6 +38,9 @@ class Immovable extends FlxSprite implements GameRenderObject {
 		switch (t) {
 			case Bump:
 				return new BumpCompletable(this, r.dir);
+			case Die:
+				kill();
+				return null;
 			default:
 				// eh?
 		}

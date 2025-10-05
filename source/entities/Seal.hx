@@ -66,6 +66,9 @@ class Seal extends FlxSprite implements GameRenderObject {
 			Collectables.incrCollect();
 		} else if (t == Bump) {
 			return new BumpCompletable(this, r.dir);
+		} else if (t == Die) {
+			kill();
+			return null;
 		}
 		return null;
 	}
