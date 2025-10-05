@@ -1,5 +1,6 @@
 package states;
 
+import coordination.Completable;
 import entities.GameRenderObject;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -52,7 +53,7 @@ class PlayState extends FlxTransitionableState {
 	var objectMap = new Map<Int, GameRenderObject>();
 
 	var interactState:InteractState = RESOLVING;
-	var pendingTweens = new Array<FlxTween>();
+	var pendingResolutions = new Array<Completable>();
 	var pendingPhases = new Array<Array<GameBoardMoveResult>>();
 
 	override public function create() {
@@ -188,17 +189,17 @@ class PlayState extends FlxTransitionableState {
 		switch interactState {
 			case RESOLVING:
 				var phaseDone = true;
-				for (t in pendingTweens) {
-					if (!t.finished) {
+				for (t in pendingResolutions) {
+					if (!t.isDone()) {
 						phaseDone = false;
 						break;
 					}
 				}
 				if (phaseDone) {
-					pendingTweens = [];
+					pendingResolutions = [];
 					prepNextResolutionPhase();
 
-					if (pendingTweens.length == 0) {
+					if (pendingResolutions.length == 0) {
 						interactState = AWAITING_INPUT;
 					}
 				}
@@ -268,7 +269,7 @@ class PlayState extends FlxTransitionableState {
 
 			var t = objectMap[m.gameObj.id].handleGameResult(m, gameBoard);
 			if (t != null) {
-				pendingTweens.push(t);
+				pendingResolutions.push(t);
 			}
 		}
 	}
