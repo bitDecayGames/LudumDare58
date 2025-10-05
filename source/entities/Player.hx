@@ -68,6 +68,9 @@ class Player extends FlxSprite implements GameRenderObject {
 		lastPosition.set(x, y);
 	}
 
+	var standBuffer = 2;
+	var currentBuff = 0;
+
 	function updateCurrentAnimation() {
 		// player only moves in cardinal directions with potential modifiers
 
@@ -75,12 +78,17 @@ class Player extends FlxSprite implements GameRenderObject {
 
 		FlxG.watch.addQuick("pDiff: ", pDiff);
 
-		var intendedAnim = anims.StandDown;
+		var intendedAnim = animPrefix;
 
-		if (pDiff.length > 0) {
-			intendedAnim = animPrefix;
+		if (pDiff.length == 0) {
+			// we allow animations to play for a couple frames to make transitions
+			// feel better visually
+			currentBuff++;
+			if (currentBuff >= standBuffer) {
+				intendedAnim = "Stand";
+			}
 		} else {
-			intendedAnim = "Stand";
+			currentBuff = 0;
 		}
 		
 		flipX = false;

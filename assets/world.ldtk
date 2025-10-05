@@ -681,13 +681,13 @@
 			"cachedPixelData": null
 		},
 		{
-			"__cWid": 4,
+			"__cWid": 5,
 			"__cHei": 1,
 			"identifier": "SquareTerrain",
 			"uid": 242,
 			"relPath": "aseprite/tiles.png",
 			"embedAtlas": null,
-			"pxWid": 128,
+			"pxWid": 160,
 			"pxHei": 32,
 			"tileGridSize": 32,
 			"spacing": 0,
@@ -704,7 +704,7 @@
 			],
 			"customData": [],
 			"savedSelections": [],
-			"cachedPixelData": { "opaqueTiles": "0111", "averageColors": "0000f68efeeef69e" }
+			"cachedPixelData": { "opaqueTiles": "01110", "averageColors": "0000f68efeeef69e735e" }
 		}
 	], "enums": [
 		{ "identifier": "Direction", "uid": 15, "values": [

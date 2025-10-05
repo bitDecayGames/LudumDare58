@@ -183,7 +183,6 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	override public function update(elapsed:Float) {
-		super.update(elapsed);
 
 		switch interactState {
 			case RESOLVING:
@@ -222,6 +221,9 @@ class PlayState extends FlxTransitionableState {
 					interactState = RESOLVING;
 				}
 		}
+
+		super.update(elapsed);
+
 
 		FlxG.collide(midGroundGroup, player);
 		handleCameraBounds();
