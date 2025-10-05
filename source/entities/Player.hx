@@ -1,5 +1,7 @@
 package entities;
 
+import gameboard.GameBoardState.WALKABLE;
+import gameboard.GameBoardState.NON_MELTABLE_WALKABLE;
 import todo.TODO;
 import coordination.Completable;
 import flixel.math.FlxPoint;
@@ -104,28 +106,40 @@ class Player extends FlxSprite implements GameRenderObject {
 			if (frameNumber == 2 || frameNumber == 5) {
 				if (lastGameBoardMoveResult != null) {
 					var boardTileType = Type.getClass(lastGameBoardMoveResult);
-					if (boardTileType == WheelSpin) {
-						return;
-					}
-				}
-			} 
+					switch(boardTileType) {
+						case WheelSpin:
+							return;
+						case Move:
+							var move = cast(lastGameBoardMoveResult, Move);
+							if (move.targetTileType == NON_MELTABLE_WALKABLE) {
 
-			FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
+							} else if (move.targetTileType == WALKABLE) {
+								FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
+							}
+						
+					}
+				} 
+			}
 		}
 		if (name == anims.PushSide) {
 
 			if (frameNumber == 1 || frameNumber == 5) {
 				if (lastGameBoardMoveResult != null) {
 					var boardTileType = Type.getClass(lastGameBoardMoveResult);
-					if (boardTileType == WheelSpin) {
-						return;
-					}
-				}	
-			} 
+					switch(boardTileType) {
+						case WheelSpin:
+							return;
+						case Move:
+							var move = cast(lastGameBoardMoveResult, Move);
+							if (move.targetTileType == NON_MELTABLE_WALKABLE) {
 
-			if (frameNumber == 1 || frameNumber == 5) {
-				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
-			}
+							} else if (move.targetTileType == WALKABLE) {
+								FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
+							}
+						
+					}
+				} 
+			} 
 		}
 	}
 

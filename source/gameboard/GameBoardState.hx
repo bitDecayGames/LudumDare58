@@ -3,15 +3,15 @@ package gameboard;
 import haxe.ds.Vector;
 
 typedef TileType = Int;
-inline final EMPTY:TileType = 0;
-inline final SOLID:TileType = -1;
-inline final WALKABLE:TileType = 2;
-inline final NON_MELTABLE_WALKABLE:TileType = 4;
-inline final SLIDING:TileType = 1;
-inline final WALKABLE_BREAKABLE:TileType = -1;
-inline final SLIDING_BREAKABLE:TileType = 3;
-inline final HOLE:TileType = -1;
-inline final DEATH:TileType = -1;
+inline final EMPTY:TileType = 0; // water
+inline final SOLID:TileType = -1; // rock blocker
+inline final WALKABLE:TileType = 2; // snow
+inline final NON_MELTABLE_WALKABLE:TileType = 4; // cobblestone
+inline final SLIDING:TileType = 1; // ice
+inline final WALKABLE_BREAKABLE:TileType = -1; // cumble snow/rock
+inline final SLIDING_BREAKABLE:TileType = 3; // crumble ice
+inline final HOLE:TileType = -1; // ice hole after break
+inline final DEATH:TileType = -1; // spike pit
 typedef ObjectType = Int;
 inline final NONE:ObjectType = 0;
 inline final PLAYER:ObjectType = 1;

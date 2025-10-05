@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.util.FlxTimer;
 import gameboard.GameBoardState.NON_MELTABLE_WALKABLE;
 import gameboard.GameBoardState.SLIDING;
 import gameboard.GameBoardState.EMPTY;
@@ -110,6 +111,10 @@ class Tile extends FlxSprite implements GameRenderObject {
 					case SLIDING_BREAKABLE:
 						QLog.notice('Crump: ${r} tt:${tileType}');
 						animation.play(anims.brokenice2nothing);
+						
+						FlxTimer.wait(0.25, () -> {
+								FmodPlugin.playSFX(FmodSFX.TilesIceCollapse);
+						});
 						return new AnimationCompletable(animation, anims.brokenice2nothing, () -> {
 							QLog.notice('Now empty');
 							setTileType(EMPTY);
