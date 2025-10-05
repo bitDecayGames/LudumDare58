@@ -1,5 +1,6 @@
 package states;
 
+import bitdecay.flixel.sorting.ZSorting;
 import coordination.Completable;
 import entities.GameRenderObject;
 import flixel.tweens.FlxTween;
@@ -41,6 +42,7 @@ class PlayState extends FlxTransitionableState {
 	var player:Player;
 	var bgGroup = new FlxGroup();
 	var midGroundGroup = new FlxGroup();
+	var actionGroup = new FlxTypedGroup<FlxSprite>();
 	var uiGroup = new FlxGroup();
 	var activeCameraTransition:CameraTransition = null;
 
@@ -69,6 +71,7 @@ class PlayState extends FlxTransitionableState {
 		// Build out our render order
 		add(bgGroup);
 		add(midGroundGroup);
+		add(actionGroup);
 		add(uiGroup);
 		add(transitions);
 
@@ -129,15 +132,15 @@ class PlayState extends FlxTransitionableState {
 
 		// add all of the render objects to the scene
 		player = level.player;
-		add(player);
+		actionGroup.add(player);
 		for (block in level.blocks) {
-			add(block);
+			actionGroup.add(block);
 		}
 		for (hazard in level.hazards) {
-			add(hazard);
+			actionGroup.add(hazard);
 		}
 		for (collectable in level.collectables) {
-			add(collectable);
+			actionGroup.add(collectable);
 		}
 
 		gameBoard = new GameBoard(gbState);
@@ -178,6 +181,11 @@ class PlayState extends FlxTransitionableState {
 			o.destroy();
 		}
 		midGroundGroup.clear();
+
+		for (o in actionGroup) {
+			o.destroy();
+		}
+		actionGroup.clear();
 	}
 
 	function handleAchieve(def:AchievementDef) {
@@ -224,6 +232,7 @@ class PlayState extends FlxTransitionableState {
 		}
 
 		super.update(elapsed);
+		actionGroup.sort(ZSorting.getSort(VerticalReference.BOTTOM));
 
 		FlxG.collide(midGroundGroup, player);
 		handleCameraBounds();
