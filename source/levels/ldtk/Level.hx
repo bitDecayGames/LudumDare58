@@ -1,5 +1,6 @@
 package levels.ldtk;
 
+import entities.Seal;
 import entities.GameRenderObject;
 import entities.Player;
 import entities.PushBlock;
@@ -133,10 +134,8 @@ class Level {
 			obj.index = initialBoardState.xyToIndex(v.cx, v.cy);
 			obj.type = COLLECTABLE;
 			initialBoardState.addObj(obj);
-			// TODO: create a collectable entity and swap this one out
-			var v = new FlxSprite(v.pixelX, v.pixelY);
-			// TODO: uncomment me
-			// renderObjectsById.set(v.getId(), v);
+			var v = new Seal(obj.id, v.pixelX, v.pixelY);
+			renderObjectsById.set(v.getId(), v);
 			collectables.push(v);
 		}
 	}
