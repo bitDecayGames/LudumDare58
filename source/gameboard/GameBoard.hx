@@ -1,5 +1,6 @@
 package gameboard;
 
+import gameboard.GameBoardMoveResult.Shove;
 import gameboard.GameBoardMoveResult.Win;
 import gameboard.GameBoardMoveResult.Die;
 import gameboard.GameBoardMoveResult.Slide;
@@ -86,6 +87,7 @@ class GameBoard {
 
 		history.push(current.save());
 
+		var playerStandingStill = false;
 		var cur:Array<GameBoardMoveResult> = [];
 		if (targetObj != null && targetObj.type == BLOCK) {
 			// if you are standing on ice, then you can't push blocks
@@ -93,13 +95,22 @@ class GameBoard {
 				results.push([new WheelSpin(playerObj, dir)]);
 				return results;
 			}
-			cur.push(new Push(playerObj, targetObj, xy, targetXY, dir));
+			if (targetTile == SLIDING || targetTile == SLIDING_BREAKABLE) {
+				// shove doesn't move the player
+				cur.push(new Shove(playerObj, targetObj, xy, targetXY, dir));
+				playerStandingStill = true;
+			} else {
+				cur.push(new Push(playerObj, targetObj, xy, targetXY, dir));
+				playerObj.index = current.vecToIndex(targetXY);
+			}
 		} else {
 			cur.push(new Move(playerObj, xy, targetXY, dir));
+			playerObj.index = current.vecToIndex(targetXY);
 		}
-		playerObj.index = current.vecToIndex(targetXY);
 		if (targetObj != null && targetObj.type == COLLECTABLE) {
 			cur.push(new Collect(playerObj, targetObj));
+			cur.push(new Collect(targetObj, playerObj));
+			current.removeObj(targetObj);
 		}
 		if (currentTile == WALKABLE_BREAKABLE || currentTile == SLIDING_BREAKABLE) {
 			current.setTile(xy[0], xy[1], HOLE);
@@ -173,58 +184,60 @@ class GameBoard {
 				}
 			}
 
-			switch (targetTile) {
-				case EMPTY | HOLE:
-					cur.push(new Drop(playerObj, targetXY));
-					results.push(cur);
-					cur = [];
-					cur.push(new Lose());
-					results.push(cur);
-					return results;
-				case SLIDING | SLIDING_BREAKABLE:
-					var checkXY = incr(targetXY, dir, 1);
-					var checkTile = current.getTile(checkXY[0], checkXY[1]);
-					var checkObj = current.getObj(checkXY[0], checkXY[1]);
-					if (checkObj != null) {
-						if (checkObj.type == HAZARD) {
+			if (!playerStandingStill) {
+				switch (targetTile) {
+					case EMPTY | HOLE:
+						cur.push(new Drop(playerObj, targetXY));
+						results.push(cur);
+						cur = [];
+						cur.push(new Lose());
+						results.push(cur);
+						return results;
+					case SLIDING | SLIDING_BREAKABLE:
+						var checkXY = incr(targetXY, dir, 1);
+						var checkTile = current.getTile(checkXY[0], checkXY[1]);
+						var checkObj = current.getObj(checkXY[0], checkXY[1]);
+						if (checkObj != null) {
+							if (checkObj.type == HAZARD) {
+								playerObj.index = current.vecToIndex(checkXY);
+								cur.push(new Slide(targetObj, nextXY, checkXY, dir));
+								if (targetTile == SLIDING_BREAKABLE) {
+									current.setTile(targetXY[0], targetXY[1], HOLE);
+									cur.push(new Crumble(targetXY));
+								}
+								results.push(cur);
+								cur = [];
+								cur.push(new Die(playerObj, checkXY));
+								results.push(cur);
+								cur = [];
+								cur.push(new Lose());
+								results.push(cur);
+								return results;
+							} else {
+								cur.push(new Bump(playerObj, dir));
+								cur.push(new Bump(checkObj, dir));
+							}
+						} else if (checkTile == SOLID) {
+							cur.push(new Bump(playerObj, dir));
+						} else {
+							playerDirty = true;
 							playerObj.index = current.vecToIndex(checkXY);
-							cur.push(new Slide(targetObj, nextXY, checkXY, dir));
+							cur.push(new Slide(playerObj, targetXY, checkXY, dir));
 							if (targetTile == SLIDING_BREAKABLE) {
 								current.setTile(targetXY[0], targetXY[1], HOLE);
 								cur.push(new Crumble(targetXY));
 							}
-							results.push(cur);
-							cur = [];
-							cur.push(new Die(playerObj, checkXY));
-							results.push(cur);
-							cur = [];
-							cur.push(new Lose());
-							results.push(cur);
-							return results;
-						} else {
-							cur.push(new Bump(playerObj, dir));
-							cur.push(new Bump(checkObj, dir));
 						}
-					} else if (checkTile == SOLID) {
-						cur.push(new Bump(playerObj, dir));
-					} else {
-						playerDirty = true;
-						playerObj.index = current.vecToIndex(checkXY);
-						cur.push(new Slide(playerObj, targetXY, checkXY, dir));
-						if (targetTile == SLIDING_BREAKABLE) {
-							current.setTile(targetXY[0], targetXY[1], HOLE);
-							cur.push(new Crumble(targetXY));
-						}
-					}
-				case DEATH:
-					cur.push(new Die(playerObj, targetXY));
-					results.push(cur);
-					cur = [];
-					cur.push(new Lose());
-					results.push(cur);
-					return results;
-				default:
-					// do nothing
+					case DEATH:
+						cur.push(new Die(playerObj, targetXY));
+						results.push(cur);
+						cur = [];
+						cur.push(new Lose());
+						results.push(cur);
+						return results;
+					default:
+						// do nothing
+				}
 			}
 
 			if (cur.length > 0) {
