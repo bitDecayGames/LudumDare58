@@ -27,6 +27,8 @@ class GameBoardState {
 
 	private final tileData:Vector<TileType>;
 	private final objData:Array<GameBoardObject>;
+	// just for quickly accessing objects by id
+	private final quickMap:Map<Int, GameBoardObject>;
 
 	private static var idCounter:Int = 0;
 
@@ -39,6 +41,7 @@ class GameBoardState {
 		}
 		tileData = new Vector(length);
 		objData = [];
+		quickMap = new Map<Int, GameBoardObject>();
 	}
 
 	public function getTile(x:Int, y:Int):TileType {
@@ -99,11 +102,7 @@ class GameBoardState {
 	}
 
 	public function findObj(id:Int):GameBoardObject {
-		var f = objData.filter((o) -> o.id == id);
-		if (f.length == 0) {
-			return null;
-		}
-		return f[0];
+		return quickMap.get(id);
 	}
 
 	public function findObjType(type:ObjectType):GameBoardObject {
@@ -120,13 +119,15 @@ class GameBoardState {
 			v.id = idCounter;
 		}
 		objData.push(v);
+		quickMap.set(v.id, v);
 	}
 
 	public function removeObj(v:GameBoardObject) {
 		objData.remove(v);
+		quickMap.remove(v.id);
 	}
 
-	public function iterTilesObjs(cb: (idx: Int, x:Int, y:Int, tile: Null<TileType>, objs: Array<GameBoardObject>) -> Void) {
+	public function iterTilesObjs(cb:(idx:Int, x:Int, y:Int, tile:Null<TileType>, objs:Array<GameBoardObject>) -> Void) {
 		for (idx in 0...length) {
 			var pos = indexToXY(idx);
 			cb(idx, pos[0], pos[1], getTileByIndex(idx), getObjs(pos[0], pos[1]));

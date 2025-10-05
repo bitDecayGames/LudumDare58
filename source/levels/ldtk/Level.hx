@@ -1,5 +1,8 @@
 package levels.ldtk;
 
+import entities.GameRenderObject;
+import entities.Player;
+import entities.PushBlock;
 import haxe.ds.Vector;
 import flixel.math.FlxMath;
 import gameboard.GameBoardState;
@@ -28,13 +31,17 @@ class Level {
 	public var terrainLayer:BDTilemap;
 	public var spawnPoint:FlxPoint = FlxPoint.get();
 	public var spawnPointCell:Vector<Int>;
-	public var blocks = new Array<FlxSprite>(); // TODO: make this an entity type for our game
+	public var player:Player;
+	public var blocks = new Array<PushBlock>();
 	public var hazards = new Array<FlxSprite>(); // TODO: make this an entity type for our game
+	public var collectables = new Array<FlxSprite>(); // TODO: make this an entity type for our game
 
 	public var camZones:Map<String, FlxRect>;
 	public var camTransitions:Array<CameraTransition>;
 
 	public var initialBoardState:GameBoardState;
+
+	public var renderObjectsById:Map<Int, GameRenderObject> = new Map<Int, GameRenderObject>();
 
 	public function new(nameOrIID:String) {
 		raw = project.getLevel(nameOrIID);
@@ -45,20 +52,28 @@ class Level {
 			throw('no spawn found in level ${nameOrIID}');
 		}
 
+		initialBoardState = new GameBoardState(terrainLayer.widthInTiles, terrainLayer.heightInTiles);
+
 		var sp = raw.l_Objects.all_Spawn[0];
 		spawnPoint.set(sp.pixelX, sp.pixelY);
 		spawnPointCell = new Vector<Int>(2);
 		spawnPointCell[0] = sp.cx;
 		spawnPointCell[1] = sp.cy;
 
+		var playerObj = new GameBoardObject();
+		playerObj.type = PLAYER;
+		playerObj.index = initialBoardState.xyToIndex(sp.cx, sp.cy);
+		initialBoardState.addObj(playerObj);
+		player = new Player(playerObj.id, sp.cx, sp.cy);
+		renderObjectsById.set(player.getId(), player);
+
 		var test:Ldtk.Entity_Spawn = null;
 
 		parseCameraZones(raw.l_Objects.all_CameraZone);
 		parseCameraTransitions(raw.l_Objects.all_CameraTransition);
 		parseBlocks(raw.l_Objects.all_Block);
-		parseHazard(raw.l_Objects.all_Hazard);
-
-		initialBoardState = new GameBoardState(terrainLayer.widthInTiles, terrainLayer.heightInTiles);
+		parseHazards(raw.l_Objects.all_Hazard);
+		parseCollectables(raw.l_Objects.all_Collectable);
 
 		for (x in 0...terrainLayer.widthInTiles) {
 			for (y in 0...terrainLayer.heightInTiles) {
@@ -88,13 +103,41 @@ class Level {
 
 	function parseBlocks(blockDefs:Array<Ldtk.Entity_Block>) {
 		for (b in blockDefs) {
-			blocks.push(new FlxSprite(b.pixelX, b.pixelY));
+			var obj = new GameBoardObject();
+			obj.index = initialBoardState.xyToIndex(b.cx, b.cy);
+			obj.type = BLOCK;
+			initialBoardState.addObj(obj);
+			var v = new PushBlock(obj.id, b.pixelX, b.pixelY);
+			renderObjectsById.set(v.getId(), v);
+			blocks.push(v);
 		}
 	}
 
-	function parseHazard(hazardDefs:Array<Ldtk.Entity_Hazard>) {
+	function parseHazards(hazardDefs:Array<Ldtk.Entity_Hazard>) {
 		for (b in hazardDefs) {
-			hazards.push(new FlxSprite(b.pixelX, b.pixelY));
+			var obj = new GameBoardObject();
+			obj.index = initialBoardState.xyToIndex(b.cx, b.cy);
+			obj.type = HAZARD;
+			initialBoardState.addObj(obj);
+			// TODO: create a hazard entity and swap this one out
+			var v = new FlxSprite(b.pixelX, b.pixelY);
+			// TODO: uncomment me
+			// renderObjectsById.set(v.getId(), v);
+			hazards.push(v);
+		}
+	}
+
+	function parseCollectables(defs:Array<Ldtk.Entity_Collectable>) {
+		for (v in defs) {
+			var obj = new GameBoardObject();
+			obj.index = initialBoardState.xyToIndex(v.cx, v.cy);
+			obj.type = COLLECTABLE;
+			initialBoardState.addObj(obj);
+			// TODO: create a collectable entity and swap this one out
+			var v = new FlxSprite(v.pixelX, v.pixelY);
+			// TODO: uncomment me
+			// renderObjectsById.set(v.getId(), v);
+			collectables.push(v);
 		}
 	}
 }
