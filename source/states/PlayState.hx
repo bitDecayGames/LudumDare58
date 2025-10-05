@@ -173,7 +173,7 @@ class PlayState extends FlxTransitionableState {
 		// bgGroup.add(waterBGMed);
 
 		level = new Level(levelName);
-		FmodPlugin.playSong(level.raw.f_Music);
+		// FmodPlugin.playSong(level.raw.f_Music);
 
 		var gbState = level.initialBoardState;
 
