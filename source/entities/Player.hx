@@ -25,6 +25,7 @@ class Player extends FlxSprite implements GameRenderObject {
 	public static var SLIP = "Slip";
 	public static var DROP = "Splash";
 	public static var PUSH = "Push";
+	public static var KICK = "Kick";
 
 	var id:Int = 0;
 	var speed:Float = 150;
@@ -138,7 +139,6 @@ class Player extends FlxSprite implements GameRenderObject {
 		var pDiff = getPosition(FlxPoint.weak()).subtractPoint(lastPosition);
 
 		FlxG.watch.addQuick("pDiff: ", pDiff);
-
 		var intendedAnim = animPrefix;
 
 		if (pDiff.length == 0) {
@@ -147,6 +147,7 @@ class Player extends FlxSprite implements GameRenderObject {
 			currentBuff++;
 			if (currentBuff >= standBuffer) {
 				intendedAnim = "Stand";
+				animation.timeScale = 1.0;
 			}
 		} else {
 			currentBuff = 0;
@@ -210,15 +211,18 @@ class Player extends FlxSprite implements GameRenderObject {
 				animation.play(anims.Splash);
 				return new AnimationCompletable(animation, anims.Splash);
 			case WheelSpin:
-				// TODO: this should be the "spin wheels" animation and probably needs to be a AnimationCompletable instead of tween
-				animPrefix = PUSH;
 				TODO.sfx('bear tries to push block but cannot');
-				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
-			case Shove:
-				// TODO: this should be the "shove" animation and probably needs to be a AnimationCompletable instead of tween
-				FmodPlugin.playSFX(FmodSFX.PushIce);
 				animPrefix = PUSH;
-				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
+				currentBuff = -10;
+				animation.timeScale = 4.0;
+				// MW: maybe we don't need anything here?
+				return null;
+			case Shove:
+				FmodPlugin.playSFX(FmodSFX.PushIce);
+				animPrefix = KICK;
+				currentBuff = -50;
+				// MW: maybe we don't need anything here?
+				return null;
 			case Win:
 				// TODO: play transition stuff
 			case Bump:

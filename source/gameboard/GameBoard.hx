@@ -90,15 +90,17 @@ class GameBoard {
 			return results;
 		}
 
+		if (targetObj != null && targetObj.type == BLOCK) {
+			// if you are standing on ice, then you can't push blocks
+			if (currentTile == SLIDING || currentTile == SLIDING_BREAKABLE) {
+				results.push([new WheelSpin(playerObj, dir), new Bump(targetObj, dir)]);
+				return results;
+			}
+		}
 		history.push(current.save());
 
 		var playerStandingStill = false;
 		if (targetObj != null && targetObj.type == BLOCK) {
-			// if you are standing on ice, then you can't push blocks
-			if (currentTile == SLIDING || currentTile == SLIDING_BREAKABLE) {
-				results.push([new WheelSpin(playerObj, dir)]);
-				return results;
-			}
 			if (targetTile == SLIDING || targetTile == SLIDING_BREAKABLE) {
 				// shove doesn't move the player
 				cur.push(new Shove(playerObj, targetObj, xy, targetXY, dir));
