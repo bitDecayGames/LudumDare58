@@ -233,18 +233,16 @@ class PlayState extends FlxTransitionableState {
 	function undo() {
 		gameBoard.undo();
 		gameBoard.current.iterTilesObjs((idx: Int, x:Int, y:Int, tile: Null<TileType>, objs: Array<GameBoardObject>) -> {
-			var oldTile = level.terrainLayer.getTileIndex(x, y);
-			trace('00000000000 idx ${idx}, x ${x}, y ${y}, old tile ${oldTile}, tile ${tile}');
 			// Reset tile
 			level.terrainLayer.setTileIndex(idx, tile, true);
 			// Reset game objects
-			// for (o in objs) {
-			// 	var gro = objectMap.get(o.id);
-			// 	if (gro != null) {
-			// 		var spr: FlxSprite = cast gro;
-			// 		spr.setPosition(x, y);
-			// 	}
-			// }
+			for (o in objs) {
+				var gro = objectMap.get(o.id);
+				if (gro != null) {
+					var spr: FlxSprite = cast gro;
+					spr.setPosition(x * 32, y * 32);
+				}
+			}
 		});
 	}
 

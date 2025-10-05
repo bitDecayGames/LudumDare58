@@ -127,12 +127,10 @@ class GameBoardState {
 	}
 
 	public function iterTilesObjs(cb: (idx: Int, x:Int, y:Int, tile: Null<TileType>, objs: Array<GameBoardObject>) -> Void) {
-		trace('111111111111111 ${objData}');
 		for (idx in 0...length) {
 			var pos = indexToXY(idx);
 			cb(idx, pos[0], pos[1], getTileByIndex(idx), getObjs(pos[0], pos[1]));
 		}
-		trace('333333333333333 ${objData}');
 	}
 
 	public function save():Vector<Int> {
@@ -150,8 +148,6 @@ class GameBoardState {
 			d[objIdx + 1] = objData[i].index;
 			d[objIdx + 2] = objData[i].type;
 		}
-		trace('333333333333333333 ${tileData}');
-		trace('444444444444444444 ${d}');
 		return d;
 	}
 
@@ -164,13 +160,13 @@ class GameBoardState {
 			g.tileData[i] = d[i + 2];
 		}
 
-		// TODO Fix this
-		for (i in 0...Std.int(d[1] / 3)) {
-			var objIdx = 2 + (i * 3) + g.length;
+		var gameObjDataLen = d.length - g.length - 2;
+		for (i in 0...Std.int(gameObjDataLen / 3)) {
+			var objIdx = (i * 3) + g.length + 2;
 			var o = new GameBoardObject();
-			o.id = d[0 + g.length + i + 2];
-			o.index = d[1 + g.length + i + 2];
-			o.type = d[2 + g.length + i + 2];
+			o.id = d[objIdx + 0];
+			o.index = d[objIdx + 1];
+			o.type = d[objIdx + 2];
 			g.addObj(o);
 		}
 		return g;
