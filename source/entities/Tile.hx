@@ -1,5 +1,7 @@
 package entities;
 
+import gameboard.GameBoardState.NON_MELTABLE_WALKABLE;
+import gameboard.GameBoardState.SLIDING;
 import gameboard.GameBoardState.EMPTY;
 import gameboard.GameBoardState.SLIDING_BREAKABLE;
 import gameboard.GameBoardState.WALKABLE_BREAKABLE;
@@ -53,6 +55,12 @@ class Tile extends FlxSprite implements GameRenderObject {
 			case EMPTY:
 				// set sprite to empty
 				kill();
+			case WALKABLE:
+				animation.play(anims.snow);
+			case SLIDING:
+				animation.play(anims.ice);
+			case NON_MELTABLE_WALKABLE:
+				animation.play(anims.rock);
 			default:
 				// huh?
 		}
