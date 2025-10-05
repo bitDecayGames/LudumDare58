@@ -11,9 +11,23 @@
 	"iid": "48a599b0-1460-11ee-8f1d-1923aa7248a0",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 243,
+	"nextUid": 244,
 	"identifierStyle": "Capitalize",
-	"toc": [],
+	"toc": [{
+		"identifier": "FirstLevel",
+		"instances": [{
+			"worldIid": "48a599b1-1460-11ee-8f1d-bf5d483c5ed2",
+			"levelIid": "70de3590-8560-11f0-a3d8-99c172dc3b61",
+			"layerIid": "70de5ca0-8560-11f0-a3d8-29e9d10f3bf9",
+			"entityIid": "987522c0-8560-11f0-912d-278c853cdae5"
+		}],
+		"instancesData": [{ "iids": {
+			"worldIid": "48a599b1-1460-11ee-8f1d-bf5d483c5ed2",
+			"levelIid": "70de3590-8560-11f0-a3d8-99c172dc3b61",
+			"layerIid": "70de5ca0-8560-11f0-a3d8-29e9d10f3bf9",
+			"entityIid": "987522c0-8560-11f0-912d-278c853cdae5"
+		}, "worldX": 672, "worldY": -928, "widPx": 32, "heiPx": 32, "fields" : {} }]
+	}],
 	"worldLayout": "GridVania",
 	"worldGridWidth": 640,
 	"worldGridHeight": 480,
@@ -589,6 +603,41 @@
 					"tilesetUid": null
 				}
 			]
+		},
+		{
+			"identifier": "FirstLevel",
+			"uid": 243,
+			"tags": [],
+			"exportToToc": true,
+			"allowOutOfBounds": false,
+			"doc": "Where the game starts",
+			"width": 32,
+			"height": 32,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#3E2731",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 16,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 16, "x": 160, "y": 864, "w": 16, "h": 16 },
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -681,13 +730,13 @@
 			"cachedPixelData": null
 		},
 		{
-			"__cWid": 5,
+			"__cWid": 6,
 			"__cHei": 1,
 			"identifier": "SquareTerrain",
 			"uid": 242,
 			"relPath": "aseprite/tiles.png",
 			"embedAtlas": null,
-			"pxWid": 160,
+			"pxWid": 192,
 			"pxHei": 32,
 			"tileGridSize": 32,
 			"spacing": 0,
@@ -704,7 +753,7 @@
 			],
 			"customData": [],
 			"savedSelections": [],
-			"cachedPixelData": { "opaqueTiles": "01110", "averageColors": "0000f68efeeef69e735e" }
+			"cachedPixelData": { "opaqueTiles": "011110", "averageColors": "0000f68efeeef69ef888735e" }
 		}
 	], "enums": [
 		{ "identifier": "Direction", "uid": 15, "values": [
@@ -1282,6 +1331,22 @@
 							"fieldInstances": [],
 							"__worldX": 816,
 							"__worldY": -736
+						},
+						{
+							"__identifier": "FirstLevel",
+							"__grid": [1,1],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": { "tilesetUid": 16, "x": 160, "y": 864, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "987522c0-8560-11f0-912d-278c853cdae5",
+							"width": 32,
+							"height": 32,
+							"defUid": 243,
+							"px": [32,32],
+							"fieldInstances": [],
+							"__worldX": 672,
+							"__worldY": -928
 						}
 					]
 				},
@@ -1403,13 +1468,13 @@
 							"defUid": 228,
 							"px": [416,224],
 							"fieldInstances": [{ "__identifier": "Next", "__type": "EntityRef", "__value": {
-								"entityIid": "da84dee0-8560-11f0-9378-6943a57d0931",
-								"layerIid": "bff36b01-8560-11f0-9378-19597c2df99f",
-								"levelIid": "bff36b00-8560-11f0-9378-a92cf5cff586",
+								"entityIid": "29ebbf90-8560-11f0-be50-01b2468e0d44",
+								"layerIid": "d92083a1-1460-11ee-93dd-39aa5ed0babe",
+								"levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36",
 								"worldIid": "48a599b1-1460-11ee-8f1d-bf5d483c5ed2"
 							}, "__tile": null, "defUid": 229, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["da84dee0-8560-11f0-9378-6943a57d0931"]
+								"params": ["29ebbf90-8560-11f0-be50-01b2468e0d44"]
 							}] }],
 							"__worldX": 1696,
 							"__worldY": -736

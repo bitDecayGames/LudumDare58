@@ -36,6 +36,9 @@ import states.PlayState;
 #if credits
 import states.CreditsState;
 #end
+#if levelselect
+import states.LevelSelect;
+#end
 #if FLX_DEBUG
 import plugins.GlobalDebugPlugin;
 #end
@@ -51,6 +54,8 @@ class Main extends Sprite {
 		startingState = PlayState;
 		#elseif credits
 		startingState = CreditsState;
+		#elseif levelselect
+		startingState = LevelSelect;
 		#else
 		if (Macros.isDefined("SKIP_SPLASH")) {
 			startingState = MainMenuState;

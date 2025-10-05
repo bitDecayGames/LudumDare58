@@ -15,6 +15,7 @@ import bitdecay.flixel.spacial.Cardinal;
 import input.SimpleController;
 import gameboard.GameBoardState;
 import gameboard.GameBoard;
+import gameboard.GameBoardMoveResult;
 import todo.TODO;
 import flixel.group.FlxGroup;
 import flixel.math.FlxRect;
@@ -36,9 +37,12 @@ using states.FlxStateExt;
 enum abstract InteractState(String) {
 	var RESOLVING = "resolving";
 	var AWAITING_INPUT = "awaitingInput";
+	var TRANSITIONING = "transitioning";
 }
 
 class PlayState extends FlxTransitionableState {
+	public static var ME:PlayState = null;
+
 	var player:Player;
 	var bgGroup = new FlxGroup();
 	var midGroundGroup = new FlxGroup();
@@ -55,6 +59,15 @@ class PlayState extends FlxTransitionableState {
 	var interactState:InteractState = RESOLVING;
 	var pendingResolutions = new Array<Completable>();
 	var pendingPhases = new Array<Array<GameBoardMoveResult>>();
+
+	var startingLevel:String = "";
+
+	public function new(levelIID:String = "") {
+		super();
+		startingLevel = levelIID;
+
+		ME = this;
+	}
 
 	override public function create() {
 		super.create();
@@ -110,13 +123,27 @@ class PlayState extends FlxTransitionableState {
 		uiGroup.add(restartBtn);
 		// End HUD
 
-		loadLevel("Level_0");
+		loadLevel(startingLevel);
 
 		FlxG.watch.add(this, "interactState", "Game State: ");
 	}
 
+	public function levelTransition(levelName:String) {
+		interactState = TRANSITIONING;
+		camera.fade(() -> {
+			loadLevel(levelName);
+			camera.fade(true);
+			interactState = RESOLVING;
+		});
+	}
+
 	function loadLevel(levelName:String) {
 		unload();
+
+		if (levelName == "") {
+			var anchor = ldtk.toc.FirstLevel[0];
+        	levelName = ldtk.all_worlds.Default.getLevelAt(anchor.worldX, anchor.worldY).identifier;
+		}
 
 		var waterBG = new FlxBackdrop(AssetPaths.waterTile__png);
 		Aseprite.loadAllAnimations(waterBG, AssetPaths.waterTile__json);
@@ -194,6 +221,8 @@ class PlayState extends FlxTransitionableState {
 
 	override public function update(elapsed:Float) {
 		switch interactState {
+			case TRANSITIONING:
+				// nothing to do. just wait for our transition to end
 			case RESOLVING:
 				var phaseDone = true;
 				for (t in pendingResolutions) {
