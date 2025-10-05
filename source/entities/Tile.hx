@@ -48,7 +48,25 @@ class Tile extends FlxSprite implements GameRenderObject {
 
 		// offset.y = vOffset;
 
+		
+		animation.onFrameChange.add(onSnowToIceFrame);
+
 		setTileType(tileType);
+	}
+
+	
+	function onSnowToIceFrame(name:String, frameNumber:Int, frameIndex:Int) {
+		trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
+
+		// Play footstep sound on specific frames
+		if (name == anims.snow2ice) {
+			if (frameNumber == 0) {
+				FmodPlugin.playSFX(FmodSFX.TilesSnowToIce2);
+			}
+			if (frameNumber == 7) {
+				FmodPlugin.playSFX(FmodSFX.TilesSnowToIceSheen);
+			}
+		}
 	}
 
 	public function setTileType(tileType:TileType) {

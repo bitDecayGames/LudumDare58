@@ -27,6 +27,8 @@ class Player extends FlxSprite implements GameRenderObject {
 	public static var PUSH = "Push";
 	public static var KICK = "Kick";
 
+	var lastGameBoardMoveResult:GameBoardMoveResult = null;
+
 	var id:Int = 0;
 	var speed:Float = 150;
 	var playerNum = 0;
@@ -97,11 +99,29 @@ class Player extends FlxSprite implements GameRenderObject {
 
 		// Play footstep sound on specific frames
 		if (name == anims.PushDown || name == anims.PushUp) {
+			
 			if (frameNumber == 2 || frameNumber == 5) {
-				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
-			}
+				if (lastGameBoardMoveResult != null) {
+					var boardTileType = Type.getClass(lastGameBoardMoveResult);
+					if (boardTileType == WheelSpin) {
+						return;
+					}
+				}
+			} 
+
+			FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
 		}
 		if (name == anims.PushSide) {
+
+			if (frameNumber == 1 || frameNumber == 5) {
+				if (lastGameBoardMoveResult != null) {
+					var boardTileType = Type.getClass(lastGameBoardMoveResult);
+					if (boardTileType == WheelSpin) {
+						return;
+					}
+				}	
+			} 
+
 			if (frameNumber == 1 || frameNumber == 5) {
 				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
 			}
@@ -197,6 +217,7 @@ class Player extends FlxSprite implements GameRenderObject {
 	}
 
 	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):Completable {
+		lastGameBoardMoveResult = r;
 		var dest = r.endPos;
 		facing = FlxDirectionFlags.fromInt(r.dir.asFacing());
 

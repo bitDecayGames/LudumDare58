@@ -1109,8 +1109,9 @@
    { "name": "SideBlink", "from": 74, "to": 74, "direction": "forward", "color": "#000000ff" },
    { "name": "FlavorSide", "from": 75, "to": 95, "direction": "forward", "color": "#000000ff" },
    { "name": "Splash", "from": 96, "to": 103, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "TransitionPrep", "from": 104, "to": 117, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "TransitionJump", "from": 118, "to": 118, "direction": "forward", "color": "#000000ff" },
+   { "name": "TransitionPrep", "from": 104, "to": 112, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "TransitionWalk", "from": 113, "to": 116, "direction": "forward", "color": "#000000ff" },
+   { "name": "TransitionJump", "from": 117, "to": 118, "direction": "forward", "repeat": "1", "color": "#000000ff" },
    { "name": "TransitionFloat", "from": 119, "to": 119, "direction": "forward", "color": "#000000ff" }
   ],
   "layers": [
