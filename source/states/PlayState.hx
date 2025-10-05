@@ -67,7 +67,11 @@ class PlayState extends FlxTransitionableState {
 
 	public function new(levelIID:String = "") {
 		super();
-		startingLevel = levelIID;
+		if (levelIID == "") {
+			startingLevel = "Level_1";
+		} else {
+			startingLevel = levelIID;
+		}
 
 		ME = this;
 	}
@@ -188,14 +192,14 @@ class PlayState extends FlxTransitionableState {
 		for (tile in level.tiles) {
 			tileGroup.add(tile);
 		}
+		for (collectable in level.collectables) {
+			actionGroup.add(collectable);
+		}
 		for (block in level.blocks) {
 			actionGroup.add(block);
 		}
 		for (hazard in level.hazards) {
 			actionGroup.add(hazard);
-		}
-		for (collectable in level.collectables) {
-			actionGroup.add(collectable);
 		}
 
 		Collectables.initLevel(level.name, level.collectables.length);
@@ -294,8 +298,6 @@ class PlayState extends FlxTransitionableState {
 
 		FlxG.collide(midGroundGroup, player);
 		handleCameraBounds();
-
-		TODO.sfx('scarySound');
 	}
 
 	function syncRenderState() {

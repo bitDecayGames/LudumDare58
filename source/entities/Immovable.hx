@@ -16,17 +16,17 @@ import bitdecay.flixel.graphics.Aseprite;
 import bitdecay.flixel.graphics.AsepriteMacros;
 import flixel.FlxG;
 
-class PushBlock extends FlxSprite implements GameRenderObject {
-	public static var anims = AsepriteMacros.tagNames("assets/aseprite/crate.json");
-	public static var layers = AsepriteMacros.layerNames("assets/aseprite/crate.json");
+class Immovable extends FlxSprite implements GameRenderObject {
+	public static var anims = AsepriteMacros.tagNames("assets/aseprite/blockingTile.json");
+	public static var layers = AsepriteMacros.layerNames("assets/aseprite/blockingTile.json");
 
 	var id:Int = 0;
 
 	public function new(id:Int, X:Float, Y:Float) {
 		super(X, Y);
 		this.id = id;
-		Aseprite.loadAllAnimations(this, AssetPaths.crate__json);
-		var vOffset = height - 24;
+		Aseprite.loadAllAnimations(this, AssetPaths.blockingTile__json);
+		var vOffset = height - 32;
 		width = 32;
 		height = 32;
 		offset.y = vOffset;
@@ -36,20 +36,8 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 		var dest = r.endPos;
 		var t = Type.getClass(r);
 		switch (t) {
-			case Move | Push | Slide:
-				var tweenDuration = 0.6;
-				if (t == Push) {
-					// getting pushed is hard work
-					tweenDuration *= 2.0;
-				} else if (t == Slide) {
-					FmodPlugin.playSFX(FmodSFX.PushIceSlide);
-				}
-				return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, tweenDuration));
-			case Drop:
-				FmodPlugin.playSFX(FmodSFX.BearSplash);
-				// TODO: splash animation?
-				kill();
-				return null;
+			case Bump:
+				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, 0.6));
 			default:
 				// eh?
 		}

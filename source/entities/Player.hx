@@ -50,6 +50,7 @@ class Player extends FlxSprite implements GameRenderObject {
 
 		animation.onFrameChange.add(onWalkFrame);
 		animation.onFrameChange.add(onFallFrame);
+		animation.onFrameChange.add(onPushFrame);
 
 		animation.onFinish.add((name) -> {
 			if (name == anims.Splash) {
@@ -71,6 +72,22 @@ class Player extends FlxSprite implements GameRenderObject {
         // Play footstep sound on specific frames
 		if (name == anims.RunDown || name == anims.RunUp || name == anims.RunSide) {
 			if (frameNumber == 2 || frameNumber == 5) {
+				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
+        	}
+		}
+    }
+
+	function onPushFrame(name:String, frameNumber:Int, frameIndex:Int) {
+        trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
+        
+        // Play footstep sound on specific frames
+		if (name == anims.PushDown || name == anims.PushUp) {
+			if (frameNumber == 2 || frameNumber == 5) {
+				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
+        	}
+		}
+		if (name == anims.PushSide) {
+			if (frameNumber == 1 || frameNumber == 5) {
 				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
         	}
 		}
@@ -175,14 +192,13 @@ class Player extends FlxSprite implements GameRenderObject {
 				switch (t) {
 					case Move:
 						animPrefix = RUN;
-						TODO.sfx('bear walks one tile');
 					case Push:
 						animPrefix = PUSH;
-						TODO.sfx('bear pushes block. block and bear both move');
+						FmodPlugin.playSFX(FmodSFX.PushSnow);
 						// pushing blocks is hard work
 						tweenDuration *= 2.0;
 					case Slide:
-						TODO.sfx('bear slip/slides across one tile');
+						FmodPlugin.playSFX(FmodSFX.BearSlip);
 						animPrefix = SLIP;
 					default:
 						// eh?
@@ -192,7 +208,6 @@ class Player extends FlxSprite implements GameRenderObject {
 			case Drop:
 				animPrefix = DROP;
 				animation.play(anims.Splash);
-				TODO.sfx('bear walks into water splash');
 				return new AnimationCompletable(animation, anims.Splash);
 			case WheelSpin:
 				// TODO: this should be the "spin wheels" animation and probably needs to be a AnimationCompletable instead of tween
@@ -201,7 +216,7 @@ class Player extends FlxSprite implements GameRenderObject {
 				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
 			case Shove:
 				// TODO: this should be the "shove" animation and probably needs to be a AnimationCompletable instead of tween
-				TODO.sfx('bear pushes block (block moves, bear does not)');
+				FmodPlugin.playSFX(FmodSFX.PushIce);
 				animPrefix = PUSH;
 				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
 			case Win:

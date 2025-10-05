@@ -13,6 +13,7 @@ enum FmodSong {
 
 enum FmodSFX {
     BearFall;
+    BearSlip;
     BearSplash;
     BearStep;
     BearStepbounceOnly;
@@ -20,8 +21,14 @@ enum FmodSFX {
     BearStepCrunchOnly;
     MenuHover;
     MenuSelect;
+    New_Event;
+    PushIce;
+    PushIceSlide;
+    PushSnow;
     SealCrunch;
+    SealCrunch2;
     SealDie;
+    SealSqueal;
 }
 
 class FmodEvent {
@@ -34,6 +41,7 @@ class FmodEvent {
     public static inline extern overload function event(sfx:FmodSFX):String {
         return switch(sfx) {
             case BearFall: "event:/SFX/Bear/BearFall";
+            case BearSlip: "event:/SFX/Bear/BearSlip";
             case BearSplash: "event:/SFX/Bear/BearSplash";
             case BearStep: "event:/SFX/Bear/BearStep";
             case BearStepbounceOnly: "event:/SFX/Bear/BearStepbounceOnly";
@@ -41,8 +49,14 @@ class FmodEvent {
             case BearStepCrunchOnly: "event:/SFX/Bear/BearStepCrunchOnly";
             case MenuHover: "event:/SFX/Menu/MenuHover";
             case MenuSelect: "event:/SFX/Menu/MenuSelect";
+            case New_Event: "event:/SFX/Push/New_Event";
+            case PushIce: "event:/SFX/Push/PushIce";
+            case PushIceSlide: "event:/SFX/Push/PushIceSlide";
+            case PushSnow: "event:/SFX/Push/PushSnow";
             case SealCrunch: "event:/SFX/Seal/SealCrunch";
+            case SealCrunch2: "event:/SFX/Seal/SealCrunch2";
             case SealDie: "event:/SFX/Seal/SealDie";
+            case SealSqueal: "event:/SFX/Seal/SealSqueal";
         }
     }
 }

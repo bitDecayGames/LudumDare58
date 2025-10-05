@@ -1,5 +1,6 @@
 package gameboard;
 
+import gameboard.GameBoardState.IMMOVABLE;
 import gameboard.GameBoardState.WALKABLE;
 import gameboard.GameBoardMoveResult.Melt;
 import gameboard.GameBoardMoveResult.Shove;
@@ -81,7 +82,7 @@ class GameBoard {
 		var nextObj = current.getObj(nextXY[0], nextXY[1]);
 		if (!isMovePossible(targetTile, targetObj, nextTile, nextObj)) {
 			results.push([new Bump(playerObj, dir)]);
-			if (targetObj != null && targetObj.type == BLOCK) {
+			if (targetObj != null && (targetObj.type == BLOCK || targetObj.type == IMMOVABLE)) {
 				results.push([new Bump(targetObj, dir)]);
 			}
 			return results;
@@ -106,7 +107,15 @@ class GameBoard {
 				playerObj.index = current.vecToIndex(targetXY);
 			}
 		} else {
-			cur.push(new Move(playerObj, xy, targetXY, dir));
+			var targetIsSlide = targetTile == SLIDING || targetTile == SLIDING_BREAKABLE;
+			if (targetIsSlide) {
+				// TODO: if you can switch between running and sliding half-way, then uncomment this and use the "Slide.partial" value to trigger it in Player class
+				// cur.push(new Slide(playerObj, xy, targetXY, dir, true));
+				// then you can get rid of this line
+				cur.push(new Move(playerObj, xy, targetXY, dir));
+			} else {
+				cur.push(new Move(playerObj, xy, targetXY, dir));
+			}
 			playerObj.index = current.vecToIndex(targetXY);
 		}
 		if (!playerStandingStill && currentTile == WALKABLE) {
@@ -165,7 +174,7 @@ class GameBoard {
 								cur.push(new Collide(targetObj, checkObj));
 								current.removeObj(checkObj);
 								targetObj.index = current.vecToIndex(checkXY);
-								cur.push(new Slide(targetObj, nextXY, checkXY, dir));
+								cur.push(new Slide(targetObj, nextXY, checkXY, dir, false));
 								if (nextTile == SLIDING_BREAKABLE) {
 									current.setTile(nextXY[0], nextXY[1], HOLE);
 									cur.push(new Crumble(nextXY));
@@ -179,7 +188,7 @@ class GameBoard {
 						} else {
 							pushDirty = true;
 							targetObj.index = current.vecToIndex(checkXY);
-							cur.push(new Slide(targetObj, nextXY, checkXY, dir));
+							cur.push(new Slide(targetObj, nextXY, checkXY, dir, false));
 							if (nextTile == SLIDING_BREAKABLE) {
 								current.setTile(nextXY[0], nextXY[1], HOLE);
 								cur.push(new Crumble(nextXY));
@@ -206,7 +215,7 @@ class GameBoard {
 						if (checkObj != null) {
 							if (checkObj.type == HAZARD) {
 								playerObj.index = current.vecToIndex(checkXY);
-								cur.push(new Slide(targetObj, nextXY, checkXY, dir));
+								cur.push(new Slide(targetObj, nextXY, checkXY, dir, false));
 								if (targetTile == SLIDING_BREAKABLE) {
 									current.setTile(targetXY[0], targetXY[1], HOLE);
 									cur.push(new Crumble(targetXY));
@@ -216,6 +225,7 @@ class GameBoard {
 								cur.push(new Die(playerObj, checkXY));
 								results.push(cur);
 								cur = [];
+								QLog.notice('some how you lose');
 								cur.push(new Lose());
 								results.push(cur);
 								return results;
@@ -228,7 +238,7 @@ class GameBoard {
 						} else {
 							playerDirty = true;
 							playerObj.index = current.vecToIndex(checkXY);
-							cur.push(new Slide(playerObj, targetXY, checkXY, dir));
+							cur.push(new Slide(playerObj, targetXY, checkXY, dir, false));
 							if (targetTile == SLIDING_BREAKABLE) {
 								current.setTile(targetXY[0], targetXY[1], HOLE);
 								cur.push(new Crumble(targetXY));
@@ -280,8 +290,12 @@ class GameBoard {
 		if (targetTile == SOLID) {
 			return false;
 		}
-		if (targetObj != null && targetObj.type == BLOCK) {
-			if ((nextTargetObj != null && nextTargetObj.type == BLOCK) || nextTargetTile == SOLID || nextTargetTile == DEATH) {
+		if (targetObj != null) {
+			if (targetObj.type == BLOCK) {
+				if (nextTargetObj != null || nextTargetTile == SOLID || nextTargetTile == DEATH) {
+					return false;
+				}
+			} else if (targetObj.type == IMMOVABLE) {
 				return false;
 			}
 		}
