@@ -44,7 +44,10 @@ class Level {
 
 	public var renderObjectsById:Map<Int, GameRenderObject> = new Map<Int, GameRenderObject>();
 
+	public final name:String;
+
 	public function new(nameOrIID:String) {
+		name = nameOrIID;
 		raw = project.getLevel(nameOrIID);
 		terrainLayer = new BDTilemap();
 		terrainLayer.loadLdtk(raw.l_Terrain);

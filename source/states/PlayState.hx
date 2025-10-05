@@ -1,5 +1,6 @@
 package states;
 
+import collectables.Collectables;
 import bitdecay.flixel.sorting.ZSorting;
 import coordination.Completable;
 import entities.GameRenderObject;
@@ -93,6 +94,7 @@ class PlayState extends FlxTransitionableState {
 
 		// Seals collected
 		var sealsCollectedTxt = new FlxBitmapText(0, FlxG.height - hudOffset);
+		sealsCollectedTxt.scale.set(1.5, 1.5);
 		sealsCollectedTxt.screenCenter(X);
 		sealsCollectedTxt.scrollFactor.set(0, 0);
 		EventBus.subscribe(SealCollected, (e) -> {
@@ -190,10 +192,9 @@ class PlayState extends FlxTransitionableState {
 			actionGroup.add(collectable);
 		}
 
-		gameBoard = new GameBoard(gbState);
+		Collectables.initLevel(level.name, level.collectables.length);
 
-		// TODO Remove when hooked into GameBoard
-		EventBus.fire(new SealCollected(1, 3));
+		gameBoard = new GameBoard(gbState);
 
 		// TODO: build our new tile map with proper rendering so the tiles look nice.
 		// The ones in the level.terrainLayer are editor tiles for now
@@ -303,6 +304,10 @@ class PlayState extends FlxTransitionableState {
 				}
 			}
 		});
+
+
+		// Reset collectables
+		Collectables.resetCollected(level.name, gameBoard.current.countObjByType(COLLECTABLE));
 	}
 
 	function undo() {

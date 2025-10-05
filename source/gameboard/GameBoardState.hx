@@ -113,6 +113,10 @@ class GameBoardState {
 		return f[0];
 	}
 
+	public function countObjByType(type:ObjectType): Int {
+		return objData.filter((o) -> o.type == type).length;
+	}
+
 	public function addObj(v:GameBoardObject) {
 		if (v.id <= 0) {
 			idCounter++;

@@ -1,6 +1,7 @@
 package entities;
 
 import todo.TODO;
+import collectables.Collectables;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
 import coordination.Completable;
@@ -62,7 +63,9 @@ class Seal extends FlxSprite implements GameRenderObject {
 			animTimer.cancel();
 			TODO.sfx('seal murdered/eaten by player');
 			animation.play(anims.Dead);
+
 			FmodPlugin.playSFX(FmodSFX.SealDie);
+			Collectables.incrCollect();
 		}
 		return null;
 	}
