@@ -161,9 +161,11 @@ class Lose extends GameBoardMoveResult {
 }
 
 class Win extends GameBoardMoveResult {
-	public function new() {}
+	public function new(gameObj:GameBoardObject) {
+		this.gameObj = gameObj;
+	}
 
 	public function toString():String {
-		return 'Win()';
+		return 'Win(${gameObj.id})';
 	}
 }
