@@ -279,12 +279,12 @@
   "scale": "1",
   "frameTags": [
    { "name": "Stand", "from": 1, "to": 1, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "StandBlink", "from": 2, "to": 2, "direction": "forward", "color": "#000000ff" },
+   { "name": "StandBlink", "from": 2, "to": 2, "direction": "forward", "repeat": "1", "color": "#000000ff" },
    { "name": "StandTurn", "from": 3, "to": 6, "direction": "forward", "color": "#000000ff" },
    { "name": "LayTransition", "from": 7, "to": 9, "direction": "forward", "color": "#000000ff" },
    { "name": "Lay", "from": 10, "to": 10, "direction": "forward", "color": "#000000ff" },
-   { "name": "LayBlink", "from": 11, "to": 11, "direction": "forward", "color": "#000000ff" },
-   { "name": "Yawn", "from": 12, "to": 16, "direction": "forward", "color": "#000000ff" },
+   { "name": "LayBlink", "from": 11, "to": 11, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "Yawn", "from": 12, "to": 16, "direction": "forward", "repeat": "1", "color": "#000000ff" },
    { "name": "Dead", "from": 17, "to": 29, "direction": "forward", "color": "#000000ff" }
   ],
   "layers": [
