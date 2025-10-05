@@ -80,18 +80,19 @@ class GameBoard {
 		var targetObj = current.getObj(targetXY[0], targetXY[1]);
 		var nextTile = current.getTile(nextXY[0], nextXY[1]);
 		var nextObj = current.getObj(nextXY[0], nextXY[1]);
+		var cur:Array<GameBoardMoveResult> = [];
 		if (!isMovePossible(targetTile, targetObj, nextTile, nextObj)) {
-			results.push([new Bump(playerObj, dir)]);
+			cur.push(new Bump(playerObj, dir));
 			if (targetObj != null && (targetObj.type == BLOCK || targetObj.type == IMMOVABLE)) {
-				results.push([new Bump(targetObj, dir)]);
+				cur.push(new Bump(targetObj, dir));
 			}
+			results.push(cur);
 			return results;
 		}
 
 		history.push(current.save());
 
 		var playerStandingStill = false;
-		var cur:Array<GameBoardMoveResult> = [];
 		if (targetObj != null && targetObj.type == BLOCK) {
 			// if you are standing on ice, then you can't push blocks
 			if (currentTile == SLIDING || currentTile == SLIDING_BREAKABLE) {

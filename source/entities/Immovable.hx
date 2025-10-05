@@ -37,7 +37,7 @@ class Immovable extends FlxSprite implements GameRenderObject {
 		var t = Type.getClass(r);
 		switch (t) {
 			case Bump:
-				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, 0.6));
+				return new BumpCompletable(this, r.dir);
 			default:
 				// eh?
 		}
