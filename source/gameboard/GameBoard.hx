@@ -82,6 +82,20 @@ class Collide extends GameBoardMoveResult {
 	}
 }
 
+class Collect extends GameBoardMoveResult {
+	public var other:GameBoardObject;
+
+	public function new(gameObj:GameBoardObject, other:GameBoardObject) {
+		this.gameObj = gameObj;
+		this.other = other;
+		setDir();
+	}
+
+	public function toString():String {
+		return 'Collect(${gameObj.id} and ${other.id})';
+	}
+}
+
 class Drop extends GameBoardMoveResult {
 	public var other:GameBoardObject;
 	public var pos:Vector<Int>;
@@ -199,6 +213,9 @@ class GameBoard {
 		var cur:Array<GameBoardMoveResult> = [];
 		playerObj.index = current.vecToIndex(targetXY);
 		cur.push(new Move(playerObj, xy, targetXY));
+		if (targetObj != null && targetObj.type == COLLECTABLE) {
+			cur.push(new Collect(playerObj, targetObj));
+		}
 		if (currentTile == WALKABLE_BREAKABLE || currentTile == SLIDING_BREAKABLE) {
 			current.setTile(xy[0], xy[1], HOLE);
 			cur.push(new Crumble(xy));
