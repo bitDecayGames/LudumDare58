@@ -6,7 +6,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 47, "h": 32 },
     "sourceSize": { "w": 47, "h": 32 },
-    "duration": 100
+    "duration": 170
    },
    {
     "filename": "ice2 1.aseprite",
@@ -15,7 +15,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 47, "h": 32 },
     "sourceSize": { "w": 47, "h": 32 },
-    "duration": 100
+    "duration": 170
    },
    {
     "filename": "ice2 2.aseprite",
@@ -24,7 +24,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 47, "h": 32 },
     "sourceSize": { "w": 47, "h": 32 },
-    "duration": 100
+    "duration": 170
    },
    {
     "filename": "ice2 3.aseprite",
@@ -33,7 +33,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 47, "h": 32 },
     "sourceSize": { "w": 47, "h": 32 },
-    "duration": 100
+    "duration": 170
    },
    {
     "filename": "ice2 4.aseprite",
@@ -42,7 +42,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 47, "h": 32 },
     "sourceSize": { "w": 47, "h": 32 },
-    "duration": 100
+    "duration": 170
    }
  ],
  "meta": {
