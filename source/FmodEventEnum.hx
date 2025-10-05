@@ -29,6 +29,9 @@ enum FmodSFX {
     SealCrunch2;
     SealDie;
     SealSqueal;
+    TilesSnowToIce;
+    TilesSnowToIce2;
+    TilesSnowToIceSheen;
 }
 
 class FmodEvent {
@@ -57,6 +60,9 @@ class FmodEvent {
             case SealCrunch2: "event:/SFX/Seal/SealCrunch2";
             case SealDie: "event:/SFX/Seal/SealDie";
             case SealSqueal: "event:/SFX/Seal/SealSqueal";
+            case TilesSnowToIce: "event:/SFX/Tiles/TilesSnowToIce";
+            case TilesSnowToIce2: "event:/SFX/Tiles/TilesSnowToIce2";
+            case TilesSnowToIceSheen: "event:/SFX/Tiles/TilesSnowToIceSheen";
         }
     }
 }

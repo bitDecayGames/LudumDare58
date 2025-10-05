@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.util.FlxTimer;
 import todo.TODO;
 import coordination.Completable;
 import flixel.math.FlxPoint;
@@ -46,8 +47,10 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 				}
 				return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, tweenDuration));
 			case Drop:
-				FmodPlugin.playSFX(FmodSFX.BearSplash);
-				// TODO: splash animation?
+				
+				FlxTimer.wait(0.25, () -> {
+					FmodPlugin.playSFX(FmodSFX.BearSplash);
+				});
 				kill();
 				new Splash(x, y);
 				return null;
