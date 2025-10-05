@@ -183,6 +183,9 @@ class PlayState extends FlxTransitionableState {
 
 		level = new Level(levelName);
 		// FmodPlugin.playSong(level.raw.f_Music);
+		for (waterFlavor in level.waterFlavor) {
+			bgGroup.add(waterFlavor);
+		}
 
 		var gbState = level.initialBoardState;
 
