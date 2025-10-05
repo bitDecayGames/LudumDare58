@@ -1,5 +1,9 @@
 package states;
 
+import flixel.math.FlxMath;
+import bitdecay.flixel.graphics.AsepriteMacros;
+import bitdecay.flixel.graphics.Aseprite;
+import flixel.addons.display.FlxBackdrop;
 import config.Configure;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -32,11 +36,13 @@ class CreditsState extends FlxTransitionableState {
 	static inline var entryRightMargin = 50;
 	static inline var entryVerticalSpacing = 25;
 
+	var waterBG:FlxBackdrop;
+
 	var toolingImages = [
 		AssetPaths.FLStudioLogo__png,
 		AssetPaths.FmodLogoWhite__png,
 		AssetPaths.HaxeFlixelLogo__png,
-		AssetPaths.pyxel_edit__png,
+		// AssetPaths.pyxel_edit__png,
 		AssetPaths.aseprite__png
 	];
 
@@ -44,6 +50,15 @@ class CreditsState extends FlxTransitionableState {
 		super.create();
 		bgColor = backgroundColor;
 		camera.pixelPerfectRender = true;
+
+		waterBG = new FlxBackdrop(AssetPaths.waterTile__png);
+		Aseprite.loadAllAnimations(waterBG, AssetPaths.waterTile__json);
+		var anims = AsepriteMacros.tagNames("assets/aseprite/waterTile.json");
+		waterBG.scale.set(2, 2);
+		waterBG.animation.play(anims.animate);
+		add(waterBG);
+
+		// _allCreditElements.push(waterBG);
 
 		// Button
 
@@ -137,20 +152,40 @@ class CreditsState extends FlxTransitionableState {
 		}
 	}
 
+	var sineTimer = 0.0;
+	var waveSpeed = 3;
+	var waveDepth = 75;
+	var stopTriggered = false;
+
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
 
+		sineTimer += elapsed * waveSpeed;
+
+		var mod = FlxMath.fastSin(sineTimer) * waveDepth;
+
 		// Stop scrolling when "Thank You" text is in the center of the screen
-		if (_txtThankYou.y + _txtThankYou.height / 2 < FlxG.height / 2) {
+		if (stopTriggered || _txtThankYou.y + _txtThankYou.height / 2 < FlxG.height / 2) {
+			waterBG.velocity.set();
+
+			stopTriggered = true;
+
+			_allCreditElements[_allCreditElements.length-1].y -= (mod) * elapsed;
 			return;
 		}
 
 		for (element in _allCreditElements) {
 			if (FlxG.keys.pressed.SPACE || FlxG.mouse.pressed) {
-				element.y -= 2;
+				element.y -= (120 + mod) * elapsed;
 			} else {
-				element.y -= .5;
+				element.y -= (30 + mod) * elapsed;
 			}
+		}
+
+		if (FlxG.keys.pressed.SPACE || FlxG.mouse.pressed) {
+			waterBG.velocity.set(0, -120);
+		} else {
+			waterBG.velocity.set(0, -30);
 		}
 	}
 
