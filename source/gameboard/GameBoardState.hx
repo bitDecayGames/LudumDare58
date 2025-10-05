@@ -4,12 +4,13 @@ import haxe.ds.Vector;
 
 typedef TileType = Int;
 inline final EMPTY:TileType = 0;
-inline final SOLID:TileType = 5;
+inline final SOLID:TileType = -1;
 inline final WALKABLE:TileType = 2;
+inline final NON_MELTABLE_WALKABLE:TileType = 4;
 inline final SLIDING:TileType = 1;
-inline final WALKABLE_BREAKABLE:TileType = 4;
+inline final WALKABLE_BREAKABLE:TileType = -1;
 inline final SLIDING_BREAKABLE:TileType = 3;
-inline final HOLE:TileType = 6;
+inline final HOLE:TileType = -1;
 inline final DEATH:TileType = -1;
 typedef ObjectType = Int;
 inline final NONE:ObjectType = 0;
@@ -18,6 +19,7 @@ inline final COLLECTABLE:ObjectType = 2;
 inline final COLLECTED_COLLECTABLE:ObjectType = 3;
 inline final BLOCK:ObjectType = 4;
 inline final HAZARD:ObjectType = 5;
+inline final IMMOVABLE:ObjectType = 5;
 inline final EXIT:ObjectType = -1;
 
 class GameBoardState {
@@ -111,6 +113,10 @@ class GameBoardState {
 			return null;
 		}
 		return f[0];
+	}
+
+	public function countObjByType(type:ObjectType):Int {
+		return objData.filter((o) -> o.type == type).length;
 	}
 
 	public function addObj(v:GameBoardObject) {

@@ -1,6 +1,6 @@
 { "frames": [
    {
-    "filename": "player 0.aseprite",
+    "filename": "playerBloody 0.aseprite",
     "frame": { "x": 0, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -9,7 +9,7 @@
     "duration": 100
    },
    {
-    "filename": "player 1.aseprite",
+    "filename": "playerBloody 1.aseprite",
     "frame": { "x": 0, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -18,7 +18,7 @@
     "duration": 100
    },
    {
-    "filename": "player 2.aseprite",
+    "filename": "playerBloody 2.aseprite",
     "frame": { "x": 32, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -27,7 +27,7 @@
     "duration": 100
    },
    {
-    "filename": "player 3.aseprite",
+    "filename": "playerBloody 3.aseprite",
     "frame": { "x": 64, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -36,7 +36,7 @@
     "duration": 100
    },
    {
-    "filename": "player 4.aseprite",
+    "filename": "playerBloody 4.aseprite",
     "frame": { "x": 96, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -45,7 +45,7 @@
     "duration": 100
    },
    {
-    "filename": "player 5.aseprite",
+    "filename": "playerBloody 5.aseprite",
     "frame": { "x": 128, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -54,7 +54,7 @@
     "duration": 100
    },
    {
-    "filename": "player 6.aseprite",
+    "filename": "playerBloody 6.aseprite",
     "frame": { "x": 160, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "duration": 100
    },
    {
-    "filename": "player 7.aseprite",
+    "filename": "playerBloody 7.aseprite",
     "frame": { "x": 192, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -72,25 +72,25 @@
     "duration": 100
    },
    {
-    "filename": "player 8.aseprite",
+    "filename": "playerBloody 8.aseprite",
     "frame": { "x": 224, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
     "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
+    "duration": 200
    },
    {
-    "filename": "player 9.aseprite",
+    "filename": "playerBloody 9.aseprite",
     "frame": { "x": 256, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
     "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
+    "duration": 200
    },
    {
-    "filename": "player 10.aseprite",
+    "filename": "playerBloody 10.aseprite",
     "frame": { "x": 288, "y": 0, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -99,16 +99,7 @@
     "duration": 200
    },
    {
-    "filename": "player 11.aseprite",
-    "frame": { "x": 320, "y": 0, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 200
-   },
-   {
-    "filename": "player 12.aseprite",
+    "filename": "playerBloody 11.aseprite",
     "frame": { "x": 0, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -117,7 +108,7 @@
     "duration": 200
    },
    {
-    "filename": "player 13.aseprite",
+    "filename": "playerBloody 12.aseprite",
     "frame": { "x": 32, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -126,7 +117,7 @@
     "duration": 200
    },
    {
-    "filename": "player 14.aseprite",
+    "filename": "playerBloody 13.aseprite",
     "frame": { "x": 64, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -135,16 +126,16 @@
     "duration": 200
    },
    {
-    "filename": "player 15.aseprite",
+    "filename": "playerBloody 14.aseprite",
     "frame": { "x": 96, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
     "sourceSize": { "w": 32, "h": 64 },
-    "duration": 200
+    "duration": 100
    },
    {
-    "filename": "player 16.aseprite",
+    "filename": "playerBloody 15.aseprite",
     "frame": { "x": 128, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -153,7 +144,7 @@
     "duration": 100
    },
    {
-    "filename": "player 17.aseprite",
+    "filename": "playerBloody 16.aseprite",
     "frame": { "x": 160, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -162,7 +153,7 @@
     "duration": 100
    },
    {
-    "filename": "player 18.aseprite",
+    "filename": "playerBloody 17.aseprite",
     "frame": { "x": 192, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -171,7 +162,7 @@
     "duration": 100
    },
    {
-    "filename": "player 19.aseprite",
+    "filename": "playerBloody 18.aseprite",
     "frame": { "x": 224, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -180,7 +171,7 @@
     "duration": 100
    },
    {
-    "filename": "player 20.aseprite",
+    "filename": "playerBloody 19.aseprite",
     "frame": { "x": 256, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -189,7 +180,7 @@
     "duration": 100
    },
    {
-    "filename": "player 21.aseprite",
+    "filename": "playerBloody 20.aseprite",
     "frame": { "x": 288, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -198,16 +189,7 @@
     "duration": 100
    },
    {
-    "filename": "player 22.aseprite",
-    "frame": { "x": 320, "y": 64, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 23.aseprite",
+    "filename": "playerBloody 21.aseprite",
     "frame": { "x": 0, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -216,7 +198,7 @@
     "duration": 100
    },
    {
-    "filename": "player 24.aseprite",
+    "filename": "playerBloody 22.aseprite",
     "frame": { "x": 32, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -225,7 +207,16 @@
     "duration": 100
    },
    {
-    "filename": "player 25.aseprite",
+    "filename": "playerBloody 23.aseprite",
+    "frame": { "x": 256, "y": 64, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "playerBloody 24.aseprite",
     "frame": { "x": 288, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -234,16 +225,7 @@
     "duration": 100
    },
    {
-    "filename": "player 26.aseprite",
-    "frame": { "x": 320, "y": 64, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 27.aseprite",
+    "filename": "playerBloody 25.aseprite",
     "frame": { "x": 0, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -252,7 +234,7 @@
     "duration": 100
    },
    {
-    "filename": "player 28.aseprite",
+    "filename": "playerBloody 26.aseprite",
     "frame": { "x": 32, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -261,7 +243,7 @@
     "duration": 100
    },
    {
-    "filename": "player 29.aseprite",
+    "filename": "playerBloody 27.aseprite",
     "frame": { "x": 64, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -270,8 +252,8 @@
     "duration": 100
    },
    {
-    "filename": "player 30.aseprite",
-    "frame": { "x": 224, "y": 64, "w": 32, "h": 64 },
+    "filename": "playerBloody 28.aseprite",
+    "frame": { "x": 192, "y": 64, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
@@ -279,7 +261,7 @@
     "duration": 100
    },
    {
-    "filename": "player 31.aseprite",
+    "filename": "playerBloody 29.aseprite",
     "frame": { "x": 96, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -288,7 +270,7 @@
     "duration": 100
    },
    {
-    "filename": "player 32.aseprite",
+    "filename": "playerBloody 30.aseprite",
     "frame": { "x": 128, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -297,7 +279,7 @@
     "duration": 100
    },
    {
-    "filename": "player 33.aseprite",
+    "filename": "playerBloody 31.aseprite",
     "frame": { "x": 160, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -306,7 +288,7 @@
     "duration": 100
    },
    {
-    "filename": "player 34.aseprite",
+    "filename": "playerBloody 32.aseprite",
     "frame": { "x": 192, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -315,7 +297,7 @@
     "duration": 100
    },
    {
-    "filename": "player 35.aseprite",
+    "filename": "playerBloody 33.aseprite",
     "frame": { "x": 224, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -324,7 +306,7 @@
     "duration": 100
    },
    {
-    "filename": "player 36.aseprite",
+    "filename": "playerBloody 34.aseprite",
     "frame": { "x": 256, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -333,7 +315,7 @@
     "duration": 100
    },
    {
-    "filename": "player 37.aseprite",
+    "filename": "playerBloody 35.aseprite",
     "frame": { "x": 288, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -342,25 +324,16 @@
     "duration": 100
    },
    {
-    "filename": "player 38.aseprite",
-    "frame": { "x": 320, "y": 128, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 39.aseprite",
+    "filename": "playerBloody 36.aseprite",
     "frame": { "x": 0, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
     "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
+    "duration": 200
    },
    {
-    "filename": "player 40.aseprite",
+    "filename": "playerBloody 37.aseprite",
     "frame": { "x": 32, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -369,7 +342,7 @@
     "duration": 200
    },
    {
-    "filename": "player 41.aseprite",
+    "filename": "playerBloody 38.aseprite",
     "frame": { "x": 64, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -378,7 +351,7 @@
     "duration": 200
    },
    {
-    "filename": "player 42.aseprite",
+    "filename": "playerBloody 39.aseprite",
     "frame": { "x": 96, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -387,7 +360,7 @@
     "duration": 200
    },
    {
-    "filename": "player 43.aseprite",
+    "filename": "playerBloody 40.aseprite",
     "frame": { "x": 128, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -396,7 +369,7 @@
     "duration": 200
    },
    {
-    "filename": "player 44.aseprite",
+    "filename": "playerBloody 41.aseprite",
     "frame": { "x": 160, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -405,16 +378,16 @@
     "duration": 200
    },
    {
-    "filename": "player 45.aseprite",
+    "filename": "playerBloody 42.aseprite",
     "frame": { "x": 192, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
     "sourceSize": { "w": 32, "h": 64 },
-    "duration": 200
+    "duration": 100
    },
    {
-    "filename": "player 46.aseprite",
+    "filename": "playerBloody 43.aseprite",
     "frame": { "x": 224, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -423,16 +396,7 @@
     "duration": 100
    },
    {
-    "filename": "player 47.aseprite",
-    "frame": { "x": 256, "y": 192, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 48.aseprite",
+    "filename": "playerBloody 44.aseprite",
     "frame": { "x": 96, "y": 128, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -441,7 +405,16 @@
     "duration": 100
    },
    {
-    "filename": "player 49.aseprite",
+    "filename": "playerBloody 45.aseprite",
+    "frame": { "x": 256, "y": 192, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "playerBloody 46.aseprite",
     "frame": { "x": 288, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -450,16 +423,7 @@
     "duration": 100
    },
    {
-    "filename": "player 50.aseprite",
-    "frame": { "x": 320, "y": 192, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 51.aseprite",
+    "filename": "playerBloody 47.aseprite",
     "frame": { "x": 0, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -468,7 +432,7 @@
     "duration": 100
    },
    {
-    "filename": "player 52.aseprite",
+    "filename": "playerBloody 48.aseprite",
     "frame": { "x": 32, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -477,7 +441,7 @@
     "duration": 100
    },
    {
-    "filename": "player 53.aseprite",
+    "filename": "playerBloody 49.aseprite",
     "frame": { "x": 32, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -486,7 +450,7 @@
     "duration": 100
    },
    {
-    "filename": "player 54.aseprite",
+    "filename": "playerBloody 50.aseprite",
     "frame": { "x": 32, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -495,16 +459,7 @@
     "duration": 100
    },
    {
-    "filename": "player 55.aseprite",
-    "frame": { "x": 320, "y": 192, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 56.aseprite",
+    "filename": "playerBloody 51.aseprite",
     "frame": { "x": 288, "y": 192, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -513,7 +468,16 @@
     "duration": 100
    },
    {
-    "filename": "player 57.aseprite",
+    "filename": "playerBloody 52.aseprite",
+    "frame": { "x": 256, "y": 192, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "playerBloody 53.aseprite",
     "frame": { "x": 64, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -522,7 +486,7 @@
     "duration": 100
    },
    {
-    "filename": "player 58.aseprite",
+    "filename": "playerBloody 54.aseprite",
     "frame": { "x": 96, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -531,7 +495,7 @@
     "duration": 100
    },
    {
-    "filename": "player 59.aseprite",
+    "filename": "playerBloody 55.aseprite",
     "frame": { "x": 128, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -540,7 +504,7 @@
     "duration": 100
    },
    {
-    "filename": "player 60.aseprite",
+    "filename": "playerBloody 56.aseprite",
     "frame": { "x": 160, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -549,7 +513,7 @@
     "duration": 100
    },
    {
-    "filename": "player 61.aseprite",
+    "filename": "playerBloody 57.aseprite",
     "frame": { "x": 192, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -558,7 +522,7 @@
     "duration": 100
    },
    {
-    "filename": "player 62.aseprite",
+    "filename": "playerBloody 58.aseprite",
     "frame": { "x": 224, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -567,7 +531,7 @@
     "duration": 100
    },
    {
-    "filename": "player 63.aseprite",
+    "filename": "playerBloody 59.aseprite",
     "frame": { "x": 256, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -576,25 +540,16 @@
     "duration": 100
    },
    {
-    "filename": "player 64.aseprite",
+    "filename": "playerBloody 60.aseprite",
     "frame": { "x": 288, "y": 256, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
     "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
+    "duration": 200
    },
    {
-    "filename": "player 65.aseprite",
-    "frame": { "x": 320, "y": 256, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 66.aseprite",
+    "filename": "playerBloody 61.aseprite",
     "frame": { "x": 0, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -603,7 +558,7 @@
     "duration": 200
    },
    {
-    "filename": "player 67.aseprite",
+    "filename": "playerBloody 62.aseprite",
     "frame": { "x": 32, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -612,7 +567,7 @@
     "duration": 200
    },
    {
-    "filename": "player 68.aseprite",
+    "filename": "playerBloody 63.aseprite",
     "frame": { "x": 64, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -621,7 +576,7 @@
     "duration": 200
    },
    {
-    "filename": "player 69.aseprite",
+    "filename": "playerBloody 64.aseprite",
     "frame": { "x": 96, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -630,7 +585,7 @@
     "duration": 200
    },
    {
-    "filename": "player 70.aseprite",
+    "filename": "playerBloody 65.aseprite",
     "frame": { "x": 128, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -639,16 +594,16 @@
     "duration": 200
    },
    {
-    "filename": "player 71.aseprite",
+    "filename": "playerBloody 66.aseprite",
     "frame": { "x": 160, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
     "sourceSize": { "w": 32, "h": 64 },
-    "duration": 200
+    "duration": 100
    },
    {
-    "filename": "player 72.aseprite",
+    "filename": "playerBloody 67.aseprite",
     "frame": { "x": 192, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -657,7 +612,7 @@
     "duration": 100
    },
    {
-    "filename": "player 73.aseprite",
+    "filename": "playerBloody 68.aseprite",
     "frame": { "x": 224, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -666,7 +621,7 @@
     "duration": 100
    },
    {
-    "filename": "player 74.aseprite",
+    "filename": "playerBloody 69.aseprite",
     "frame": { "x": 256, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -675,7 +630,7 @@
     "duration": 100
    },
    {
-    "filename": "player 75.aseprite",
+    "filename": "playerBloody 70.aseprite",
     "frame": { "x": 288, "y": 320, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -684,16 +639,7 @@
     "duration": 100
    },
    {
-    "filename": "player 76.aseprite",
-    "frame": { "x": 320, "y": 320, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 77.aseprite",
+    "filename": "playerBloody 71.aseprite",
     "frame": { "x": 0, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -702,7 +648,7 @@
     "duration": 100
    },
    {
-    "filename": "player 78.aseprite",
+    "filename": "playerBloody 72.aseprite",
     "frame": { "x": 32, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -711,7 +657,7 @@
     "duration": 100
    },
    {
-    "filename": "player 79.aseprite",
+    "filename": "playerBloody 73.aseprite",
     "frame": { "x": 64, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -720,7 +666,7 @@
     "duration": 100
    },
    {
-    "filename": "player 80.aseprite",
+    "filename": "playerBloody 74.aseprite",
     "frame": { "x": 96, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -729,7 +675,7 @@
     "duration": 100
    },
    {
-    "filename": "player 81.aseprite",
+    "filename": "playerBloody 75.aseprite",
     "frame": { "x": 128, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -738,7 +684,7 @@
     "duration": 100
    },
    {
-    "filename": "player 82.aseprite",
+    "filename": "playerBloody 76.aseprite",
     "frame": { "x": 160, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -747,7 +693,7 @@
     "duration": 100
    },
    {
-    "filename": "player 83.aseprite",
+    "filename": "playerBloody 77.aseprite",
     "frame": { "x": 192, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -756,7 +702,7 @@
     "duration": 100
    },
    {
-    "filename": "player 84.aseprite",
+    "filename": "playerBloody 78.aseprite",
     "frame": { "x": 224, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -765,7 +711,7 @@
     "duration": 100
    },
    {
-    "filename": "player 85.aseprite",
+    "filename": "playerBloody 79.aseprite",
     "frame": { "x": 256, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -774,7 +720,7 @@
     "duration": 100
    },
    {
-    "filename": "player 86.aseprite",
+    "filename": "playerBloody 80.aseprite",
     "frame": { "x": 288, "y": 384, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -783,16 +729,7 @@
     "duration": 100
    },
    {
-    "filename": "player 87.aseprite",
-    "frame": { "x": 320, "y": 384, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 88.aseprite",
+    "filename": "playerBloody 81.aseprite",
     "frame": { "x": 0, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -801,7 +738,7 @@
     "duration": 100
    },
    {
-    "filename": "player 89.aseprite",
+    "filename": "playerBloody 82.aseprite",
     "frame": { "x": 32, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -810,7 +747,7 @@
     "duration": 100
    },
    {
-    "filename": "player 90.aseprite",
+    "filename": "playerBloody 83.aseprite",
     "frame": { "x": 64, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -819,16 +756,7 @@
     "duration": 100
    },
    {
-    "filename": "player 91.aseprite",
-    "frame": { "x": 32, "y": 448, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 92.aseprite",
+    "filename": "playerBloody 84.aseprite",
     "frame": { "x": 96, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -837,7 +765,16 @@
     "duration": 100
    },
    {
-    "filename": "player 93.aseprite",
+    "filename": "playerBloody 85.aseprite",
+    "frame": { "x": 64, "y": 448, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "playerBloody 86.aseprite",
     "frame": { "x": 128, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -846,7 +783,7 @@
     "duration": 100
    },
    {
-    "filename": "player 94.aseprite",
+    "filename": "playerBloody 87.aseprite",
     "frame": { "x": 160, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -855,7 +792,7 @@
     "duration": 100
    },
    {
-    "filename": "player 95.aseprite",
+    "filename": "playerBloody 88.aseprite",
     "frame": { "x": 192, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -864,7 +801,7 @@
     "duration": 100
    },
    {
-    "filename": "player 96.aseprite",
+    "filename": "playerBloody 89.aseprite",
     "frame": { "x": 224, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -873,7 +810,7 @@
     "duration": 100
    },
    {
-    "filename": "player 97.aseprite",
+    "filename": "playerBloody 90.aseprite",
     "frame": { "x": 256, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -882,7 +819,7 @@
     "duration": 100
    },
    {
-    "filename": "player 98.aseprite",
+    "filename": "playerBloody 91.aseprite",
     "frame": { "x": 288, "y": 448, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -891,16 +828,7 @@
     "duration": 100
    },
    {
-    "filename": "player 99.aseprite",
-    "frame": { "x": 320, "y": 448, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 100.aseprite",
+    "filename": "playerBloody 92.aseprite",
     "frame": { "x": 0, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -909,7 +837,7 @@
     "duration": 100
    },
    {
-    "filename": "player 101.aseprite",
+    "filename": "playerBloody 93.aseprite",
     "frame": { "x": 32, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -918,7 +846,7 @@
     "duration": 100
    },
    {
-    "filename": "player 102.aseprite",
+    "filename": "playerBloody 94.aseprite",
     "frame": { "x": 64, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -927,7 +855,7 @@
     "duration": 100
    },
    {
-    "filename": "player 103.aseprite",
+    "filename": "playerBloody 95.aseprite",
     "frame": { "x": 96, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -936,7 +864,7 @@
     "duration": 100
    },
    {
-    "filename": "player 104.aseprite",
+    "filename": "playerBloody 96.aseprite",
     "frame": { "x": 128, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -945,7 +873,7 @@
     "duration": 100
    },
    {
-    "filename": "player 105.aseprite",
+    "filename": "playerBloody 97.aseprite",
     "frame": { "x": 160, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -954,7 +882,7 @@
     "duration": 100
    },
    {
-    "filename": "player 106.aseprite",
+    "filename": "playerBloody 98.aseprite",
     "frame": { "x": 192, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -963,7 +891,7 @@
     "duration": 100
    },
    {
-    "filename": "player 107.aseprite",
+    "filename": "playerBloody 99.aseprite",
     "frame": { "x": 224, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -972,7 +900,7 @@
     "duration": 100
    },
    {
-    "filename": "player 108.aseprite",
+    "filename": "playerBloody 100.aseprite",
     "frame": { "x": 256, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -981,7 +909,7 @@
     "duration": 100
    },
    {
-    "filename": "player 109.aseprite",
+    "filename": "playerBloody 101.aseprite",
     "frame": { "x": 288, "y": 512, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -990,16 +918,7 @@
     "duration": 100
    },
    {
-    "filename": "player 110.aseprite",
-    "frame": { "x": 320, "y": 512, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 111.aseprite",
+    "filename": "playerBloody 102.aseprite",
     "frame": { "x": 0, "y": 576, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -1008,7 +927,7 @@
     "duration": 100
    },
    {
-    "filename": "player 112.aseprite",
+    "filename": "playerBloody 103.aseprite",
     "frame": { "x": 32, "y": 576, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -1017,7 +936,7 @@
     "duration": 100
    },
    {
-    "filename": "player 113.aseprite",
+    "filename": "playerBloody 104.aseprite",
     "frame": { "x": 64, "y": 576, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -1026,16 +945,7 @@
     "duration": 100
    },
    {
-    "filename": "player 114.aseprite",
-    "frame": { "x": 32, "y": 576, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 115.aseprite",
+    "filename": "playerBloody 105.aseprite",
     "frame": { "x": 96, "y": 576, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -1044,16 +954,7 @@
     "duration": 100
    },
    {
-    "filename": "player 116.aseprite",
-    "frame": { "x": 32, "y": 576, "w": 32, "h": 64 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
-    "sourceSize": { "w": 32, "h": 64 },
-    "duration": 100
-   },
-   {
-    "filename": "player 117.aseprite",
+    "filename": "playerBloody 106.aseprite",
     "frame": { "x": 128, "y": 576, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -1062,7 +963,7 @@
     "duration": 100
    },
    {
-    "filename": "player 118.aseprite",
+    "filename": "playerBloody 107.aseprite",
     "frame": { "x": 160, "y": 576, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -1071,8 +972,53 @@
     "duration": 100
    },
    {
-    "filename": "player 119.aseprite",
+    "filename": "playerBloody 108.aseprite",
+    "frame": { "x": 128, "y": 576, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "playerBloody 109.aseprite",
     "frame": { "x": 192, "y": 576, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "playerBloody 110.aseprite",
+    "frame": { "x": 128, "y": 576, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "playerBloody 111.aseprite",
+    "frame": { "x": 224, "y": 576, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "playerBloody 112.aseprite",
+    "frame": { "x": 256, "y": 576, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "playerBloody 113.aseprite",
+    "frame": { "x": 288, "y": 576, "w": 32, "h": 64 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
@@ -1083,40 +1029,38 @@
  "meta": {
   "app": "https://www.aseprite.org/",
   "version": "1.3.14.4-x64",
-  "image": "player.png",
+  "image": "playerBloody.png",
   "format": "RGBA8888",
-  "size": { "w": 352, "h": 640 },
+  "size": { "w": 320, "h": 640 },
   "scale": "1",
   "frameTags": [
    { "name": "StandDown", "from": 1, "to": 1, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "KickDown", "from": 2, "to": 3, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "RunDown", "from": 4, "to": 9, "direction": "forward", "color": "#000000ff" },
-   { "name": "PushDown", "from": 10, "to": 15, "direction": "forward", "color": "#000000ff" },
-   { "name": "SlipDown", "from": 16, "to": 17, "direction": "forward", "color": "#000000ff" },
-   { "name": "DownBlink", "from": 18, "to": 18, "direction": "forward", "color": "#000000ff" },
-   { "name": "FlavorDown", "from": 19, "to": 30, "direction": "forward", "color": "#000000ff" },
-   { "name": "StandUp", "from": 31, "to": 31, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "KickUp", "from": 32, "to": 33, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "RunUp", "from": 34, "to": 39, "direction": "forward", "color": "#000000ff" },
-   { "name": "PushUp", "from": 40, "to": 45, "direction": "forward", "color": "#000000ff" },
-   { "name": "SlipUp", "from": 46, "to": 47, "direction": "forward", "color": "#000000ff" },
-   { "name": "FlavorUp", "from": 48, "to": 56, "direction": "forward", "color": "#000000ff" },
-   { "name": "StandSide", "from": 57, "to": 57, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "KickSide", "from": 58, "to": 59, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "RunSide", "from": 60, "to": 65, "direction": "forward", "color": "#000000ff" },
-   { "name": "PushSide", "from": 66, "to": 71, "direction": "forward", "color": "#000000ff" },
-   { "name": "SlipSide", "from": 72, "to": 73, "direction": "forward", "color": "#000000ff" },
-   { "name": "SideBlink", "from": 74, "to": 74, "direction": "forward", "color": "#000000ff" },
-   { "name": "FlavorSide", "from": 75, "to": 95, "direction": "forward", "color": "#000000ff" },
-   { "name": "Splash", "from": 96, "to": 103, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "TransitionPrep", "from": 104, "to": 117, "direction": "forward", "repeat": "1", "color": "#000000ff" },
-   { "name": "TransitionJump", "from": 118, "to": 118, "direction": "forward", "color": "#000000ff" },
-   { "name": "TransitionFloat", "from": 119, "to": 119, "direction": "forward", "color": "#000000ff" }
+   { "name": "RunDown", "from": 2, "to": 7, "direction": "forward", "color": "#000000ff" },
+   { "name": "PushDown", "from": 8, "to": 13, "direction": "forward", "color": "#000000ff" },
+   { "name": "SlipDown", "from": 14, "to": 15, "direction": "forward", "color": "#000000ff" },
+   { "name": "DownBlink", "from": 16, "to": 16, "direction": "forward", "color": "#000000ff" },
+   { "name": "FlavorDown", "from": 17, "to": 28, "direction": "forward", "color": "#000000ff" },
+   { "name": "StandUp", "from": 29, "to": 29, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "RunUp", "from": 30, "to": 35, "direction": "forward", "color": "#000000ff" },
+   { "name": "PushUp", "from": 36, "to": 41, "direction": "forward", "color": "#000000ff" },
+   { "name": "SlipUp", "from": 42, "to": 43, "direction": "forward", "color": "#000000ff" },
+   { "name": "FlavorUp", "from": 44, "to": 52, "direction": "forward", "color": "#000000ff" },
+   { "name": "StandSide", "from": 53, "to": 53, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "RunSide", "from": 54, "to": 59, "direction": "forward", "color": "#000000ff" },
+   { "name": "PushSide", "from": 60, "to": 65, "direction": "forward", "color": "#000000ff" },
+   { "name": "SlipSide", "from": 66, "to": 67, "direction": "forward", "color": "#000000ff" },
+   { "name": "SideBlink", "from": 68, "to": 68, "direction": "forward", "color": "#000000ff" },
+   { "name": "FlavorSide", "from": 69, "to": 89, "direction": "forward", "color": "#000000ff" },
+   { "name": "Splash", "from": 90, "to": 97, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "TransitionPrep", "from": 98, "to": 111, "direction": "forward", "repeat": "1", "color": "#000000ff" },
+   { "name": "TransitionJump", "from": 112, "to": 112, "direction": "forward", "color": "#000000ff" },
+   { "name": "TransitionFloat", "from": 113, "to": 113, "direction": "forward", "color": "#000000ff" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 115, "blendMode": "normal" },
    { "name": "Layer 2", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 4", "opacity": 255, "blendMode": "normal" }
+   { "name": "Layer 4", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 3", "opacity": 194, "blendMode": "normal" }
   ],
   "slices": [
   ]

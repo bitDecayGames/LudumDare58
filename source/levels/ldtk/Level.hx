@@ -1,5 +1,6 @@
 package levels.ldtk;
 
+import entities.Tile;
 import entities.Seal;
 import entities.GameRenderObject;
 import entities.Player;
@@ -29,13 +30,15 @@ class Level {
 	**/
 	public var raw:Ldtk.Ldtk_Level;
 
-	public var terrainLayer:BDTilemap;
+	private var terrainLayer:BDTilemap;
+
 	public var spawnPoint:FlxPoint = FlxPoint.get();
 	public var spawnPointCell:Vector<Int>;
 	public var player:Player;
 	public var blocks = new Array<PushBlock>();
 	public var hazards = new Array<FlxSprite>(); // TODO: make this an entity type for our game
-	public var collectables = new Array<FlxSprite>(); // TODO: make this an entity type for our game
+	public var collectables = new Array<Seal>(); // TODO: make this an entity type for our game
+	public var tiles = new Array<Tile>();
 
 	public var camZones:Map<String, FlxRect>;
 	public var camTransitions:Array<CameraTransition>;
@@ -43,8 +46,12 @@ class Level {
 	public var initialBoardState:GameBoardState;
 
 	public var renderObjectsById:Map<Int, GameRenderObject> = new Map<Int, GameRenderObject>();
+	public var tilesById:Map<Int, Tile> = new Map<Int, Tile>();
+
+	public final name:String;
 
 	public function new(nameOrIID:String) {
+		name = nameOrIID;
 		raw = project.getLevel(nameOrIID);
 		terrainLayer = new BDTilemap();
 		terrainLayer.loadLdtk(raw.l_Terrain);
@@ -75,12 +82,7 @@ class Level {
 		parseBlocks(raw.l_Objects.all_Block);
 		parseHazards(raw.l_Objects.all_Hazard);
 		parseCollectables(raw.l_Objects.all_Collectable);
-
-		for (x in 0...terrainLayer.widthInTiles) {
-			for (y in 0...terrainLayer.heightInTiles) {
-				initialBoardState.setTile(x, y, Std.int(Math.max(0, terrainLayer.getTileIndex(x, y))));
-			}
-		}
+		parseTiles(terrainLayer);
 	}
 
 	function parseCameraZones(zoneDefs:Array<Ldtk.Entity_CameraZone>) {
@@ -99,6 +101,19 @@ class Level {
 				camTrigger.addGuideTrigger(def.f_Directions[i].toCardinal(), camZones.get(def.f_Zones[i].entityIid));
 			}
 			camTransitions.push(camTrigger);
+		}
+	}
+
+	function parseTiles(terrainLayer:BDTilemap) {
+		for (x in 0...terrainLayer.widthInTiles) {
+			for (y in 0...terrainLayer.heightInTiles) {
+				var tileType = Std.int(Math.max(0, terrainLayer.getTileIndex(x, y)));
+				var index = initialBoardState.xyToIndex(x, y);
+				initialBoardState.setTile(x, y, tileType);
+				var tile = new Tile(index, x, y, tileType);
+				tiles.push(tile);
+				tilesById.set(index, tile);
+			}
 		}
 	}
 
@@ -138,5 +153,9 @@ class Level {
 			renderObjectsById.set(v.getId(), v);
 			collectables.push(v);
 		}
+	}
+
+	public function getBounds():FlxRect {
+		return terrainLayer.getBounds();
 	}
 }

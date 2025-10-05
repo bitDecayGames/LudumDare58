@@ -1,5 +1,7 @@
 package states;
 
+import collectables.Collectables;
+import entities.Tile;
 import bitdecay.flixel.sorting.ZSorting;
 import coordination.Completable;
 import entities.GameRenderObject;
@@ -45,6 +47,7 @@ class PlayState extends FlxTransitionableState {
 
 	var player:Player;
 	var bgGroup = new FlxGroup();
+	var tileGroup = new FlxTypedGroup<Tile>();
 	var midGroundGroup = new FlxGroup();
 	var actionGroup = new FlxTypedGroup<FlxSprite>();
 	var uiGroup = new FlxGroup();
@@ -87,6 +90,7 @@ class PlayState extends FlxTransitionableState {
 
 		// Build out our render order
 		add(bgGroup);
+		add(tileGroup);
 		add(midGroundGroup);
 		add(actionGroup);
 		add(uiGroup);
@@ -97,6 +101,7 @@ class PlayState extends FlxTransitionableState {
 
 		// Seals collected
 		var sealsCollectedTxt = new FlxBitmapText(0, FlxG.height - hudOffset);
+		sealsCollectedTxt.scale.set(1.5, 1.5);
 		sealsCollectedTxt.screenCenter(X);
 		sealsCollectedTxt.scrollFactor.set(0, 0);
 		EventBus.subscribe(SealCollected, (e) -> {
@@ -146,7 +151,7 @@ class PlayState extends FlxTransitionableState {
 
 		if (levelName == "") {
 			var anchor = ldtk.toc.FirstLevel[0];
-        	levelName = ldtk.all_worlds.Default.getLevelAt(anchor.worldX, anchor.worldY).identifier;
+			levelName = ldtk.all_worlds.Default.getLevelAt(anchor.worldX, anchor.worldY).identifier;
 		}
 
 		var waterBG = new FlxBackdrop(AssetPaths.waterTile__png);
@@ -184,6 +189,9 @@ class PlayState extends FlxTransitionableState {
 		// add all of the render objects to the scene
 		player = level.player;
 		actionGroup.add(player);
+		for (tile in level.tiles) {
+			tileGroup.add(tile);
+		}
 		for (block in level.blocks) {
 			actionGroup.add(block);
 		}
@@ -194,15 +202,11 @@ class PlayState extends FlxTransitionableState {
 			actionGroup.add(collectable);
 		}
 
+		Collectables.initLevel(level.name, level.collectables.length);
+
 		gameBoard = new GameBoard(gbState);
 
-		// TODO Remove when hooked into GameBoard
-		EventBus.fire(new SealCollected(1, 3));
-
-		// TODO: build our new tile map with proper rendering so the tiles look nice.
-		// The ones in the level.terrainLayer are editor tiles for now
-		midGroundGroup.add(level.terrainLayer);
-		FlxG.worldBounds.copyFrom(level.terrainLayer.getBounds());
+		FlxG.worldBounds.copyFrom(level.getBounds());
 
 		for (t in level.camTransitions) {
 			transitions.add(t);
@@ -227,6 +231,11 @@ class PlayState extends FlxTransitionableState {
 			o.destroy();
 		}
 		bgGroup.clear();
+
+		for (o in tileGroup) {
+			o.destroy();
+		}
+		tileGroup.clear();
 
 		for (o in midGroundGroup) {
 			o.destroy();
@@ -294,7 +303,13 @@ class PlayState extends FlxTransitionableState {
 	function syncRenderState() {
 		gameBoard.current.iterTilesObjs((idx:Int, x:Int, y:Int, tile:Null<TileType>, objs:Array<GameBoardObject>) -> {
 			// Reset tile
-			level.terrainLayer.setTileIndex(idx, tile, true);
+			if (tile != null) {
+				var t = level.tilesById.get(idx);
+				if (!t.alive) {
+					t.revive();
+				}
+				t.setTileType(tile);
+			}
 			// Reset game objects
 			for (o in objs) {
 				var gro = level.renderObjectsById.get(o.id);
@@ -305,6 +320,9 @@ class PlayState extends FlxTransitionableState {
 				}
 			}
 		});
+
+		// Reset collectables
+		Collectables.resetCollected(level.name, gameBoard.current.countObjByType(COLLECTABLE));
 	}
 
 	function undo() {
@@ -335,7 +353,9 @@ class PlayState extends FlxTransitionableState {
 					pendingResolutions.push(t);
 				}
 			} else if (m is Crumble) {
-				// TODO: handle Crumble event
+				level.tilesById.get(gameBoard.current.xyToIndex(m.startPos[0], m.startPos[1])).handleGameResult(m, gameBoard);
+			} else if (m is Melt) {
+				level.tilesById.get(gameBoard.current.xyToIndex(m.startPos[0], m.startPos[1])).handleGameResult(m, gameBoard);
 			}
 		}
 	}
