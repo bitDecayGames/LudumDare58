@@ -28,7 +28,7 @@ class Splash extends FlxSprite {
 		// var vOffset = height - 24;
 		// width = 32;
 		// height = 32;
-		// offset.y = vOffset;
+		offset.y = 30;
 		animation.play(anims.animate);
 		animation.onFinish.addOnce((_) -> {
 			animation.pause();
