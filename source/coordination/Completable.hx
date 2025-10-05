@@ -62,3 +62,11 @@ class BumpCompletable implements Completable {
 		return t.finished;
 	}
 }
+
+class NeverCompletable implements Completable {
+	public function new() {}
+
+	public function isDone():Bool {
+		return false;
+	}
+}

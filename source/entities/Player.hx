@@ -38,7 +38,8 @@ class Player extends FlxSprite implements GameRenderObject {
 	var animPrefix = "";
 
 	var defaultOffset:Float;
-	var isBloody = true; // must be true so the first time we call setBloody(false) it actually works
+
+	public var isBloody = true; // must be true so the first time we call setBloody(false) it actually works
 
 	public function new(id:Int, X:Float, Y:Float) {
 		super(X, Y);
@@ -260,7 +261,7 @@ class Player extends FlxSprite implements GameRenderObject {
 				// MW: maybe we don't need anything here?
 				return null;
 			case Win:
-				// TODO: play transition stuff
+				// the Win event is handled in the ExitObj
 			case Collect:
 				setBloody(true);
 				return null;

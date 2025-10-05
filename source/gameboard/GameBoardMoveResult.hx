@@ -1,5 +1,6 @@
 package gameboard;
 
+import gameboard.GameBoardState.TileType;
 import bitdecay.flixel.spacial.Cardinal;
 import gameboard.GameBoardState.GameBoardObject;
 import haxe.ds.Vector;
@@ -12,11 +13,16 @@ abstract class GameBoardMoveResult {
 }
 
 class Move extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
+	public var currentTileType:TileType;
+	public var targetTileType:TileType;
+
+	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal, currentTileType:TileType, targetTileType:TileType) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
 		this.dir = dir;
+		this.currentTileType = currentTileType;
+		this.targetTileType = targetTileType;
 	}
 
 	public function toString():String {
@@ -26,13 +32,18 @@ class Move extends GameBoardMoveResult {
 
 class Push extends GameBoardMoveResult {
 	public var other:GameBoardObject;
+	public var currentTileType:TileType;
+	public var targetTileType:TileType;
 
-	public function new(gameObj:GameBoardObject, other:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
+	public function new(gameObj:GameBoardObject, other:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal, currentTileType:TileType,
+			targetTileType:TileType) {
 		this.gameObj = gameObj;
 		this.other = other;
 		this.startPos = startPos;
 		this.endPos = endPos;
 		this.dir = dir;
+		this.currentTileType = currentTileType;
+		this.targetTileType = targetTileType;
 	}
 
 	public function toString():String {
@@ -58,13 +69,18 @@ class Shove extends GameBoardMoveResult {
 
 class Slide extends GameBoardMoveResult {
 	public var partial:Bool = false;
+	public var currentTileType:TileType;
+	public var targetTileType:TileType;
 
-	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal, partial:Bool) {
+	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal, partial:Bool, currentTileType:TileType,
+			targetTileType:TileType) {
 		this.gameObj = gameObj;
 		this.startPos = startPos;
 		this.endPos = endPos;
 		this.dir = dir;
 		this.partial = partial;
+		this.currentTileType = currentTileType;
+		this.targetTileType = targetTileType;
 	}
 
 	public function toString():String {

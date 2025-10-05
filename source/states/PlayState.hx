@@ -27,6 +27,9 @@ import levels.ldtk.Level;
 import levels.ldtk.Ldtk.LdtkProject;
 import achievements.Achievements;
 import entities.Player;
+#if debug
+import entities.PlayerWin;
+#end
 import events.gen.Event;
 import events.EventBus;
 import flixel.FlxG;
@@ -308,9 +311,15 @@ class PlayState extends FlxTransitionableState {
 				if (FlxG.keys.justPressed.U || FlxG.keys.justPressed.Z) {
 					undo();
 				}
+				#if debug
+				if (FlxG.keys.justPressed.SPACE) {
+					var mousePos = FlxG.mouse.getWorldPosition();
+					new PlayerWin(mousePos.x, mousePos.y, true, false);
+				}
+				#end
 		}
-
 		super.update(elapsed);
+
 		actionGroup.sort(ZSorting.getSort(VerticalReference.BOTTOM));
 
 		FlxG.collide(midGroundGroup, player);

@@ -83,7 +83,7 @@ class GameBoard {
 			cur.push(new Die(targetObj, targetXY));
 		}
 		playerObj.index = current.xyToIndex(x, y);
-		cur.push(new Move(playerObj, xy, targetXY, Cardinal.S));
+		cur.push(new Move(playerObj, xy, targetXY, Cardinal.S, WALKABLE, WALKABLE));
 		results.push(cur);
 		return results;
 	}
@@ -136,7 +136,7 @@ class GameBoard {
 				cur.push(new Shove(playerObj, targetObj, xy, targetXY, dir));
 				playerStandingStill = true;
 			} else {
-				cur.push(new Push(playerObj, targetObj, xy, targetXY, dir));
+				cur.push(new Push(playerObj, targetObj, xy, targetXY, dir, currentTile, targetTile));
 				playerObj.index = current.vecToIndex(targetXY);
 			}
 		} else {
@@ -145,9 +145,9 @@ class GameBoard {
 				// TODO: if you can switch between running and sliding half-way, then uncomment this and use the "Slide.partial" value to trigger it in Player class
 				// cur.push(new Slide(playerObj, xy, targetXY, dir, true));
 				// then you can get rid of this line
-				cur.push(new Move(playerObj, xy, targetXY, dir));
+				cur.push(new Move(playerObj, xy, targetXY, dir, currentTile, targetTile));
 			} else {
-				cur.push(new Move(playerObj, xy, targetXY, dir));
+				cur.push(new Move(playerObj, xy, targetXY, dir, currentTile, targetTile));
 			}
 			playerObj.index = current.vecToIndex(targetXY);
 		}
@@ -166,7 +166,7 @@ class GameBoard {
 		}
 		if (targetObj != null && targetObj.type == BLOCK) {
 			targetObj.index = current.vecToIndex(nextXY);
-			cur.push(new Push(targetObj, playerObj, targetXY, nextXY, dir));
+			cur.push(new Push(targetObj, playerObj, targetXY, nextXY, dir, targetTile, nextTile));
 
 			if (targetTile == WALKABLE_BREAKABLE || targetTile == SLIDING_BREAKABLE) {
 				current.setTile(targetXY[0], targetXY[1], HOLE);
@@ -207,7 +207,7 @@ class GameBoard {
 								cur.push(new Collide(targetObj, checkObj));
 								current.removeObj(checkObj);
 								targetObj.index = current.vecToIndex(checkXY);
-								cur.push(new Slide(targetObj, nextXY, checkXY, dir, false));
+								cur.push(new Slide(targetObj, nextXY, checkXY, dir, false, nextTile, checkTile));
 								if (nextTile == SLIDING_BREAKABLE) {
 									current.setTile(nextXY[0], nextXY[1], HOLE);
 									cur.push(new Crumble(nextXY));
@@ -221,7 +221,7 @@ class GameBoard {
 						} else {
 							pushDirty = true;
 							targetObj.index = current.vecToIndex(checkXY);
-							cur.push(new Slide(targetObj, nextXY, checkXY, dir, false));
+							cur.push(new Slide(targetObj, nextXY, checkXY, dir, false, nextTile, checkTile));
 							if (nextTile == SLIDING_BREAKABLE) {
 								current.setTile(nextXY[0], nextXY[1], HOLE);
 								cur.push(new Crumble(nextXY));
@@ -248,7 +248,7 @@ class GameBoard {
 						if (checkObj != null) {
 							if (checkObj.type == HAZARD) {
 								playerObj.index = current.vecToIndex(checkXY);
-								cur.push(new Slide(targetObj, nextXY, checkXY, dir, false));
+								cur.push(new Slide(targetObj, nextXY, checkXY, dir, false, targetTile, checkTile));
 								if (targetTile == SLIDING_BREAKABLE) {
 									current.setTile(targetXY[0], targetXY[1], HOLE);
 									cur.push(new Crumble(targetXY));
@@ -271,7 +271,7 @@ class GameBoard {
 						} else {
 							playerDirty = true;
 							playerObj.index = current.vecToIndex(checkXY);
-							cur.push(new Slide(playerObj, targetXY, checkXY, dir, false));
+							cur.push(new Slide(playerObj, targetXY, checkXY, dir, false, targetTile, checkTile));
 							if (targetTile == SLIDING_BREAKABLE) {
 								current.setTile(targetXY[0], targetXY[1], HOLE);
 								cur.push(new Crumble(targetXY));
@@ -308,8 +308,10 @@ class GameBoard {
 			results.push(cur);
 		}
 
-		if (isWin(playerObj)) {
+		var win = isWin(playerObj);
+		if (win != null) {
 			cur.push(new Win(playerObj));
+			cur.push(new Win(win));
 			results.push(cur);
 		}
 		if (isLose(playerObj)) {
@@ -335,11 +337,16 @@ class GameBoard {
 		return true;
 	}
 
-	private function isWin(playerObj:GameBoardObject) {
-		return current.getTileByIndex(playerObj.index) == EXIT;
+	private function isWin(playerObj:GameBoardObject):GameBoardObject {
+		var v = current.indexToXY(playerObj.index);
+		var exitArr = current.getObjs(v[0], v[1]).filter((o) -> o.type == EXIT);
+		if (exitArr.length == 0) {
+			return null;
+		}
+		return exitArr[0];
 	}
 
-	private function isLose(playerObj:GameBoardObject) {
+	private function isLose(playerObj:GameBoardObject):Bool {
 		var curTile = current.getTileByIndex(playerObj.index);
 		var sharesSpaceWithHazard = current.getObjectsByIndex(playerObj.index).filter((o) -> o.id != playerObj.id && o.type == HAZARD).length > 0;
 		return curTile == DEATH || curTile == EMPTY || curTile == HOLE || sharesSpaceWithHazard;
