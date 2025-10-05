@@ -36,13 +36,14 @@ class Player extends FlxSprite implements GameRenderObject {
 	var animPrefix = "";
 
 	var defaultOffset:Float;
+	var isBloody = true; // must be true so the first time we call setBloody(false) it actually works
 
 	public function new(id:Int, X:Float, Y:Float) {
 		super(X, Y);
 		this.id = id;
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
-		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+		setBloody(false);
 		// animation.onFrameChange.add((anim, frame, index) -> {
 		// 	if (eventData.exists(index)) {
 		// 		trace('frame $index has data ${eventData.get(index)}');
@@ -65,6 +66,19 @@ class Player extends FlxSprite implements GameRenderObject {
 		height = 32;
 
 		offset.y = defaultOffset;
+	}
+
+	function setBloody(isBloody:Bool) {
+		if (this.isBloody == isBloody) {
+			// do nothing since it is already set
+			return;
+		}
+		if (isBloody) {
+			Aseprite.loadAllAnimations(this, AssetPaths.playerBloody__json);
+		} else {
+			Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+		}
+		this.isBloody = isBloody;
 	}
 
 	function onWalkFrame(name:String, frameNumber:Int, frameIndex:Int) {
@@ -207,6 +221,7 @@ class Player extends FlxSprite implements GameRenderObject {
 				return new TweenCompletable(FlxTween.linearMotion(this, x, y, dest[0] * 32, dest[1] * 32, tweenDuration));
 
 			case Drop:
+				setBloody(false);
 				animPrefix = DROP;
 				animation.play(anims.Splash);
 				return new AnimationCompletable(animation, anims.Splash);
@@ -225,6 +240,9 @@ class Player extends FlxSprite implements GameRenderObject {
 				return null;
 			case Win:
 				// TODO: play transition stuff
+			case Collect:
+				setBloody(true);
+				return null;
 			case Bump:
 				return new BumpCompletable(this, r.dir);
 			default:
