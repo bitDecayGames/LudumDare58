@@ -40,6 +40,22 @@ class Push extends GameBoardMoveResult {
 	}
 }
 
+class Shove extends GameBoardMoveResult {
+	public var other:GameBoardObject;
+
+	public function new(gameObj:GameBoardObject, other:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
+		this.gameObj = gameObj;
+		this.other = other;
+		this.startPos = startPos;
+		this.endPos = endPos;
+		this.dir = dir;
+	}
+
+	public function toString():String {
+		return 'Shove(${gameObj.id} pushes ${other.id} from ${startPos} to ${endPos})';
+	}
+}
+
 class Slide extends GameBoardMoveResult {
 	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
 		this.gameObj = gameObj;

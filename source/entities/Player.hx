@@ -162,6 +162,10 @@ class Player extends FlxSprite implements GameRenderObject {
 				// TODO: this should be the "spin wheels" animation and probably needs to be a AnimationCompletable instead of tween
 				animPrefix = PUSH;
 				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
+			case Shove:
+				// TODO: this should be the "shove" animation and probably needs to be a AnimationCompletable instead of tween
+				animPrefix = PUSH;
+				return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, tweenDuration));
 			default:
 				// do nothing
 		}
