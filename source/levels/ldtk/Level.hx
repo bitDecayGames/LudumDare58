@@ -1,5 +1,6 @@
 package levels.ldtk;
 
+import entities.Immovable;
 import entities.Tile;
 import entities.Seal;
 import entities.GameRenderObject;
@@ -35,7 +36,7 @@ class Level {
 	public var spawnPoint:FlxPoint = FlxPoint.get();
 	public var spawnPointCell:Vector<Int>;
 	public var player:Player;
-	public var blocks = new Array<PushBlock>();
+	public var blocks = new Array<FlxSprite>();
 	public var hazards = new Array<FlxSprite>(); // TODO: make this an entity type for our game
 	public var collectables = new Array<Seal>(); // TODO: make this an entity type for our game
 	public var tiles = new Array<Tile>();
@@ -120,12 +121,18 @@ class Level {
 	function parseBlocks(blockDefs:Array<Ldtk.Entity_Block>) {
 		for (b in blockDefs) {
 			var obj = new GameBoardObject();
-			obj.index = initialBoardState.xyToIndex(b.cx, b.cy);
-			obj.type = BLOCK;
 			initialBoardState.addObj(obj);
-			var v = new PushBlock(obj.id, b.pixelX, b.pixelY);
+			obj.index = initialBoardState.xyToIndex(b.cx, b.cy);
+			var v:GameRenderObject;
+			if (b.f_Type == Ldtk.Enum_BlockType.WallBlock) {
+				obj.type = IMMOVABLE;
+				v = new Immovable(obj.id, b.pixelX, b.pixelY);
+			} else {
+				obj.type = BLOCK;
+				v = new PushBlock(obj.id, b.pixelX, b.pixelY);
+			}
 			renderObjectsById.set(v.getId(), v);
-			blocks.push(v);
+			blocks.push(cast v);
 		}
 	}
 

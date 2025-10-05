@@ -192,14 +192,14 @@ class PlayState extends FlxTransitionableState {
 		for (tile in level.tiles) {
 			tileGroup.add(tile);
 		}
+		for (collectable in level.collectables) {
+			actionGroup.add(collectable);
+		}
 		for (block in level.blocks) {
 			actionGroup.add(block);
 		}
 		for (hazard in level.hazards) {
 			actionGroup.add(hazard);
-		}
-		for (collectable in level.collectables) {
-			actionGroup.add(collectable);
 		}
 
 		Collectables.initLevel(level.name, level.collectables.length);
