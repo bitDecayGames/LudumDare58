@@ -58,10 +58,13 @@ class Tile extends FlxSprite implements GameRenderObject {
 				kill();
 			case WALKABLE:
 				animation.play(anims.snow);
+				animation.pause();
 			case SLIDING:
 				animation.play(anims.ice);
+				animation.pause();
 			case NON_MELTABLE_WALKABLE:
 				animation.play(anims.rock);
+				animation.pause();
 			default:
 				// huh?
 		}
@@ -73,21 +76,18 @@ class Tile extends FlxSprite implements GameRenderObject {
 			case Melt:
 				switch (tileType) {
 					case WALKABLE:
-						// TODO: change to ice
-						return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, 0.6));
+						return new AnimationCompletable(animation, anims.snow2ice, () -> {
+							setTileType(SLIDING);
+						});
 					default:
 						return null;
 				}
 			case Crumble:
 				switch (tileType) {
-					case WALKABLE_BREAKABLE:
-						// TODO: change from stone to hole/empty
-						kill();
-						return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, 0.6));
 					case SLIDING_BREAKABLE:
-						// TODO: change from ice to hole/empty
-						kill();
-						return new TweenCompletable(FlxTween.linearMotion(this, x, y, x, y, 0.6));
+						return new AnimationCompletable(animation, anims.brokenice2nothing, () -> {
+							setTileType(EMPTY);
+						});
 					default:
 						return null;
 				}
