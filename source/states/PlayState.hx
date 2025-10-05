@@ -100,7 +100,7 @@ class PlayState extends FlxTransitionableState {
 		// Restart
 		var restartBtn = new FlxButton(0, hudOffset, null, () -> {
 			QLog.notice('reset');
-			gameBoard.reset();
+			reset();
 		});
 		restartBtn.loadGraphic(AssetPaths.restart__png);
 		restartBtn.screenCenter(X);
@@ -233,8 +233,7 @@ class PlayState extends FlxTransitionableState {
 		TODO.sfx('scarySound');
 	}
 
-	function undo() {
-		gameBoard.undo();
+	function syncRenderState() {
 		gameBoard.current.iterTilesObjs((idx: Int, x:Int, y:Int, tile: Null<TileType>, objs: Array<GameBoardObject>) -> {
 			// Reset tile
 			level.terrainLayer.setTileIndex(idx, tile, true);
@@ -247,6 +246,17 @@ class PlayState extends FlxTransitionableState {
 				}
 			}
 		});
+	}
+
+	function undo() {
+		gameBoard.undo();
+		syncRenderState();
+	}
+
+	function reset() {
+		gameBoard.reset();
+		syncRenderState();
+
 	}
 
 	function bind(boardObj:GameBoardObject, renderObj:GameRenderObject) {

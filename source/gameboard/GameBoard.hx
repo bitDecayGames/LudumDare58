@@ -159,17 +159,17 @@ class Win extends GameBoardMoveResult {
 class GameBoard {
 	public var current:GameBoardState;
 
-	private var initial:GameBoardState;
+	private var initial:Vector<Int>;
 	private var history:Array<Vector<Int>> = [];
 
-	public function new(initial:GameBoardState) {
-		this.initial = initial;
-		this.current = initial;
+	public function new(state:GameBoardState) {
+		initial = state.save();
+		current = GameBoardState.load(initial);
 	}
 
 	public function undo() {
 		if (history.length == 0) {
-			current = initial;
+			current = GameBoardState.load(initial);
 			return;
 		}
 		var d = history.pop();
@@ -178,7 +178,7 @@ class GameBoard {
 
 	public function reset() {
 		history = [];
-		current = initial;
+		current = GameBoardState.load(initial);
 	}
 
 	public function move(dir:Cardinal):Array<Array<GameBoardMoveResult>> {
