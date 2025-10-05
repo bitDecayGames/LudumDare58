@@ -102,7 +102,6 @@ class Player extends FlxSprite implements GameRenderObject {
 
 		// Play footstep sound on specific frames
 		if (name == anims.PushDown || name == anims.PushUp) {
-			
 			if (frameNumber == 2 || frameNumber == 5) {
 				if (lastGameBoardMoveResult != null) {
 					var boardTileType = Type.getClass(lastGameBoardMoveResult);
@@ -122,7 +121,6 @@ class Player extends FlxSprite implements GameRenderObject {
 			}
 		}
 		if (name == anims.PushSide) {
-
 			if (frameNumber == 1 || frameNumber == 5) {
 				if (lastGameBoardMoveResult != null) {
 					var boardTileType = Type.getClass(lastGameBoardMoveResult);
@@ -276,6 +274,8 @@ class Player extends FlxSprite implements GameRenderObject {
 				return null;
 			case Win:
 				// the Win event is handled in the ExitObj
+				kill();
+				return null;
 			case Collect:
 				setBloody(true);
 				return null;
