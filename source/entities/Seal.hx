@@ -14,8 +14,10 @@ import bitdecay.flixel.graphics.AsepriteMacros;
 
 class Seal extends FlxSprite implements GameRenderObject {
 	public static var anims = AsepriteMacros.tagNames("assets/aseprite/seal.json");
-	private static var fromLay = [anims.LayBlink, anims.Stand, anims.Yawn,];
-	private static var fromStand = [anims.StandBlink, anims.StandTurn, anims.LayTransition,];
+	private static var fromLay = [anims.LayBlink, anims.StandTransition];
+	private static var fromLayBlink = [anims.Yawn, anims.Lay];
+	private static var fromStand = [anims.StandBlink, anims.StandTurn, anims.LayTransition];
+	private static var fromStandSide = [anims.StandTurnBack, anims.BlinkL];
 
 	var id:Int = 0;
 	private var animTimer:FlxTimer;
@@ -38,19 +40,37 @@ class Seal extends FlxSprite implements GameRenderObject {
 
 		animation.play(anims.Lay);
 
-		var loopTime = FlxG.random.float(3, 6);
+		animation.onFinish.add((name) -> {
+			if (name == anims.StandBlink) {
+				animation.play(anims.Stand);
+			} else if (name == anims.Yawn) {
+				animation.play(anims.LayBlink);
+			} else if (name == anims.BlinkL) {
+				animation.play(anims.StandL);
+			} else if (name == anims.LayTransition) {
+				animation.play(anims.Lay);
+			} else if (name == anims.StandTransition) {
+				animation.play(anims.Stand);
+			} else if (name == anims.StandTurn) {
+				animation.play(anims.StandL);
+			}  else if (name == anims.StandTurnBack) {
+				animation.play(anims.Stand);
+			}
+		});
+
+		var loopTime = FlxG.random.float(1.5, 3);
 		animTimer = FlxTimer.loop(loopTime, (_) -> {
 			var curAnimName = animation.curAnim.name;
-			var nextAnimName:String = anims.Lay;
+			var nextAnimName:String = curAnimName;
 
 			if (curAnimName == anims.Lay) {
 				nextAnimName = FlxG.random.getObject(fromLay);
-			} else if (curAnimName == anims.LayBlink || curAnimName == anims.Yawn || curAnimName == anims.LayTransition) {
-				nextAnimName = anims.Lay;
+			} else if (curAnimName == anims.LayBlink) {
+				nextAnimName = FlxG.random.getObject(fromLayBlink);
 			} else if (curAnimName == anims.Stand) {
 				nextAnimName = FlxG.random.getObject(fromStand);
-			} else if (curAnimName == anims.LayBlink || curAnimName == anims.StandBlink || curAnimName == anims.StandTurn) {
-				nextAnimName = anims.Stand;
+			} else if (curAnimName == anims.StandL) {
+				nextAnimName = FlxG.random.getObject(fromStandSide);
 			}
 
 			animation.play(nextAnimName);
