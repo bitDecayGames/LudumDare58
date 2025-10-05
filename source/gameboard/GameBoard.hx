@@ -1,5 +1,17 @@
 package gameboard;
 
+import gameboard.GameBoardMoveResult.Win;
+import gameboard.GameBoardMoveResult.Die;
+import gameboard.GameBoardMoveResult.Slide;
+import gameboard.GameBoardMoveResult.Collide;
+import gameboard.GameBoardMoveResult.Lose;
+import gameboard.GameBoardMoveResult.Drop;
+import gameboard.GameBoardMoveResult.Crumble;
+import gameboard.GameBoardMoveResult.Collect;
+import gameboard.GameBoardMoveResult.Move;
+import gameboard.GameBoardMoveResult.Push;
+import gameboard.GameBoardMoveResult.Bump;
+import gameboard.GameBoardMoveResult.WheelSpin;
 import flixel.math.FlxPoint;
 import gameboard.GameBoardState.WALKABLE_BREAKABLE;
 import gameboard.GameBoardState.SLIDING_BREAKABLE;
@@ -16,154 +28,6 @@ import gameboard.GameBoardState.SOLID;
 import gameboard.GameBoardState.TileType;
 import bitdecay.flixel.spacial.Cardinal;
 import haxe.ds.Vector;
-
-abstract class GameBoardMoveResult {
-	public var gameObj:GameBoardObject;
-	public var startPos:Vector<Int>;
-	public var endPos:Vector<Int>;
-	public var dir:Cardinal;
-}
-
-class Move extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
-		this.gameObj = gameObj;
-		this.startPos = startPos;
-		this.endPos = endPos;
-		this.dir = dir;
-	}
-
-	public function toString():String {
-		return 'Move(${gameObj.id} ${startPos} to ${endPos})';
-	}
-}
-
-class Push extends GameBoardMoveResult {
-	public var other:GameBoardObject;
-
-	public function new(gameObj:GameBoardObject, other:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
-		this.gameObj = gameObj;
-		this.other = other;
-		this.startPos = startPos;
-		this.endPos = endPos;
-		this.dir = dir;
-	}
-
-	public function toString():String {
-		return 'Push(${gameObj.id} pushes ${other.id} from ${startPos} to ${endPos})';
-	}
-}
-
-class Slide extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject, startPos:Vector<Int>, endPos:Vector<Int>, dir:Cardinal) {
-		this.gameObj = gameObj;
-		this.startPos = startPos;
-		this.endPos = endPos;
-		this.dir = dir;
-	}
-
-	public function toString():String {
-		return 'Slide(${gameObj.id} ${startPos} to ${endPos})';
-	}
-}
-
-class Bump extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject, dir:Cardinal) {
-		this.gameObj = gameObj;
-		this.dir = dir;
-	}
-
-	public function toString():String {
-		return 'Bump(${gameObj.id} ${dir})';
-	}
-}
-
-class WheelSpin extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject, dir:Cardinal) {
-		this.gameObj = gameObj;
-		this.dir = dir;
-	}
-
-	public function toString():String {
-		return 'WheelSpin(${gameObj.id} ${dir})';
-	}
-}
-
-class Collide extends GameBoardMoveResult {
-	public var other:GameBoardObject;
-
-	public function new(gameObj:GameBoardObject, other:GameBoardObject) {
-		this.gameObj = gameObj;
-		this.other = other;
-	}
-
-	public function toString():String {
-		return 'Collide(${gameObj.id} and ${other.id})';
-	}
-}
-
-class Collect extends GameBoardMoveResult {
-	public var other:GameBoardObject;
-
-	public function new(gameObj:GameBoardObject, other:GameBoardObject) {
-		this.gameObj = gameObj;
-		this.other = other;
-	}
-
-	public function toString():String {
-		return 'Collect(${gameObj.id} and ${other.id})';
-	}
-}
-
-class Drop extends GameBoardMoveResult {
-	public var other:GameBoardObject;
-
-	public function new(gameObj:GameBoardObject, pos:Vector<Int>) {
-		this.gameObj = gameObj;
-		this.startPos = pos;
-	}
-
-	public function toString():String {
-		return 'Drop(${gameObj.id} at ${startPos})';
-	}
-}
-
-class Crumble extends GameBoardMoveResult {
-	public function new(pos:Vector<Int>) {
-		gameObj = null;
-		this.startPos = pos;
-	}
-
-	public function toString():String {
-		return 'Crumble(${startPos})';
-	}
-}
-
-class Die extends GameBoardMoveResult {
-	public function new(gameObj:GameBoardObject, pos:Vector<Int>) {
-		this.gameObj = gameObj;
-		this.startPos = pos;
-	}
-
-	public function toString():String {
-		return 'Die(${gameObj.id} at ${startPos})';
-	}
-}
-
-class Lose extends GameBoardMoveResult {
-	public function new() {}
-
-	public function toString():String {
-		return 'Lose()';
-	}
-}
-
-class Win extends GameBoardMoveResult {
-	public function new() {}
-
-	public function toString():String {
-		return 'Win()';
-	}
-}
 
 class GameBoard {
 	public var current:GameBoardState;

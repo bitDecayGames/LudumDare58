@@ -5,7 +5,7 @@ import flixel.math.FlxPoint;
 import bitdecay.flixel.spacial.Cardinal;
 import flixel.util.FlxDirection;
 import gameboard.GameBoard;
-import gameboard.GameBoard.GameBoardMoveResult;
+import gameboard.GameBoardMoveResult;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxDirectionFlags;
 import flixel.FlxSprite;

@@ -15,6 +15,7 @@ import bitdecay.flixel.spacial.Cardinal;
 import input.SimpleController;
 import gameboard.GameBoardState;
 import gameboard.GameBoard;
+import gameboard.GameBoardMoveResult;
 import todo.TODO;
 import flixel.group.FlxGroup;
 import flixel.math.FlxRect;
