@@ -242,6 +242,7 @@ class PlayState extends FlxTransitionableState {
 				var gro = objectMap.get(o.id);
 				if (gro != null) {
 					var spr: FlxSprite = cast gro;
+					spr.revive();
 					spr.setPosition(x * 32, y * 32);
 				}
 			}
