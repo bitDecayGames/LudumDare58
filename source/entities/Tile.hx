@@ -62,12 +62,16 @@ class Tile extends FlxSprite implements GameRenderObject {
 			case SLIDING:
 				animation.play(anims.ice);
 				animation.pause();
+			case SLIDING_BREAKABLE:
+				animation.play(anims.brokenice2nothing);
+				animation.pause();
 			case NON_MELTABLE_WALKABLE:
 				animation.play(anims.rock);
 				animation.pause();
 			default:
 				// huh?
 		}
+		this.tileType = tileType;
 	}
 
 	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):Completable {
@@ -76,6 +80,7 @@ class Tile extends FlxSprite implements GameRenderObject {
 			case Melt:
 				switch (tileType) {
 					case WALKABLE:
+						animation.play(anims.snow2ice);
 						return new AnimationCompletable(animation, anims.snow2ice, () -> {
 							setTileType(SLIDING);
 						});
@@ -85,12 +90,16 @@ class Tile extends FlxSprite implements GameRenderObject {
 			case Crumble:
 				switch (tileType) {
 					case SLIDING_BREAKABLE:
+						QLog.notice('Crump: ${r} tt:${tileType}');
+						animation.play(anims.brokenice2nothing);
 						return new AnimationCompletable(animation, anims.brokenice2nothing, () -> {
+							QLog.notice('Now empty');
 							setTileType(EMPTY);
 						});
 					default:
 						return null;
 				}
+
 			default:
 				// do nothing
 		}
