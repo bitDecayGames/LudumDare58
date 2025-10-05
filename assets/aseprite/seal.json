@@ -46,7 +46,7 @@
    },
    {
     "filename": "seal 5.aseprite",
-    "frame": { "x": 0, "y": 32, "w": 32, "h": 32 },
+    "frame": { "x": 128, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -55,7 +55,7 @@
    },
    {
     "filename": "seal 6.aseprite",
-    "frame": { "x": 32, "y": 32, "w": 32, "h": 32 },
+    "frame": { "x": 0, "y": 32, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -64,7 +64,7 @@
    },
    {
     "filename": "seal 7.aseprite",
-    "frame": { "x": 64, "y": 32, "w": 32, "h": 32 },
+    "frame": { "x": 32, "y": 32, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -73,7 +73,7 @@
    },
    {
     "filename": "seal 8.aseprite",
-    "frame": { "x": 96, "y": 32, "w": 32, "h": 32 },
+    "frame": { "x": 64, "y": 32, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -82,7 +82,7 @@
    },
    {
     "filename": "seal 9.aseprite",
-    "frame": { "x": 0, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 96, "y": 32, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -91,7 +91,7 @@
    },
    {
     "filename": "seal 10.aseprite",
-    "frame": { "x": 0, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 96, "y": 32, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -100,7 +100,7 @@
    },
    {
     "filename": "seal 11.aseprite",
-    "frame": { "x": 32, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 128, "y": 32, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -109,7 +109,7 @@
    },
    {
     "filename": "seal 12.aseprite",
-    "frame": { "x": 64, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 0, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -118,7 +118,7 @@
    },
    {
     "filename": "seal 13.aseprite",
-    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 32, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -127,7 +127,7 @@
    },
    {
     "filename": "seal 14.aseprite",
-    "frame": { "x": 0, "y": 96, "w": 32, "h": 32 },
+    "frame": { "x": 64, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -136,7 +136,7 @@
    },
    {
     "filename": "seal 15.aseprite",
-    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 32, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -145,7 +145,124 @@
    },
    {
     "filename": "seal 16.aseprite",
-    "frame": { "x": 64, "y": 64, "w": 32, "h": 32 },
+    "frame": { "x": 0, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 17.aseprite",
+    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 18.aseprite",
+    "frame": { "x": 128, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 19.aseprite",
+    "frame": { "x": 0, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 20.aseprite",
+    "frame": { "x": 32, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 21.aseprite",
+    "frame": { "x": 64, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 22.aseprite",
+    "frame": { "x": 96, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 23.aseprite",
+    "frame": { "x": 128, "y": 96, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 24.aseprite",
+    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 25.aseprite",
+    "frame": { "x": 0, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 26.aseprite",
+    "frame": { "x": 32, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 27.aseprite",
+    "frame": { "x": 64, "y": 128, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 28.aseprite",
+    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "seal 29.aseprite",
+    "frame": { "x": 96, "y": 64, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -158,7 +275,7 @@
   "version": "1.3.14.4-x64",
   "image": "seal.png",
   "format": "RGBA8888",
-  "size": { "w": 128, "h": 128 },
+  "size": { "w": 160, "h": 160 },
   "scale": "1",
   "frameTags": [
    { "name": "Stand", "from": 1, "to": 1, "direction": "forward", "repeat": "1", "color": "#000000ff" },
@@ -167,12 +284,13 @@
    { "name": "LayTransition", "from": 7, "to": 9, "direction": "forward", "color": "#000000ff" },
    { "name": "Lay", "from": 10, "to": 10, "direction": "forward", "color": "#000000ff" },
    { "name": "LayBlink", "from": 11, "to": 11, "direction": "forward", "color": "#000000ff" },
-   { "name": "Yawn", "from": 12, "to": 16, "direction": "forward", "color": "#000000ff" }
+   { "name": "Yawn", "from": 12, "to": 16, "direction": "forward", "color": "#000000ff" },
+   { "name": "Dead", "from": 17, "to": 29, "direction": "forward", "color": "#000000ff" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 115, "blendMode": "normal" },
    { "name": "Layer 2", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 3", "opacity": 194, "blendMode": "normal" }
+   { "name": "Layer 3", "opacity": 184, "blendMode": "normal" }
   ],
   "slices": [
   ]
