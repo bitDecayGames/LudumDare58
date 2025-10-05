@@ -879,7 +879,7 @@
 						},
 						{
 							"__identifier": "Collectable",
-							"__grid": [10,7],
+							"__grid": [10,4],
 							"__pivot": [0,0],
 							"__tags": ["LevelElement"],
 							"__tile": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 },
@@ -888,13 +888,13 @@
 							"width": 32,
 							"height": 32,
 							"defUid": 235,
-							"px": [320,224],
+							"px": [320,128],
 							"fieldInstances": [{ "__identifier": "CollectableType", "__type": "LocalEnum.CollectableType", "__value": "Seal", "__tile": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 }, "defUid": 239, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Seal"]
 							}] }],
 							"__worldX": 2240,
-							"__worldY": -736
+							"__worldY": -832
 						},
 						{
 							"__identifier": "Block",
@@ -959,6 +959,44 @@
 							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.BlockType", "__value": "WallBlock", "__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "defUid": 238, "realEditorValues": [] }],
 							"__worldX": 2112,
 							"__worldY": -800
+						},
+						{
+							"__identifier": "Collectable",
+							"__grid": [11,9],
+							"__pivot": [0,0],
+							"__tags": ["LevelElement"],
+							"__tile": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 },
+							"__smartColor": "#733E39",
+							"iid": "999af100-8560-11f0-923d-85a4584511a6",
+							"width": 32,
+							"height": 32,
+							"defUid": 235,
+							"px": [352,288],
+							"fieldInstances": [{ "__identifier": "CollectableType", "__type": "LocalEnum.CollectableType", "__value": "Seal", "__tile": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 }, "defUid": 239, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Seal"]
+							}] }],
+							"__worldX": 2272,
+							"__worldY": -672
+						},
+						{
+							"__identifier": "Collectable",
+							"__grid": [6,3],
+							"__pivot": [0,0],
+							"__tags": ["LevelElement"],
+							"__tile": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 },
+							"__smartColor": "#733E39",
+							"iid": "9a91ad10-8560-11f0-923d-01a77174135a",
+							"width": 32,
+							"height": 32,
+							"defUid": 235,
+							"px": [192,96],
+							"fieldInstances": [{ "__identifier": "CollectableType", "__type": "LocalEnum.CollectableType", "__value": "Seal", "__tile": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 }, "defUid": 239, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Seal"]
+							}] }],
+							"__worldX": 2112,
+							"__worldY": -864
 						}
 					]
 				},
