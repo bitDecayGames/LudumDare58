@@ -22,6 +22,7 @@ enum FmodSFX {
     MenuHover;
     MenuSelect;
     New_Event;
+    PushCannot;
     PushIce;
     PushIceSlide;
     PushSnow;
@@ -54,6 +55,7 @@ class FmodEvent {
             case MenuHover: "event:/SFX/Menu/MenuHover";
             case MenuSelect: "event:/SFX/Menu/MenuSelect";
             case New_Event: "event:/SFX/Push/New_Event";
+            case PushCannot: "event:/SFX/Push/PushCannot";
             case PushIce: "event:/SFX/Push/PushIce";
             case PushIceSlide: "event:/SFX/Push/PushIceSlide";
             case PushSnow: "event:/SFX/Push/PushSnow";

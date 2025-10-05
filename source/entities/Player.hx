@@ -260,7 +260,7 @@ class Player extends FlxSprite implements GameRenderObject {
 				animation.play(anims.Splash);
 				return new AnimationCompletable(animation, anims.Splash);
 			case WheelSpin:
-				TODO.sfx('bear tries to push block but cannot');
+				FmodPlugin.playSFX(FmodSFX.PushCannot);
 				animPrefix = PUSH;
 				currentBuff = -10;
 				animation.timeScale = 4.0;
@@ -280,6 +280,7 @@ class Player extends FlxSprite implements GameRenderObject {
 				setBloody(true);
 				return null;
 			case Bump:
+				FmodPlugin.playSFX(FmodSFX.PushCannot);
 				return new BumpCompletable(this, r.dir);
 			default:
 				// do nothing
