@@ -106,15 +106,7 @@ class MainMenuState extends FlxTransitionableState {
 	}
 
 	function clickPlay():Void {
-		FmodManager.StopSong();
-		var swirlOut = new SwirlTransition(TransitionDirection.OUT, () -> {
-			// make sure our music is stopped;
-			FmodManager.StopSongImmediately();
-			FlxG.switchState(() -> {
-				new LevelSelect();
-			});
-		}, FlxColor.GRAY, 0.75);
-		openSubState(swirlOut);
+		FmodFlxUtilities.TransitionToState(new LevelSelect());
 	}
 
 	// If we want to add a way to go to credits from main menu, call this
