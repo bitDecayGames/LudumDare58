@@ -11,7 +11,7 @@
  ],
  "meta": {
   "app": "https://www.aseprite.org/",
-  "version": "1.3-rc4-x64",
+  "version": "1.3.14.4-x64",
   "image": "title.png",
   "format": "RGBA8888",
   "size": { "w": 640, "h": 480 },
@@ -19,7 +19,9 @@
   "frameTags": [
   ],
   "layers": [
-   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+   { "name": "Layer 7", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 5", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 4", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
   ]
