@@ -12,7 +12,7 @@
 		"allowClickToSkip": true
 	},
 	"mouse": {
-		"cursorVisible": true,
+		"cursorVisible": false,
 		"useSystemCursor": true
 	},
 	"menus": {
