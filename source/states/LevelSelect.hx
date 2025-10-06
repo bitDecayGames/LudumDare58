@@ -1,5 +1,6 @@
 package states;
 
+import collectables.Collectables;
 import entities.Star;
 import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup;
@@ -110,7 +111,7 @@ class LevelSelect extends FlxTransitionableState {
 		label.alignment = CENTER;
 
 		var t = new FlxUISpriteButton(0, 0, labelGroup, () -> {
-			if (stats == null || !stats.visited) {
+			if ((stats == null || !stats.visited) && !Collectables.PROD_DEBUG) {
 				return;
 			}
 			FlxG.switchState(() -> new PlayState(level.iid));
@@ -142,7 +143,7 @@ class LevelSelect extends FlxTransitionableState {
 
 		buttonOffsets.set(t, FlxG.random.float(0, Math.PI * 2));
 
-		if (stats == null || !stats.visited) {
+		if ((stats == null || !stats.visited) && !Collectables.PROD_DEBUG) {
 			label.color = FlxColor.GRAY;
 			t.color = FlxColor.GRAY;
 			t.over_color = FlxColor.GRAY;
@@ -199,6 +200,8 @@ class LevelSelect extends FlxTransitionableState {
 			// b.autoCenterLabel();
 			// Align.center(b.label, b);
 		}
+
+		Collectables.checkForProdDebugKey(elapsed);
 	}
 
 	override public function onFocusLost() {

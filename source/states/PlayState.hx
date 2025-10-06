@@ -306,6 +306,12 @@ class PlayState extends FlxTransitionableState {
 			case AWAITING_INPUT:
 				#if debug
 				handleRightClick();
+				#else
+				if (Collectables.PROD_DEBUG) {
+					handleRightClick();
+				} else {
+					Collectables.checkForProdDebugKey(elapsed);
+				}
 				#end
 				var moveDir = Cardinal.NONE;
 				if (player.alive) {
@@ -334,12 +340,6 @@ class PlayState extends FlxTransitionableState {
 				if (FlxG.keys.justPressed.U || FlxG.keys.justPressed.Z) {
 					undo();
 				}
-				#if debug
-				if (FlxG.keys.justPressed.SPACE) {
-					var mousePos = FlxG.mouse.getWorldPosition();
-					new PlayerWin(mousePos.x, mousePos.y, FlxPoint.get(mousePos.x + 100, mousePos.y), true, false);
-				}
-				#end
 		}
 		super.update(elapsed);
 

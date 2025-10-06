@@ -1,5 +1,6 @@
 package states;
 
+import collectables.Collectables;
 import flixel.addons.ui.FlxUI9SliceSprite;
 import bitdecay.flixel.spacial.Align;
 import bitdecay.flixel.graphics.AsepriteMacros;
@@ -46,38 +47,58 @@ class MainMenuState extends FlxTransitionableState {
 		// add(startButton);
 
 		var label = new FlxBitmapText('Play');
-        label.scale.set(3, 3);
-        label.autoSize = false;
-        label.fieldWidth = 8;
+		label.scale.set(3, 3);
+		label.autoSize = false;
+		label.fieldWidth = 8;
 
-        var key = Aseprite.getSliceKey(AssetPaths.levelSelect_9__json, slices.Slice_1_0);
+		var key = Aseprite.getSliceKey(AssetPaths.levelSelect_9__json, slices.Slice_1_0);
 
-        var t = new FlxUISpriteButton(0, 0, label, clickPlay);
-        Aseprite.loadAllAnimations(t, AssetPaths.levelSelect_9__json);
-        var sliceRect = [Std.int(key.center.x), Std.int(key.center.y), Std.int(key.center.w), Std.int(key.center.h)];
-        t.loadGraphicSlice9([AssetPaths.levelSelect_9__png,AssetPaths.levelSelect_9__png,AssetPaths.levelSelect_9__png], 100, cast key.bounds.h, [sliceRect,sliceRect,sliceRect], FlxUI9SliceSprite.TILE_BOTH, -1, false, cast key.bounds.w, cast key.bounds.h);
-        // t.label.scale.set(4, 4);
+		var t = new FlxUISpriteButton(0, 0, label, clickPlay);
+		Aseprite.loadAllAnimations(t, AssetPaths.levelSelect_9__json);
+		var sliceRect = [
+			Std.int(key.center.x),
+			Std.int(key.center.y),
+			Std.int(key.center.w),
+			Std.int(key.center.h)
+		];
+		t.loadGraphicSlice9([
+			AssetPaths.levelSelect_9__png,
+			AssetPaths.levelSelect_9__png,
+			AssetPaths.levelSelect_9__png
+		], 100,
+			cast key.bounds.h, [sliceRect, sliceRect, sliceRect], FlxUI9SliceSprite.TILE_BOTH, -1, false, cast key.bounds.w, cast key.bounds.h);
+		// t.label.scale.set(4, 4);
 		t.screenCenter(X);
 		t.y = FlxG.height * .7;
-        t.autoCenterLabel();
-        label.alignment = CENTER;
-        Align.center(t.label, t);
+		t.autoCenterLabel();
+		label.alignment = CENTER;
+		Align.center(t.label, t);
 		add(t);
 
 		var credLabel = new FlxBitmapText('Credits');
-        credLabel.scale.set(3, 3);
-        credLabel.autoSize = false;
-        credLabel.fieldWidth = 8;
+		credLabel.scale.set(3, 3);
+		credLabel.autoSize = false;
+		credLabel.fieldWidth = 8;
 
 		var c = new FlxUISpriteButton(0, 0, credLabel, clickCredits);
-        Aseprite.loadAllAnimations(c, AssetPaths.levelSelect_9__json);
-        var sliceRect = [Std.int(key.center.x), Std.int(key.center.y), Std.int(key.center.w), Std.int(key.center.h)];
-        c.loadGraphicSlice9([AssetPaths.levelSelect_9__png,AssetPaths.levelSelect_9__png,AssetPaths.levelSelect_9__png], 100, cast key.bounds.h, [sliceRect,sliceRect,sliceRect], FlxUI9SliceSprite.TILE_BOTH, -1, false, cast key.bounds.w, cast key.bounds.h);
+		Aseprite.loadAllAnimations(c, AssetPaths.levelSelect_9__json);
+		var sliceRect = [
+			Std.int(key.center.x),
+			Std.int(key.center.y),
+			Std.int(key.center.w),
+			Std.int(key.center.h)
+		];
+		c.loadGraphicSlice9([
+			AssetPaths.levelSelect_9__png,
+			AssetPaths.levelSelect_9__png,
+			AssetPaths.levelSelect_9__png
+		], 100,
+			cast key.bounds.h, [sliceRect, sliceRect, sliceRect], FlxUI9SliceSprite.TILE_BOTH, -1, false, cast key.bounds.w, cast key.bounds.h);
 		c.screenCenter(X);
 		c.y = t.y + t.height + 10;
-        c.autoCenterLabel();
-        credLabel.alignment = CENTER;
-        Align.center(c.label, c);
+		c.autoCenterLabel();
+		credLabel.alignment = CENTER;
+		Align.center(c.label, c);
 		add(c);
 
 		// FmodPlugin.playSong(FmodSong.LetsGo);
@@ -103,6 +124,8 @@ class MainMenuState extends FlxTransitionableState {
 				clickPlay();
 			});
 		}
+
+		Collectables.checkForProdDebugKey(elapsed);
 	}
 
 	function clickPlay():Void {

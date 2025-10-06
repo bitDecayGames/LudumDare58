@@ -94,6 +94,8 @@ class CollectStats {
 class Collectables {
 	private static var saveData:SaveData;
 	private static var currentLevelName:String;
+	public static var PROD_DEBUG:Bool = false;
+	private static var prodDebugKeyTimer:Float = 3.0;
 
 	public static function initLevel(levelName:String, maxNumCollectables:Int) {
 		saveData = SaveData.load();
@@ -139,5 +141,20 @@ class Collectables {
 		stats.curNumCollected = 0;
 
 		EventBus.fire(new SealCollected(stats.curNumCollected, stats.maxNumCollectables));
+	}
+
+	public static function checkForProdDebugKey(elapsed:Float) {
+		if (PROD_DEBUG) {
+			return;
+		}
+		if (FlxG.keys.pressed.M) {
+			prodDebugKeyTimer -= elapsed;
+		} else if (prodDebugKeyTimer < 3.0) {
+			prodDebugKeyTimer += elapsed;
+		}
+		if (prodDebugKeyTimer < 0) {
+			FmodPlugin.playSFX(FmodSFX.MenuSelect);
+			PROD_DEBUG = true;
+		}
 	}
 }
