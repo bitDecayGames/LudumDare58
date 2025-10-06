@@ -65,7 +65,7 @@ class Tile extends FlxSprite implements GameRenderObject {
 				FmodPlugin.playSFX(FmodSFX.TilesSnowToIce2);
 			}
 			if (frameNumber == 7) {
-				FmodPlugin.playSFX(FmodSFX.TilesSnowToIceSheen);
+				// FmodPlugin.playSFX(FmodSFX.TilesSnowToIceSheen);
 			}
 		}
 	}
