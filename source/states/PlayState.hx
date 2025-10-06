@@ -71,11 +71,7 @@ class PlayState extends FlxTransitionableState {
 
 	public function new(levelIID:String = "") {
 		super();
-		if (levelIID == "") {
-			startingLevel = "Level_1";
-		} else {
-			startingLevel = levelIID;
-		}
+		startingLevel = levelIID;
 
 		ME = this;
 	}

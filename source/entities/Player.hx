@@ -105,7 +105,7 @@ class Player extends FlxSprite implements GameRenderObject {
 	}
 
 	function onPushFrame(name:String, frameNumber:Int, frameIndex:Int) {
-		trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
+		//trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
 
 		// Play footstep sound on specific frames
 		if (name == anims.PushDown || name == anims.PushUp) {
@@ -223,6 +223,11 @@ class Player extends FlxSprite implements GameRenderObject {
 	}
 
 	function playAnimIfNotAlready(name:String, playInReverse:Bool, ?forceAnimationRefresh:Bool):Bool {
+		if (animation.getByName(name) == null) {
+			QLog.notice('attempted to play animation ${name}, which does not exist');
+			return false;
+		}
+
 		if (animation.curAnim == null || animation.curAnim.name != name || forceAnimationRefresh) {
 			if (name == anims.PushDown) {
 				offset.y = defaultOffset - 18;
