@@ -44,17 +44,18 @@ class PlayerWin extends FlxSprite {
 			walkDist *= -1;
 			jumpDist *= -1;
 		}
+
+		animation.onFrameChange.add(onLifeSaverFrame);
+
 		animation.play(anims.TransitionPrep);
 		animation.onFinish.addOnce((_) -> {
-			TODO.sfx('talk to edge with live saver on');
 			animation.play(anims.TransitionWalk);
 			FlxTween.linearMotion(this, x, y, x + walkDist, y, 1, true, {
 				onComplete: (_) -> {
-					TODO.sfx('jumps off ice');
 					animation.play(anims.TransitionJump);
 					FlxTween.quadMotion(this, x, y, x + jumpDist * .5, y - Math.abs(jumpDist) * .7, jumpTo.x, jumpTo.y, 1, true, {
 						onComplete: (_) -> {
-							TODO.sfx('splash into water with life saver on');
+							FmodPlugin.playSFX(FmodSFX.BearSplash);
 							animation.play(anims.TransitionFloat);
 							FlxTween.linearMotion(this, jumpTo.x, jumpTo.y, jumpTo.x + jumpDist * .5, jumpTo.y, 1, true, {
 								onComplete: (_) -> {
@@ -67,6 +68,29 @@ class PlayerWin extends FlxSprite {
 				}
 			});
 		});
+	}
+
+	
+	function onLifeSaverFrame(name:String, frameNumber:Int, frameIndex:Int) {
+		trace('Animation: $name, Frame: $frameNumber, Index: $frameIndex');
+		if (name == anims.TransitionPrep) {
+			if (frameNumber == 0) {
+				FmodPlugin.playSFX(FmodSFX.LifeSaverJingle);
+			}
+			if (frameNumber == 3) {
+				FmodPlugin.playSFX(FmodSFX.LifeSaverNoise);
+			}
+		}
+		if (name == anims.TransitionWalk) {
+			if (frameNumber == 1 || frameNumber == 3 || frameNumber == 5) {
+				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
+			}
+		}
+		if (name == anims.TransitionJump) {
+			if (frameNumber == 0) {
+				FmodPlugin.playSFX(FmodSFX.LifeSaverJump);
+			}
+		}
 	}
 
 	function setBloody(isBloody:Bool) {

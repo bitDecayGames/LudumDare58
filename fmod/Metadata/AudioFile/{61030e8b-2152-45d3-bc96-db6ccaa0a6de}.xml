@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.00.00">
-	<object class="AudioFile" id="{bcae63df-e114-4305-b77e-479f52146a1e}">
+	<object class="AudioFile" id="{61030e8b-2152-45d3-bc96-db6ccaa0a6de}">
 		<property name="assetPath">
-			<value>collect.ogg</value>
-		</property>
-		<property name="isStreaming">
-			<value>true</value>
+			<value>collect_jump.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
