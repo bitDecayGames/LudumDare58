@@ -36,7 +36,8 @@ class Splash extends FlxSprite {
 				destroy();
 			});
 		});
-		PlayState.ME.add(this);
+		@:privateAccess
+		PlayState.ME.actionGroup.add(this);
 	}
 
 	public override function destroy() {

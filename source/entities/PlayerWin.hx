@@ -29,7 +29,8 @@ class PlayerWin extends FlxSprite {
 		super(X, Y);
 		this.isBloody = !isBloody;
 		setBloody(isBloody);
-		PlayState.ME.add(this);
+		@:privateAccess
+		PlayState.ME.actionGroup.add(this);
 
 		var off = height - 32;
 		width = 32;

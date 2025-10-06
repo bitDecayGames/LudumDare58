@@ -244,6 +244,8 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	function unload() {
+		pendingResolutions = [];
+		
 		for (t in transitions) {
 			t.destroy();
 		}
