@@ -76,6 +76,8 @@ class Main extends Sprite {
 	private function configureFlixel() {
 		FlxG.fixedTimestep = false;
 
+		FlxG.mouse.useSystemCursor = true;
+
 		#if html5
 		// Disable right-click menu on web
 		stage.showDefaultContextMenu = false;
