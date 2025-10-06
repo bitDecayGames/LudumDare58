@@ -925,7 +925,11 @@
 		{ "identifier": "BlockType", "uid": 236, "values": [ { "id": "PushBlock", "tileRect": { "tilesetUid": 16, "x": 128, "y": 80, "w": 16, "h": 16 }, "color": 12470831 }, { "id": "WallBlock", "tileRect": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "color": 14120515 } ], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "CollectableType", "uid": 237, "values": [{ "id": "Seal", "tileRect": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 }, "color": 12470831 }], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [
-		{ "identifier": "FmodSong", "uid": 223, "values": [ { "id": "Fkip", "tileRect": null, "color": 14120515 }, { "id": "LetsGo", "tileRect": null, "color": 12470831 } ], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "4629dc5dfde8e9349ea198a04b087e6e", "tags": [] },
+		{ "identifier": "FmodSong", "uid": 223, "values": [
+			{ "id": "Fkip", "tileRect": null, "color": 14120515 },
+			{ "id": "LetsGo", "tileRect": null, "color": 12470831 },
+			{ "id": "LevelSelect", "tileRect": null, "color": 15389866 }
+		], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "6ea61eb4741bc23fab6cb93a754dbfa5", "tags": [] },
 		{ "identifier": "FmodSFX", "uid": 224, "values": [
 			{ "id": "BearFall", "tileRect": null, "color": 15389866 },
 			{ "id": "BearSlip", "tileRect": null, "color": 1199753 },
@@ -952,7 +956,7 @@
 			{ "id": "TilesSnowToIce", "tileRect": null, "color": 3818598 },
 			{ "id": "TilesSnowToIce2", "tileRect": null, "color": 16711748 },
 			{ "id": "TilesSnowToIceSheen", "tileRect": null, "color": 11882632 }
-		], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "4629dc5dfde8e9349ea198a04b087e6e", "tags": [] }
+		], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "6ea61eb4741bc23fab6cb93a754dbfa5", "tags": [] }
 	], "levelFields": [
 		{
 			"identifier": "Music",
