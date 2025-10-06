@@ -76,20 +76,15 @@ class Player extends FlxSprite implements GameRenderObject {
 	}
 
 	function setBloody(newBloody:Bool) {
-		if (this.isBloody == newBloody) {
-			// do nothing since it is already set
-			return;
-		}
-
 		if (newBloody) {
 			FlxG.camera.fade(0.1, () -> {
 				FlxTimer.wait(.6, () -> {
-					if (isBloody) {
+					if (newBloody) {
 						Aseprite.loadAllAnimations(this, AssetPaths.playerBloody__json);
 					} else {
 						Aseprite.loadAllAnimations(this, AssetPaths.player__json);
 					}
-					this.isBloody = isBloody;
+					this.isBloody = newBloody;
 					FlxG.camera.fade(0.1, true);
 				});
 			});

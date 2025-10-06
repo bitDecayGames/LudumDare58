@@ -161,7 +161,7 @@ class GameBoard {
 			current.removeObj(targetObj);
 		}
 		if (currentTile == WALKABLE_BREAKABLE || currentTile == SLIDING_BREAKABLE) {
-			current.setTile(xy[0], xy[1], HOLE);
+			current.setTile(xy[0], xy[1], EMPTY);
 			cur.push(new Crumble(xy));
 		}
 		if (targetObj != null && targetObj.type == BLOCK) {
@@ -169,7 +169,7 @@ class GameBoard {
 			cur.push(new Push(targetObj, playerObj, targetXY, nextXY, dir, targetTile, nextTile));
 
 			if (targetTile == WALKABLE_BREAKABLE || targetTile == SLIDING_BREAKABLE) {
-				current.setTile(targetXY[0], targetXY[1], HOLE);
+				current.setTile(targetXY[0], targetXY[1], EMPTY);
 				cur.push(new Crumble(targetXY));
 				results.push(cur);
 				cur = [];
@@ -209,7 +209,7 @@ class GameBoard {
 								targetObj.index = current.vecToIndex(checkXY);
 								cur.push(new Slide(targetObj, nextXY, checkXY, dir, false, nextTile, checkTile));
 								if (nextTile == SLIDING_BREAKABLE) {
-									current.setTile(nextXY[0], nextXY[1], HOLE);
+									current.setTile(nextXY[0], nextXY[1], EMPTY);
 									cur.push(new Crumble(nextXY));
 								}
 							} else {
@@ -223,7 +223,7 @@ class GameBoard {
 							targetObj.index = current.vecToIndex(checkXY);
 							cur.push(new Slide(targetObj, nextXY, checkXY, dir, false, nextTile, checkTile));
 							if (nextTile == SLIDING_BREAKABLE) {
-								current.setTile(nextXY[0], nextXY[1], HOLE);
+								current.setTile(nextXY[0], nextXY[1], EMPTY);
 								cur.push(new Crumble(nextXY));
 							}
 						}
@@ -248,9 +248,9 @@ class GameBoard {
 						if (checkObj != null) {
 							if (checkObj.type == HAZARD) {
 								playerObj.index = current.vecToIndex(checkXY);
-								cur.push(new Slide(targetObj, nextXY, checkXY, dir, false, targetTile, checkTile));
+								cur.push(new Slide(playerObj, targetXY, checkXY, dir, false, targetTile, checkTile));
 								if (targetTile == SLIDING_BREAKABLE) {
-									current.setTile(targetXY[0], targetXY[1], HOLE);
+									current.setTile(targetXY[0], targetXY[1], EMPTY);
 									cur.push(new Crumble(targetXY));
 								}
 								results.push(cur);
@@ -258,8 +258,31 @@ class GameBoard {
 								cur.push(new Die(playerObj, checkXY));
 								results.push(cur);
 								cur = [];
-								QLog.notice('some how you lose');
 								cur.push(new Lose());
+								results.push(cur);
+								return results;
+							} else if (checkObj.type == COLLECTABLE) {
+								playerObj.index = current.vecToIndex(checkXY);
+								cur.push(new Slide(playerObj, targetXY, checkXY, dir, false, targetTile, checkTile));
+								if (targetTile == SLIDING_BREAKABLE) {
+									current.setTile(targetXY[0], targetXY[1], EMPTY);
+									cur.push(new Crumble(targetXY));
+								}
+								current.removeObj(checkObj);
+								cur.push(new Collect(playerObj, checkObj));
+								cur.push(new Collect(checkObj, playerObj));
+							} else if (checkObj.type == EXIT) {
+								playerObj.index = current.vecToIndex(checkXY);
+								cur.push(new Slide(playerObj, targetXY, checkXY, dir, false, targetTile, checkTile));
+								if (targetTile == SLIDING_BREAKABLE) {
+									current.setTile(targetXY[0], targetXY[1], EMPTY);
+									cur.push(new Crumble(targetXY));
+								}
+								current.removeObj(checkObj);
+								results.push(cur);
+								cur = [];
+								cur.push(new Win(playerObj));
+								cur.push(new Win(checkObj));
 								results.push(cur);
 								return results;
 							} else {
@@ -273,7 +296,7 @@ class GameBoard {
 							playerObj.index = current.vecToIndex(checkXY);
 							cur.push(new Slide(playerObj, targetXY, checkXY, dir, false, targetTile, checkTile));
 							if (targetTile == SLIDING_BREAKABLE) {
-								current.setTile(targetXY[0], targetXY[1], HOLE);
+								current.setTile(targetXY[0], targetXY[1], EMPTY);
 								cur.push(new Crumble(targetXY));
 							}
 						}

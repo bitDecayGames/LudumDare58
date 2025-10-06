@@ -925,7 +925,7 @@
 		{ "identifier": "BlockType", "uid": 236, "values": [ { "id": "PushBlock", "tileRect": { "tilesetUid": 16, "x": 128, "y": 80, "w": 16, "h": 16 }, "color": 12470831 }, { "id": "WallBlock", "tileRect": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "color": 14120515 } ], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "CollectableType", "uid": 237, "values": [{ "id": "Seal", "tileRect": { "tilesetUid": 16, "x": 32, "y": 320, "w": 16, "h": 16 }, "color": 12470831 }], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [
-		{ "identifier": "FmodSong", "uid": 223, "values": [ { "id": "Fkip", "tileRect": null, "color": 14120515 }, { "id": "LetsGo", "tileRect": null, "color": 12470831 } ], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "0e67b9d7a8dd97adb5d8a4767af081f4", "tags": [] },
+		{ "identifier": "FmodSong", "uid": 223, "values": [ { "id": "Fkip", "tileRect": null, "color": 14120515 }, { "id": "LetsGo", "tileRect": null, "color": 12470831 } ], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "4629dc5dfde8e9349ea198a04b087e6e", "tags": [] },
 		{ "identifier": "FmodSFX", "uid": 224, "values": [
 			{ "id": "BearFall", "tileRect": null, "color": 15389866 },
 			{ "id": "BearSlip", "tileRect": null, "color": 1199753 },
@@ -934,9 +934,13 @@
 			{ "id": "BearStepbounceOnly", "tileRect": null, "color": 4073265 },
 			{ "id": "BearStepCrunch", "tileRect": null, "color": 16690740 },
 			{ "id": "BearStepCrunchOnly", "tileRect": null, "color": 16705377 },
+			{ "id": "LifeSaverJingle", "tileRect": null, "color": 10626611 },
+			{ "id": "LifeSaverJump", "tileRect": null, "color": 16217634 },
+			{ "id": "LifeSaverNoise", "tileRect": null, "color": 2513986 },
 			{ "id": "MenuHover", "tileRect": null, "color": 12470831 },
 			{ "id": "MenuSelect", "tileRect": null, "color": 14120515 },
 			{ "id": "New_Event", "tileRect": null, "color": 39387 },
+			{ "id": "PushCannot", "tileRect": null, "color": 1578021 },
 			{ "id": "PushIce", "tileRect": null, "color": 2943221 },
 			{ "id": "PushIceSlide", "tileRect": null, "color": 16777215 },
 			{ "id": "PushSnow", "tileRect": null, "color": 12635100 },
@@ -944,10 +948,11 @@
 			{ "id": "SealCrunch2", "tileRect": null, "color": 9149364 },
 			{ "id": "SealDie", "tileRect": null, "color": 4098376 },
 			{ "id": "SealSqueal", "tileRect": null, "color": 5925256 },
+			{ "id": "TilesIceCollapse", "tileRect": null, "color": 16151930 },
 			{ "id": "TilesSnowToIce", "tileRect": null, "color": 3818598 },
 			{ "id": "TilesSnowToIce2", "tileRect": null, "color": 16711748 },
 			{ "id": "TilesSnowToIceSheen", "tileRect": null, "color": 11882632 }
-		], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "0e67b9d7a8dd97adb5d8a4767af081f4", "tags": [] }
+		], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "4629dc5dfde8e9349ea198a04b087e6e", "tags": [] }
 	], "levelFields": [
 		{
 			"identifier": "Music",
@@ -1038,7 +1043,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "Spawn",
-							"__grid": [7,6],
+							"__grid": [7,5],
 							"__pivot": [0,0],
 							"__tags": [ "Player", "LevelElement" ],
 							"__tile": { "tilesetUid": 16, "x": 0, "y": 32, "w": 16, "h": 16 },
@@ -1047,10 +1052,10 @@
 							"width": 32,
 							"height": 32,
 							"defUid": 74,
-							"px": [240,192],
+							"px": [224,160],
 							"fieldInstances": [],
-							"__worldX": 1520,
-							"__worldY": -288
+							"__worldX": 1504,
+							"__worldY": -320
 						},
 						{
 							"__identifier": "Exit",
@@ -1074,7 +1079,10 @@
 									"id": "V_String",
 									"params": ["413490c0-8560-11f0-be50-5b0315c2aefa"]
 								}] },
-								{ "__identifier": "JumpTo", "__type": "Point", "__value": null, "__tile": null, "defUid": 257, "realEditorValues": [] }
+								{ "__identifier": "JumpTo", "__type": "Point", "__value": { "cx": 16, "cy": 11 }, "__tile": null, "defUid": 257, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["16,11"]
+								}] }
 							],
 							"__worldX": 1632,
 							"__worldY": -160
@@ -2107,7 +2115,10 @@
 									"id": "V_String",
 									"params": ["76ab31f0-8560-11f0-8b03-b339712e0097"]
 								}] },
-								{ "__identifier": "JumpTo", "__type": "Point", "__value": null, "__tile": null, "defUid": 257, "realEditorValues": [] }
+								{ "__identifier": "JumpTo", "__type": "Point", "__value": { "cx": 10, "cy": 13 }, "__tile": null, "defUid": 257, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["10,13"]
+								}] }
 							],
 							"__worldX": 2816,
 							"__worldY": -128
@@ -3654,7 +3665,10 @@
 									"id": "V_String",
 									"params": ["848cbb60-8560-11f0-8b03-ad7fdd811889"]
 								}] },
-								{ "__identifier": "JumpTo", "__type": "Point", "__value": null, "__tile": null, "defUid": 257, "realEditorValues": [] }
+								{ "__identifier": "JumpTo", "__type": "Point", "__value": { "cx": 15, "cy": 0 }, "__tile": null, "defUid": 257, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["15,0"]
+								}] }
 							],
 							"__worldX": 1056,
 							"__worldY": -896
@@ -4437,7 +4451,10 @@
 									"id": "V_String",
 									"params": ["dc105670-8560-11f0-8b03-f10d0dcd6830"]
 								}] },
-								{ "__identifier": "JumpTo", "__type": "Point", "__value": null, "__tile": null, "defUid": 257, "realEditorValues": [] }
+								{ "__identifier": "JumpTo", "__type": "Point", "__value": { "cx": 3, "cy": 1 }, "__tile": null, "defUid": 257, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["3,1"]
+								}] }
 							],
 							"__worldX": 2176,
 							"__worldY": -896

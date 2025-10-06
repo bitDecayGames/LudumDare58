@@ -38,15 +38,11 @@ class IceBlock1 extends FlxSprite {
 		// width = 32;
 		// height = 32;
 		animation.play(anims.animate);
-		PlayState.ME.add(this);
 
 		bob(this);
-	}
 
-	public override function destroy() {
-		PlayState.ME.remove(this);
-		animation.destroy();
-		super.destroy();
+		@:privateAccess
+		PlayState.ME.actionGroup.add(this);
 	}
 }
 
@@ -61,21 +57,19 @@ class IceBlock2 extends FlxSprite {
 		// width = 32;
 		// height = 32;
 		animation.play(anims.animate);
-		PlayState.ME.add(this);
 
 		bob(this);
-	}
 
-	public override function destroy() {
-		PlayState.ME.remove(this);
-		animation.destroy();
-		super.destroy();
+		@:privateAccess
+		PlayState.ME.actionGroup.add(this);
 	}
 }
 
 class JumpingFish extends FlxSprite {
 	public static var anims = AsepriteMacros.tagNames("assets/aseprite/jumpingFish.json");
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/jumpingFish.json");
+
+	private var currentTimer:FlxTimer;
 
 	public function new(X:Float, Y:Float) {
 		super(X, Y);
@@ -84,24 +78,24 @@ class JumpingFish extends FlxSprite {
 		// width = 32;
 		// height = 32;
 		visible = false;
-		FlxTimer.wait(r.float(1, 10), () -> {
-			visible = true;
-			animation.play(anims.animate);
-			animation.onFinish.add((_) -> {
-				visible = false;
-				animation.pause();
-				FlxTimer.wait(r.float(1, 10), () -> {
-					visible = true;
-					animation.play(anims.animate);
+		currentTimer = FlxTimer.wait(r.float(1, 10), () -> {
+			if (this != null && this.animation != null) {
+				visible = true;
+				animation.play(anims.animate);
+				animation.onFinish.add((_) -> {
+					visible = false;
+					animation.pause();
+					currentTimer = FlxTimer.wait(r.float(1, 10), () -> {
+						if (this != null && this.animation != null) {
+							visible = true;
+							animation.play(anims.animate);
+						}
+					});
 				});
-			});
+			}
 		});
-		PlayState.ME.add(this);
-	}
 
-	public override function destroy() {
-		PlayState.ME.remove(this);
-		animation.destroy();
-		super.destroy();
+		@:privateAccess
+		PlayState.ME.actionGroup.add(this);
 	}
 }
