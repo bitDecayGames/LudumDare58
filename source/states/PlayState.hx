@@ -174,7 +174,7 @@ class PlayState extends FlxTransitionableState {
 
 		if (levelName == "") {
 			var anchor = ldtk.toc.FirstLevel[0];
-			levelName = ldtk.all_worlds.Default.getLevelAt(anchor.worldX, anchor.worldY).identifier;
+			levelName = ldtk.all_worlds.Default.getLevelAt(anchor.worldX, anchor.worldY).iid;
 		}
 
 		var waterBG = new FlxBackdrop(AssetPaths.waterTile__png);
