@@ -101,9 +101,8 @@ class PlayState extends FlxTransitionableState {
 		var hudOffset = 24;
 
 		// Seals collected
-		var sealsCollectedTxt = new FlxBitmapText(0, FlxG.height - hudOffset);
-		sealsCollectedTxt.scale.set(1.5, 1.5);
-		sealsCollectedTxt.screenCenter(X);
+		var sealsCollectedTxt = new FlxBitmapText(hudOffset, hudOffset);
+		sealsCollectedTxt.scale.set(3, 3);
 		sealsCollectedTxt.scrollFactor.set(0, 0);
 		EventBus.subscribe(SealCollected, (e) -> {
 			sealsCollectedTxt.text = '(${e.num_collected}/${e.total}) Seals';
@@ -370,19 +369,22 @@ class PlayState extends FlxTransitionableState {
 				}
 			}
 		});
-
-		// Reset collectables
-		Collectables.resetCollected(level.name, gameBoard.current.countObjByType(COLLECTABLE));
 	}
 
 	function undo() {
+		var prevCount = gameBoard.current.countObjByType(COLLECTABLE);
 		gameBoard.undo();
+		var newCount = gameBoard.current.countObjByType(COLLECTABLE);
 		syncRenderState();
+		// Reset collectables
+		Collectables.incrCollect(prevCount - newCount);
 	}
 
 	function reset() {
 		gameBoard.reset();
 		syncRenderState();
+		// Reset collectables
+		Collectables.resetCollected();
 	}
 
 	function handleRightClick() {

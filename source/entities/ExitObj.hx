@@ -1,5 +1,6 @@
 package entities;
 
+import collectables.Collectables;
 import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
 import states.PlayState;
@@ -45,6 +46,7 @@ class ExitObj extends FlxSprite implements GameRenderObject {
 		var t = Type.getClass(r);
 		switch (t) {
 			case Win:
+				Collectables.complete();
 				kill();
 				new PlayerWin(x, y, jumpTo, player.isBloody, goLeft);
 				return new NeverCompletable();
