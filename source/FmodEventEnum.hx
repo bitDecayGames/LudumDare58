@@ -9,6 +9,7 @@ package;
 enum FmodSong {
     Fkip;
     LetsGo;
+    LevelSelect;
 }
 
 enum FmodSFX {
@@ -44,6 +45,7 @@ class FmodEvent {
         return switch(song) {
             case Fkip: "event:/Music/Fkip";
             case LetsGo: "event:/Music/LetsGo";
+            case LevelSelect: "event:/Music/LevelSelect";
         }
     }
     public static inline extern overload function event(sfx:FmodSFX):String {
