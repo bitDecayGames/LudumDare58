@@ -80,6 +80,9 @@ class PlayState extends FlxTransitionableState {
 	override public function create() {
 		super.create();
 
+		
+		FmodPlugin.playSong(FmodSong.MainEnergy);
+
 		FlxG.camera.pixelPerfectRender = true;
 
 		Achievements.onAchieve.add(handleAchieve);

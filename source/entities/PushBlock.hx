@@ -49,7 +49,7 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 			case Drop:
 				
 				FlxTimer.wait(0.25, () -> {
-					FmodPlugin.playSFX(FmodSFX.BearSplash);
+					FmodPlugin.playSFX(FmodSFX.BearSplashQuiet);
 				});
 				kill();
 				new Splash(x, y);

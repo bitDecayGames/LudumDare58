@@ -259,7 +259,7 @@ class Player extends FlxSprite implements GameRenderObject {
 						// pushing blocks is hard work
 						tweenDuration *= 2.0;
 					case Slide:
-						FmodPlugin.playSFX(FmodSFX.BearSlip);
+						FmodPlugin.playSFX(FmodSFX.BearSlipSingle);
 						tweenDuration *= 0.5;
 						animPrefix = SLIP;
 					default:

@@ -10,12 +10,16 @@ enum FmodSong {
     Fkip;
     LetsGo;
     LevelSelect;
+    Main;
+    MainEnergy;
 }
 
 enum FmodSFX {
     BearFall;
     BearSlip;
+    BearSlipSingle;
     BearSplash;
+    BearSplashQuiet;
     BearStep;
     BearStepbounceOnly;
     BearStepCrunch;
@@ -46,13 +50,17 @@ class FmodEvent {
             case Fkip: "event:/Music/Fkip";
             case LetsGo: "event:/Music/LetsGo";
             case LevelSelect: "event:/Music/LevelSelect";
+            case Main: "event:/Music/Main";
+            case MainEnergy: "event:/Music/MainEnergy";
         }
     }
     public static inline extern overload function event(sfx:FmodSFX):String {
         return switch(sfx) {
             case BearFall: "event:/SFX/Bear/BearFall";
             case BearSlip: "event:/SFX/Bear/BearSlip";
+            case BearSlipSingle: "event:/SFX/Bear/BearSlipSingle";
             case BearSplash: "event:/SFX/Bear/BearSplash";
+            case BearSplashQuiet: "event:/SFX/Bear/BearSplashQuiet";
             case BearStep: "event:/SFX/Bear/BearStep";
             case BearStepbounceOnly: "event:/SFX/Bear/BearStepbounceOnly";
             case BearStepCrunch: "event:/SFX/Bear/BearStepCrunch";

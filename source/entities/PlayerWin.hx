@@ -55,7 +55,7 @@ class PlayerWin extends FlxSprite {
 					animation.play(anims.TransitionJump);
 					FlxTween.quadMotion(this, x, y, x + jumpDist * .5, y - Math.abs(jumpDist) * .7, jumpTo.x, jumpTo.y, 1, true, {
 						onComplete: (_) -> {
-							FmodPlugin.playSFX(FmodSFX.BearSplash);
+							FmodPlugin.playSFX(FmodSFX.BearSplashQuiet);
 							animation.play(anims.TransitionFloat);
 							FlxTween.linearMotion(this, jumpTo.x, jumpTo.y, jumpTo.x + jumpDist * .5, jumpTo.y, 1, true, {
 								onComplete: (_) -> {
