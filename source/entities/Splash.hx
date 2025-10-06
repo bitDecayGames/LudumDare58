@@ -33,16 +33,10 @@ class Splash extends FlxSprite {
 		animation.onFinish.addOnce((_) -> {
 			animation.pause();
 			FlxTimer.wait(0.1, () -> {
-				destroy();
+				kill();
 			});
 		});
 		@:privateAccess
 		PlayState.ME.actionGroup.add(this);
-	}
-
-	public override function destroy() {
-		PlayState.ME.remove(this);
-		animation.destroy();
-		super.destroy();
 	}
 }
