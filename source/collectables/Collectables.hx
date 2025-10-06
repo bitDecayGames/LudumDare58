@@ -83,7 +83,11 @@ class CollectStats {
 	}
 
 	public function toString():String {
-		return '{id:${levelName},${curNumCollected}/${maxNumCollectables}[${highestNumCollected}]${visited ? "vis" : ""} ${completed ? "comp" : ""}}';
+		var shortLevelName = levelName;
+		if (shortLevelName.length > 10) {
+			shortLevelName = shortLevelName.substring(0, 7) + "...";
+		}
+		return '{id:${shortLevelName},${curNumCollected}/${maxNumCollectables}[${highestNumCollected}]${visited ? "vis" : ""} ${completed ? "comp" : ""}}';
 	}
 }
 
