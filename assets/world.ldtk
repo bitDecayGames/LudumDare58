@@ -928,16 +928,22 @@
 		{ "identifier": "FmodSong", "uid": 223, "values": [
 			{ "id": "Fkip", "tileRect": null, "color": 14120515 },
 			{ "id": "LetsGo", "tileRect": null, "color": 12470831 },
-			{ "id": "LevelSelect", "tileRect": null, "color": 15389866 }
-		], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "6ea61eb4741bc23fab6cb93a754dbfa5", "tags": [] },
+			{ "id": "LevelSelect", "tileRect": null, "color": 15389866 },
+			{ "id": "Main", "tileRect": null, "color": 14984818 },
+			{ "id": "MainEnergy", "tileRect": null, "color": 7552569 }
+		], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "f09b398bf0f5e0e6ce519daa1dc29a7f", "tags": [] },
 		{ "identifier": "FmodSFX", "uid": 224, "values": [
 			{ "id": "BearFall", "tileRect": null, "color": 15389866 },
 			{ "id": "BearSlip", "tileRect": null, "color": 1199753 },
+			{ "id": "BearSlipSingle", "tileRect": null, "color": 15389866 },
 			{ "id": "BearSplash", "tileRect": null, "color": 14984818 },
+			{ "id": "BearSplashQuiet", "tileRect": null, "color": 12087120 },
 			{ "id": "BearStep", "tileRect": null, "color": 7552569 },
 			{ "id": "BearStepbounceOnly", "tileRect": null, "color": 4073265 },
 			{ "id": "BearStepCrunch", "tileRect": null, "color": 16690740 },
 			{ "id": "BearStepCrunchOnly", "tileRect": null, "color": 16705377 },
+			{ "id": "BearStepIce", "tileRect": null, "color": 7552569 },
+			{ "id": "BearStepRock", "tileRect": null, "color": 14957380 },
 			{ "id": "LifeSaverJingle", "tileRect": null, "color": 10626611 },
 			{ "id": "LifeSaverJump", "tileRect": null, "color": 16217634 },
 			{ "id": "LifeSaverNoise", "tileRect": null, "color": 2513986 },
@@ -956,7 +962,7 @@
 			{ "id": "TilesSnowToIce", "tileRect": null, "color": 3818598 },
 			{ "id": "TilesSnowToIce2", "tileRect": null, "color": 16711748 },
 			{ "id": "TilesSnowToIceSheen", "tileRect": null, "color": 11882632 }
-		], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "6ea61eb4741bc23fab6cb93a754dbfa5", "tags": [] }
+		], "iconTilesetUid": null, "externalRelPath": "../source/FmodEventEnum.hx", "externalFileChecksum": "f09b398bf0f5e0e6ce519daa1dc29a7f", "tags": [] }
 	], "levelFields": [
 		{
 			"identifier": "Music",
@@ -1604,6 +1610,25 @@
 							"fieldInstances": [],
 							"__worldX": 5280,
 							"__worldY": -160
+						},
+						{
+							"__identifier": "Block",
+							"__grid": [12,4],
+							"__pivot": [0,0],
+							"__tags": ["LevelElement"],
+							"__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "cd7fb420-8560-11f0-bced-1179a62b0d3f",
+							"width": 32,
+							"height": 32,
+							"defUid": 226,
+							"px": [384,128],
+							"fieldInstances": [{ "__identifier": "Type", "__type": "LocalEnum.BlockType", "__value": "WallBlock", "__tile": { "tilesetUid": 16, "x": 272, "y": 32, "w": 16, "h": 16 }, "defUid": 238, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["WallBlock"]
+							}] }],
+							"__worldX": 5504,
+							"__worldY": -352
 						}
 					]
 				},
@@ -1640,6 +1665,7 @@
 						{ "px": [288,128], "src": [32,0], "f": 0, "t": 1, "d": [89], "a": 1 },
 						{ "px": [320,128], "src": [32,0], "f": 0, "t": 1, "d": [90], "a": 1 },
 						{ "px": [352,128], "src": [64,0], "f": 0, "t": 2, "d": [91], "a": 1 },
+						{ "px": [384,128], "src": [64,0], "f": 0, "t": 2, "d": [92], "a": 1 },
 						{ "px": [224,160], "src": [128,0], "f": 0, "t": 4, "d": [107], "a": 1 },
 						{ "px": [256,160], "src": [128,0], "f": 0, "t": 4, "d": [108], "a": 1 },
 						{ "px": [288,160], "src": [64,0], "f": 0, "t": 2, "d": [109], "a": 1 },
