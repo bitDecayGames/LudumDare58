@@ -39,6 +39,6 @@ jobs:
         with:
           dir: export/html5.zip
           itchUserName: bitdecaygames
-          itchGameName: LD58
+          itchGameName: chilly-sea-dogs
           itchChannel: web-dev
           butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
