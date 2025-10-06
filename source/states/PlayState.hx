@@ -136,10 +136,10 @@ class PlayState extends FlxTransitionableState {
 		var lvlSelectBtn = new FlxButton(0, hudOffset, null, () -> {
 			if (interactState == AWAITING_INPUT) {
 				QLog.notice('back to level select');
-				reset();
+				FlxG.switchState(() -> new LevelSelect());
 			}
 		});
-		lvlSelectBtn.loadGraphic(AssetPaths.restart__png);
+		lvlSelectBtn.loadGraphic(AssetPaths.exit__png);
 		lvlSelectBtn.scrollFactor.set(0, 0);
 		uiGroup.add(lvlSelectBtn);
 
