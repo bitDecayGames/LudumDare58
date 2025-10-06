@@ -60,6 +60,11 @@ class Seal extends FlxSprite implements GameRenderObject {
 
 		var loopTime = FlxG.random.float(1.5, 3);
 		animTimer = FlxTimer.loop(loopTime, (_) -> {
+			if (animation.curAnim.name == anims.Dead) {
+				animation.play(anims.Dead, true);
+				return;
+			}
+
 			var curAnimName = animation.curAnim.name;
 			var nextAnimName:String = curAnimName;
 
@@ -80,7 +85,6 @@ class Seal extends FlxSprite implements GameRenderObject {
 	public function handleGameResult(r:GameBoardMoveResult, board:GameBoard):Completable {
 		var t = Type.getClass(r);
 		if (t == Collect && animation.curAnim.name != anims.Dead) {
-			animTimer.cancel();
 			animation.play(anims.Dead);
 			FmodPlugin.playSFX(FmodSFX.SealCrunch2);
 			Collectables.incrCollect();

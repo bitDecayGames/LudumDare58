@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.util.FlxTimer;
 import gameboard.GameBoardState.WALKABLE;
 import gameboard.GameBoardState.NON_MELTABLE_WALKABLE;
 import todo.TODO;
@@ -41,14 +42,15 @@ class Player extends FlxSprite implements GameRenderObject {
 
 	var defaultOffset:Float;
 
-	public var isBloody = true; // must be true so the first time we call setBloody(false) it actually works
+	public var isBloody = false;
 
 	public function new(id:Int, X:Float, Y:Float) {
 		super(X, Y);
 		this.id = id;
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
-		setBloody(false);
+		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+
 		// animation.onFrameChange.add((anim, frame, index) -> {
 		// 	if (eventData.exists(index)) {
 		// 		trace('frame $index has data ${eventData.get(index)}');
@@ -73,17 +75,27 @@ class Player extends FlxSprite implements GameRenderObject {
 		offset.y = defaultOffset;
 	}
 
-	function setBloody(isBloody:Bool) {
-		if (this.isBloody == isBloody) {
+	function setBloody(newBloody:Bool) {
+		if (this.isBloody == newBloody) {
 			// do nothing since it is already set
 			return;
 		}
-		if (isBloody) {
-			Aseprite.loadAllAnimations(this, AssetPaths.playerBloody__json);
+
+		if (newBloody) {
+			FlxG.camera.fade(0.1, () -> {
+				FlxTimer.wait(.6, () -> {
+					if (isBloody) {
+						Aseprite.loadAllAnimations(this, AssetPaths.playerBloody__json);
+					} else {
+						Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+					}
+					this.isBloody = isBloody;
+					FlxG.camera.fade(0.1, true);
+				});
+			});
 		} else {
 			Aseprite.loadAllAnimations(this, AssetPaths.player__json);
 		}
-		this.isBloody = isBloody;
 	}
 
 	function onWalkFrame(name:String, frameNumber:Int, frameIndex:Int) {
@@ -248,6 +260,7 @@ class Player extends FlxSprite implements GameRenderObject {
 						tweenDuration *= 2.0;
 					case Slide:
 						FmodPlugin.playSFX(FmodSFX.BearSlip);
+						tweenDuration *= 0.5;
 						animPrefix = SLIP;
 					default:
 						// eh?

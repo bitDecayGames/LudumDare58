@@ -38,7 +38,7 @@ class PushBlock extends FlxSprite implements GameRenderObject {
 		var t = Type.getClass(r);
 		switch (t) {
 			case Move | Push | Slide:
-				var tweenDuration = 0.6;
+				var tweenDuration = 0.5;
 				if (t == Push) {
 					// getting pushed is hard work
 					tweenDuration *= 2.0;
