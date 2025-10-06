@@ -101,12 +101,13 @@ class LevelSelect extends FlxTransitionableState {
         Aseprite.loadAllAnimations(t, AssetPaths.levelSelect_9__json);
         var sliceRect = [Std.int(key.center.x), Std.int(key.center.y), Std.int(key.center.w), Std.int(key.center.h)];
         // t.loadGraphicSlice9([AssetPaths.levelSelect_9__png, AssetPaths.levelSelect_9__png, AssetPaths.levelSelect_9__png], cast key.bounds.x, cast key.bounds.y, [cast key.center.x, cast key.center.y, cast key.center.w, cast key.center.h], [0, 0, 0]);
-        t.loadGraphicSlice9([AssetPaths.levelSelect_9__png,AssetPaths.levelSelect_9__png,AssetPaths.levelSelect_9__png], cast key.bounds.w, cast key.bounds.h, [sliceRect,sliceRect,sliceRect], FlxUI9SliceSprite.TILE_NONE, -1, false, cast key.bounds.w, cast key.bounds.h);
+        t.loadGraphicSlice9([AssetPaths.levelSelect_9__png,AssetPaths.levelSelect_9__png,AssetPaths.levelSelect_9__png], cast key.bounds.w + 20, cast key.bounds.h, [sliceRect,sliceRect,sliceRect], FlxUI9SliceSprite.TILE_BOTH, -1, false, cast key.bounds.w, cast key.bounds.h);
         // var btn = new FlxUI9SliceSprite(0, 0, AssetPaths.levelSelect_9__png, new Rectangle(key.bounds.x, key.bounds.y, key.bounds.w, key.bounds.h));
 		// Aseprite.loadSlice(btn, AssetPaths.items__json, slices.Slice_1_0);
         // t.label.scale.set(4, 4);
         t.autoCenterLabel();
         label.alignment = RIGHT;
+        Align.center(t.label, t);
 
         add(t);
         levelButtons.push(t);
@@ -146,6 +147,8 @@ class LevelSelect extends FlxTransitionableState {
     		var mod = FlxMath.fastSin(sineTimer + buttonOffsets.get(b)) * waveDepth;
             var c = buttonCentroid.get(b);
             b.setPosition(c.x, c.y + mod);
+            Align.center(b.label, b);
+
             // b.autoCenterLabel();
             // Align.center(b.label, b);
         }
