@@ -1,5 +1,6 @@
 package states;
 
+import bitdecay.flixel.spacial.Align;
 import collectables.Collectables;
 import entities.Tile;
 import bitdecay.flixel.sorting.ZSorting;
@@ -117,8 +118,6 @@ class PlayState extends FlxTransitionableState {
 			}
 		});
 		undoBtn.loadGraphic(AssetPaths.undo__png);
-		undoBtn.screenCenter(X);
-		undoBtn.x -= hudOffset * 2;
 		undoBtn.scrollFactor.set(0, 0);
 		uiGroup.add(undoBtn);
 
@@ -130,10 +129,23 @@ class PlayState extends FlxTransitionableState {
 			}
 		});
 		restartBtn.loadGraphic(AssetPaths.restart__png);
-		restartBtn.screenCenter(X);
-		restartBtn.x += hudOffset * 2;
 		restartBtn.scrollFactor.set(0, 0);
 		uiGroup.add(restartBtn);
+
+		// Level Select
+		var lvlSelectBtn = new FlxButton(0, hudOffset, null, () -> {
+			if (interactState == AWAITING_INPUT) {
+				QLog.notice('back to level select');
+				reset();
+			}
+		});
+		lvlSelectBtn.loadGraphic(AssetPaths.restart__png);
+		lvlSelectBtn.scrollFactor.set(0, 0);
+		uiGroup.add(lvlSelectBtn);
+
+		restartBtn.screenCenter(X);
+		Align.stack(undoBtn, restartBtn, LEFT, hudOffset);
+		Align.stack(lvlSelectBtn, restartBtn, RIGHT, hudOffset);
 		// End HUD
 
 		loadLevel(startingLevel);
