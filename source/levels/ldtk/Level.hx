@@ -55,6 +55,8 @@ class Level {
 	public var renderObjectsById:Map<Int, GameRenderObject> = new Map<Int, GameRenderObject>();
 	public var tilesById:Map<Int, Tile> = new Map<Int, Tile>();
 
+	public var nextLevel:String = "";
+
 	public final name:String;
 
 	public function new(nameOrIID:String) {
@@ -181,6 +183,9 @@ class Level {
 				jumpTo.set(b.f_JumpTo.cx * 32, b.f_JumpTo.cy * 32);
 			}
 			var v = new ExitObj(obj.id, b.pixelX, b.pixelY, jumpTo, player);
+			if (b.f_Next != null) {
+				nextLevel = b.f_Next.levelIid;
+			}
 			renderObjectsById.set(v.getId(), v);
 			exits.push(v);
 		}

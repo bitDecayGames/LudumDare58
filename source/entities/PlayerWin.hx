@@ -55,6 +55,7 @@ class PlayerWin extends FlxSprite {
 							FlxTween.linearMotion(this, jumpTo.x, jumpTo.y, jumpTo.x + jumpDist * .5, jumpTo.y, 1, true, {
 								onComplete: (_) -> {
 									// TODO: MW transition to next level
+									PlayState.ME.transist();
 								}
 							});
 						}

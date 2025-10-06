@@ -145,6 +145,14 @@ class PlayState extends FlxTransitionableState {
 		FlxG.watch.add(this, "interactState", "Game State: ");
 	}
 
+	public function transist() {
+		if (level.nextLevel != "") {
+			levelTransition(level.nextLevel);
+		} else {
+			FlxG.switchState(() -> new CreditsState());
+		}
+	}
+
 	public function levelTransition(levelName:String) {
 		interactState = TRANSITIONING;
 		camera.fade(() -> {
