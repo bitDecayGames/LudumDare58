@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{36f28c89-69d9-4f3f-9be2-ab83f1e755f4}">
+		<property name="assetPath">
+			<value>steprock1.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.59999999999999998</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8437bb97-ead8-45e7-929a-eda2e732a050}</destination>
+		</relationship>
+	</object>
+</objects>

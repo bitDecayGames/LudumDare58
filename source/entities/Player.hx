@@ -3,6 +3,8 @@ package entities;
 import flixel.util.FlxTimer;
 import gameboard.GameBoardState.WALKABLE;
 import gameboard.GameBoardState.NON_MELTABLE_WALKABLE;
+import gameboard.GameBoardState.SLIDING_BREAKABLE;
+import gameboard.GameBoardState.SLIDING;
 import todo.TODO;
 import coordination.Completable;
 import flixel.math.FlxPoint;
@@ -99,7 +101,22 @@ class Player extends FlxSprite implements GameRenderObject {
 		// Play footstep sound on specific frames
 		if (name == anims.RunDown || name == anims.RunUp || name == anims.RunSide) {
 			if (frameNumber == 2 || frameNumber == 5) {
-				FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
+				if (lastGameBoardMoveResult != null) {
+					var boardTileType = Type.getClass(lastGameBoardMoveResult);
+					switch(boardTileType) {
+						case WheelSpin:
+							return;
+						case Move:
+							var move = cast(lastGameBoardMoveResult, Move);
+							if (move.targetTileType == NON_MELTABLE_WALKABLE) {
+								FmodPlugin.playSFX(FmodSFX.BearStepRock);
+							} else if (move.targetTileType == WALKABLE) {
+								FmodPlugin.playSFX(FmodSFX.BearStepCrunchOnly);
+							} else if (move.targetTileType == SLIDING_BREAKABLE || move.targetTileType == SLIDING) {
+								FmodPlugin.playSFX(FmodSFX.BearStepIce);
+							}
+					}
+				} 
 			}
 		}
 	}

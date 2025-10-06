@@ -24,6 +24,8 @@ enum FmodSFX {
     BearStepbounceOnly;
     BearStepCrunch;
     BearStepCrunchOnly;
+    BearStepIce;
+    BearStepRock;
     LifeSaverJingle;
     LifeSaverJump;
     LifeSaverNoise;
@@ -65,6 +67,8 @@ class FmodEvent {
             case BearStepbounceOnly: "event:/SFX/Bear/BearStepbounceOnly";
             case BearStepCrunch: "event:/SFX/Bear/BearStepCrunch";
             case BearStepCrunchOnly: "event:/SFX/Bear/BearStepCrunchOnly";
+            case BearStepIce: "event:/SFX/Bear/BearStepIce";
+            case BearStepRock: "event:/SFX/Bear/BearStepRock";
             case LifeSaverJingle: "event:/SFX/LifeSaver/LifeSaverJingle";
             case LifeSaverJump: "event:/SFX/LifeSaver/LifeSaverJump";
             case LifeSaverNoise: "event:/SFX/LifeSaver/LifeSaverNoise";
